@@ -121,6 +121,7 @@ extern void setBackgroundControlRegister(u8 a_u8RegNum, u8 a_u8Priority, u8 a_u8
 //\ Defines For Palette Locations
 //\===========================================================================================
 
+#define PALETTE_SIZE					256//Palette is always 256 colors.
 #define MEMORY_PALETTE					0x05000000//The memory address for the palette locations.
 #define PALETTE_BACKGROUND_MEMORY		((u16*)MEMORY_PALETTE)//The palette background memory.
 #define PALETTE_SPRITE_MEMORY			((u16*)(MEMORY_PALETTE + 0x200))//The sprite pallet memory.
@@ -169,8 +170,10 @@ typedef struct ObjectAffine//A structure for a sprite that can have affine trans
 	s16 pd;//8.8 fixed point numbers that form the actual matrix.
 }__attribute__((packed, aligned(4)))ObjectAffine;//Data structure padding. So the computer reads the correct data as computers read in word sized chunks.
 
-extern ObjectAttribute objectBuffer[128];//The buffer in which all sprites would be contained within.
-extern ObjectAffine *const objectAffineBuffer;//The buffer in which all affine sprites would be contained within.
+#define NUMBER_SPRITES		128//There are 128 sprites on the GBA.
+
+extern ObjectAttribute	objectBuffer[128];//The buffer in which all sprites would be contained within.
+extern ObjectAffine		*const objectAffineBuffer;//The buffer in which all affine sprites would be contained within.
 
 #define MEMORY_OBJECT_ATTRIBUTE_MEMORY  ((ObjectAttribute*) 0x07000000)//Memory address for object attribute memory.
 #define MEMORY_AFFINE_OBJECT_ATTRIBUTE_MEMORY ((ObjectAffine*) 0x07000000)//Memory address for affine object attribute memory.

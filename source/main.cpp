@@ -10,6 +10,9 @@
 #include <string.h>
 
 
+#include "koopa.h"//Sprite include.
+
+
 int main()
 {
 

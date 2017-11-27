@@ -40,14 +40,10 @@ Discarded input sections
  .text          0x00000000       0x7c gba_mathUtility.o
  .data          0x00000000        0x4 gba_mathUtility.o
  .bss           0x00000000        0x0 gba_mathUtility.o
- .text          0x00000000        0x0 particles.o
- .data          0x00000000        0x0 particles.o
- .bss           0x00000000        0x0 particles.o
- .rodata        0x00000000      0x220 particles.o
- .text          0x00000000        0x0 rocket-ship.o
- .data          0x00000000        0x0 rocket-ship.o
- .bss           0x00000000        0x0 rocket-ship.o
- .rodata        0x00000000      0xa00 rocket-ship.o
+ .text          0x00000000        0x0 koopa.o
+ .data          0x00000000        0x0 koopa.o
+ .bss           0x00000000        0x0 koopa.o
+ .rodata        0x00000000      0x420 koopa.o
  .text          0x00000000        0x0 sinlut.o
  .data          0x00000000        0x0 sinlut.o
  .bss           0x00000000        0x0 sinlut.o
@@ -433,8 +429,7 @@ Linker script and memory map
  .comment       0x00000022       0x23 gba_input.o
  .comment       0x00000022       0x23 gba_math.o
  .comment       0x00000022       0x23 gba_mathUtility.o
- .comment       0x00000022       0x23 particles.o
- .comment       0x00000022       0x23 rocket-ship.o
+ .comment       0x00000022       0x23 koopa.o
  .comment       0x00000022       0x23 sinlut.o
  .comment       0x00000022       0x23 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/../../../../arm-none-eabi/lib/thumb\libg.a(lib_a-init.o)
  .comment       0x00000022       0x23 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(malloc_vars.o)
@@ -452,7 +447,7 @@ Linker script and memory map
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x108
+.debug_aranges  0x00000000       0xf0
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x20 main.o
@@ -467,16 +462,14 @@ Linker script and memory map
  .debug_aranges
                 0x000000a0       0x20 gba_mathUtility.o
  .debug_aranges
-                0x000000c0       0x18 particles.o
+                0x000000c0       0x18 koopa.o
  .debug_aranges
-                0x000000d8       0x18 rocket-ship.o
- .debug_aranges
-                0x000000f0       0x18 sinlut.o
+                0x000000d8       0x18 sinlut.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x13ae
+.debug_info     0x00000000     0x133a
  *(.debug_info)
  .debug_info    0x00000000       0xa4 main.o
  .debug_info    0x000000a4      0x332 gba_drawing.o
@@ -484,11 +477,10 @@ Linker script and memory map
  .debug_info    0x00000b59      0x286 gba_input.o
  .debug_info    0x00000ddf      0x306 gba_math.o
  .debug_info    0x000010e5      0x191 gba_mathUtility.o
- .debug_info    0x00001276       0x74 particles.o
- .debug_info    0x000012ea       0x75 rocket-ship.o
- .debug_info    0x0000135f       0x4f sinlut.o
+ .debug_info    0x00001276       0x75 koopa.o
+ .debug_info    0x000012eb       0x4f sinlut.o
 
-.debug_abbrev   0x00000000      0x6c3
+.debug_abbrev   0x00000000      0x680
  *(.debug_abbrev)
  .debug_abbrev  0x00000000       0x61 main.o
  .debug_abbrev  0x00000061      0x104 gba_drawing.o
@@ -496,11 +488,10 @@ Linker script and memory map
  .debug_abbrev  0x0000036d       0xe7 gba_input.o
  .debug_abbrev  0x00000454       0xd1 gba_math.o
  .debug_abbrev  0x00000525       0xcc gba_mathUtility.o
- .debug_abbrev  0x000005f1       0x43 particles.o
- .debug_abbrev  0x00000634       0x4c rocket-ship.o
- .debug_abbrev  0x00000680       0x43 sinlut.o
+ .debug_abbrev  0x000005f1       0x4c koopa.o
+ .debug_abbrev  0x0000063d       0x43 sinlut.o
 
-.debug_line     0x00000000      0xc69
+.debug_line     0x00000000      0xbd2
  *(.debug_line)
  .debug_line    0x00000000      0x11a main.o
  .debug_line    0x0000011a      0x22a gba_drawing.o
@@ -508,9 +499,8 @@ Linker script and memory map
  .debug_line    0x0000056f      0x1bd gba_input.o
  .debug_line    0x0000072c      0x1d9 gba_math.o
  .debug_line    0x00000905      0x1b2 gba_mathUtility.o
- .debug_line    0x00000ab7       0x91 particles.o
- .debug_line    0x00000b48       0x93 rocket-ship.o
- .debug_line    0x00000bdb       0x8e sinlut.o
+ .debug_line    0x00000ab7       0x8d koopa.o
+ .debug_line    0x00000b44       0x8e sinlut.o
 
 .debug_frame    0x00000000      0x3f0
  *(.debug_frame)
@@ -521,7 +511,7 @@ Linker script and memory map
  .debug_frame   0x000002a0       0xe8 gba_math.o
  .debug_frame   0x00000388       0x68 gba_mathUtility.o
 
-.debug_str      0x00000000      0xbf8
+.debug_str      0x00000000      0xb59
  *(.debug_str)
  .debug_str     0x00000000      0x162 main.o
                                 0x19b (size before relaxing)
@@ -535,11 +525,9 @@ Linker script and memory map
                                 0x275 (size before relaxing)
  .debug_str     0x0000098c       0xde gba_mathUtility.o
                                 0x1ec (size before relaxing)
- .debug_str     0x00000a6a       0x8d particles.o
-                                0x118 (size before relaxing)
- .debug_str     0x00000af7       0x93 rocket-ship.o
-                                0x11e (size before relaxing)
- .debug_str     0x00000b8a       0x6e sinlut.o
+ .debug_str     0x00000a6a       0x81 koopa.o
+                                0x10c (size before relaxing)
+ .debug_str     0x00000aeb       0x6e sinlut.o
                                  0xf8 (size before relaxing)
 
 .debug_loc      0x00000000     0x12b5
@@ -594,29 +582,27 @@ Linker script and memory map
  .ARM.attributes
                 0x00000138       0x2c gba_mathUtility.o
  .ARM.attributes
-                0x00000164       0x2c particles.o
+                0x00000164       0x2c koopa.o
  .ARM.attributes
-                0x00000190       0x2c rocket-ship.o
+                0x00000190       0x2c sinlut.o
  .ARM.attributes
-                0x000001bc       0x2c sinlut.o
+                0x000001bc       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_divsi3.o)
  .ARM.attributes
-                0x000001e8       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_divsi3.o)
+                0x000001d4       0x16 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_dvmd_tls.o)
  .ARM.attributes
-                0x00000200       0x16 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_dvmd_tls.o)
+                0x000001ea       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_arm_addsubsf3.o)
  .ARM.attributes
-                0x00000216       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_arm_addsubsf3.o)
+                0x00000202       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_arm_muldivsf3.o)
  .ARM.attributes
-                0x0000022e       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_arm_muldivsf3.o)
+                0x0000021a       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_arm_fixsfsi.o)
  .ARM.attributes
-                0x00000246       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_arm_fixsfsi.o)
+                0x00000232       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/../../../../arm-none-eabi/lib/thumb\libg.a(lib_a-init.o)
  .ARM.attributes
-                0x0000025e       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/../../../../arm-none-eabi/lib/thumb\libg.a(lib_a-init.o)
+                0x00000262       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(malloc_vars.o)
  .ARM.attributes
-                0x0000028e       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(malloc_vars.o)
+                0x00000292       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtend.o
  .ARM.attributes
-                0x000002be       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtend.o
- .ARM.attributes
-                0x000002ee       0x16 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtn.o
+                0x000002c2       0x16 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtn.o
 
 /DISCARD/
  *(.note.GNU-stack)
@@ -629,8 +615,7 @@ LOAD gba_graphics.o
 LOAD gba_input.o
 LOAD gba_math.o
 LOAD gba_mathUtility.o
-LOAD particles.o
-LOAD rocket-ship.o
+LOAD koopa.o
 LOAD sinlut.o
 LOAD c:/devkitPro/libgba/lib\libmm.a
 LOAD c:/devkitPro/libgba/lib\libgba.a

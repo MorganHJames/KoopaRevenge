@@ -31,19 +31,25 @@
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\gba_lib\gba_drawing.c">
+    <ClCompile Include="source\koopa.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sinlut.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gba_drawing.c">
       <Filter>gba_library\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\gba_lib\gba_graphics.c">
+    <ClCompile Include="source\gba_graphics.c">
       <Filter>gba_library\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\gba_lib\gba_input.c">
+    <ClCompile Include="source\gba_input.c">
       <Filter>gba_library\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\gba_lib\gba_math.c">
+    <ClCompile Include="source\gba_math.c">
       <Filter>gba_library\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\gba_lib\gba_mathUtility.c">
+    <ClCompile Include="source\gba_mathUtility.c">
       <Filter>gba_library\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -51,28 +57,43 @@
     <ClInclude Include="include\Intellisense.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\gba_lib\gba.h">
+    <ClInclude Include="include\koopa.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sinlut.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gba.h">
       <Filter>gba_library\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\gba_lib\gba_drawing.h">
+    <ClInclude Include="include\gba_drawing.h">
       <Filter>gba_library\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\gba_lib\gba_graphics.h">
+    <ClInclude Include="include\gba_graphics.h">
       <Filter>gba_library\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\gba_lib\gba_input.h">
+    <ClInclude Include="include\gba_input.h">
       <Filter>gba_library\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\gba_lib\gba_math.h">
+    <ClInclude Include="include\gba_math.h">
       <Filter>gba_library\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\gba_lib\gba_mathUtility.h">
+    <ClInclude Include="include\gba_mathUtility.h">
       <Filter>gba_library\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\gba_lib\gba_registry.h">
+    <ClInclude Include="include\gba_registry.h">
       <Filter>gba_library\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\gba_lib\gba_types.h">
+    <ClInclude Include="include\gba_types.h">
+      <Filter>gba_library\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gba_vector2.h">
+      <Filter>gba_library\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gba_directMemoryAccess.h">
       <Filter>gba_library\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
