@@ -19,7 +19,7 @@ volatile unsigned int* directMemoryAccessDestination = (volatile unsigned int*)0
 
 volatile unsigned int* directMemoryAccessCount = (volatile unsigned int*)0x40000DC;//Pointer to the DMa count/control.
 
-void memcpy16_dma(unsigned short* a_usDestination, unsigned short* a_usSource, int a_iAmount)//Copy data using DMA.
+inline void memoryCopy16DirectMemoryAccess(unsigned short* a_usDestination, unsigned short* a_usSource, int a_iAmount)//Copy data using DMA.
 {
 	*directMemoryAccessSource = (unsigned int)a_usSource;
 	*directMemoryAccessDestination = (unsigned int)a_usDestination;

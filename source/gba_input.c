@@ -11,24 +11,24 @@
 //\ Functions For Keys
 //\===========================================================================================
 
-u16 __currKeys = 0, __prevKeys = 0;//Set the extern values for key values.
+u16 __currentKeys = 0, __previousKeys = 0;//Set the extern values for key values.
 
-inline void pollKeys()//Function to test for Hardware Key Depress.
+void pollKeys()//Function to test for Hardware Key Depress.
 {
 	__previousKeys = __currentKeys;//Makes the previous keys equal to the current keys.
 	__currentKeys = ~REGISTRY_KEY_INPUT & KEY_MASK;//Gets the current keys down and sets them to the current keys variable.
 }
 
-inline u16	currentKeyState() { return __currentKeys; }												//Get current key state.
-inline u16	prevKeyState() { return __currentKeys; }												//Get previous key state.
-inline u32	keyDown(u32 a_u32Key) { return __currentKeys & a_u32Key; }								//Gives the keys of \a key that are currently down. 
-inline u32	keyUp(u32 a_u32Key) { return ~__currentKeys & a_u32Key; }								//Gives the keys of \a key that are currently up. 
-inline u32	keyHeld(u32 a_u32Key) { return (__currentKeys & __previousKeys) & a_u32Key; }			//Gives the keys of \a key that are pressed. 
-inline u32	keyReleased(u32 a_u32Key) { return (~__currentKeys & __previousKeys) & a_u32Key; }		//Gives the keys of \a key that are released.  
-inline u32	keyHit(u32 a_u32Key) { return (__currentKeys & ~__previousKeys) & a_u32Key; }			//Gives the keys of \a key that are hit. 
-inline u32	keyStateChange(u32 a_u32Key) { return (__currentKeys ^ __previousKeys) & a_u32Key; }	//Gives the keys of \a key that are changed. 
+u16	currentKeyState() { return __currentKeys; }												//Get current key state.
+u16	prevKeyState() { return __currentKeys; }												//Get previous key state.
+u32	keyDown(u32 a_u32Key) { return __currentKeys & a_u32Key; }								//Gives the keys of \a key that are currently down. 
+u32	keyUp(u32 a_u32Key) { return ~__currentKeys & a_u32Key; }								//Gives the keys of \a key that are currently up. 
+u32	keyHeld(u32 a_u32Key) { return (__currentKeys & __previousKeys) & a_u32Key; }			//Gives the keys of \a key that are pressed. 
+u32	keyReleased(u32 a_u32Key) { return (~__currentKeys & __previousKeys) & a_u32Key; }		//Gives the keys of \a key that are released.  
+u32	keyHit(u32 a_u32Key) { return (__currentKeys & ~__previousKeys) & a_u32Key; }			//Gives the keys of \a key that are hit. 
+u32	keyStateChange(u32 a_u32Key) { return (__currentKeys ^ __previousKeys) & a_u32Key; }	//Gives the keys of \a key that are changed. 
 
-inline s32 getAxis(AXIS a_AVal)//A function to get the axis.
+s32 getAxis(AXIS a_AVal)//A function to get the axis.
 {
 	switch (a_AVal)//A switch for the value passed in.
 	{
