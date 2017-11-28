@@ -25,7 +25,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
-    <Text Include="Makefile" />
+    <Text Include="Makefile">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -96,9 +98,6 @@
     <ClInclude Include="include\gba_vector2.h">
       <Filter>gba_library\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\background.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
@@ -109,6 +108,9 @@
       <Filter>gba_library\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\backgroundFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

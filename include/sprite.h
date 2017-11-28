@@ -88,6 +88,8 @@ public:
 
 		/* apply the new one */
 		Attribute->attribute2 |= (offset & 0x03ff);
+
+
 	}
 };
 

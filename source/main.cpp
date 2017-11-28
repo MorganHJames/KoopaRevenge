@@ -9,7 +9,7 @@
 #include "gba.h"
 #include <string.h>
 
-#include "Player.h"
+#include "player.h"
 #include "backgroundFunctions.h"
 
 
@@ -26,13 +26,7 @@ int main()
 	player.playerSetupSpriteImage();//Setup the sprite image data.	
 
 	//PLayer Initialization.
-	{
-		player.playerInitialization();
-		player.sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
-		player.sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
-		player.sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
-		player.sprite->Attribute->attribute2 = setAttribute2(0, 0, 0);
-	}
+	player.playerInitialization();
 
 	loadBackground();
 
@@ -47,14 +41,14 @@ int main()
 
 		REGISTRY_BACKGROUND_OFF_SET->s16X = iXScroll;
 
-		if (keyHeld(RIGHT))
+		if (keyDown(RIGHT))
 		{
 			if (player.playerMoveRight())
 			{
 				iXScroll++;
 			}
 		}
-		else if (keyHeld(LEFT))
+		else if (keyDown(LEFT))
 		{
 			if (player.playerMoveLeft())
 			{

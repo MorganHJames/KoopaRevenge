@@ -58,10 +58,10 @@ public:
 		counter = 0;
 		falling = 0;
 		animation_delay = 8;
-		//a_player->sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
-		//a_player->sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
-		//a_player->sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
-		//a_player->sprite->Attribute->attribute2 = setAttribute2(0, 0, 0);
+		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
+		sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
+		sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
+		sprite->Attribute->attribute2 = setAttribute2(0, 0, 0);
 	}
 
 	/* move the Player left or right returns if it is at edge of the screen */
@@ -127,7 +127,9 @@ public:
 				counter = 0;
 			}
 			move = 0;
+			
 		}
+		
 		sprite->spriteSetPosition(position.x, position.y);
 	}
 
@@ -135,11 +137,10 @@ public:
 	void playerSetupSpriteImage()
 	{
 		/* load the palette from the image into palette memory*/
-
-		dma_word_cpy(PALETTE_SPRITE_MEMORY, koopaPal, koopaPalLen);
+		directMemoryAccessWordCopy(PALETTE_SPRITE_MEMORY, koopaPal, koopaPalLen);
 
 		/* load the image into char block 0 */
-		dma_word_cpy(&TILEBLOCK_MEMORY[4][0], &koopaTiles[0], koopaTilesLen);
+		directMemoryAccessWordCopy(&TILEBLOCK_MEMORY[4][0], &koopaTiles[0], koopaTilesLen);
 
 	}
 };			

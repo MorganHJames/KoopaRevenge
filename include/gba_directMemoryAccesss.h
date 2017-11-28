@@ -67,13 +67,13 @@ do{													\
 	REG_DIRECT_MEMORY_ACCESS[_ch].cnt = _count | _mode;				\
 }while(0)
 
-extern void dma_cpy(void* dst, const void* src, u32 count, u32 mode);
+extern void directMemoryAccessCopy(void* dst, const void* src, u32 count, u32 mode);
 
-extern void dma_fill(void* dst, volatile u32 src, u32 count, u32 mode);
+extern void directMemoryAccessFill(void* dst, volatile u32 src, u32 count, u32 mode);
 
-extern void dma_word_cpy(void* dst, const void* src, u32 size);
+extern void directMemoryAccessWordCopy(void* dst, const void* src, u32 size);
 
-extern void dma_word_fill(void* dst, volatile u32 src, u32 size);
+extern void directMemoryAccessWordFill(void* dst, volatile u32 src, u32 size);
 
 #define DIRECT_MEMORY_ACCESS_HDMA	(DIRECT_MEMORY_ACCESS_ENABLE | DIRECT_MEMORY_ACCESS_REPEAT | DIRECT_MEMORY_ACCESS_AT_HBLANK | DIRECT_MEMORY_ACCESS_DST_FIXED)
 

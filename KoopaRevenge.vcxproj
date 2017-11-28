@@ -111,7 +111,7 @@
     <ClInclude Include="include\Intellisense.h" />
     <ClInclude Include="include\koopa.h" />
     <ClInclude Include="include\map.h" />
-    <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\player.h" />
     <ClInclude Include="include\sinlut.h" />
     <ClInclude Include="include\sprite.h" />
   </ItemGroup>

@@ -2,7 +2,7 @@
 //\ File: gba_graphics.c
 //\ Author: Morgan James
 //\ Date Created: 13/11/2017
-//\ Brief: Contains the function information for the class contained in gba_graphics.h.
+//\ Brief: Contains the function information for the prototypes contained in gba_graphics.h.
 //\===========================================================================================
 
 #include "Intellisense.h"
