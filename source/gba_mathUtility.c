@@ -1,5 +1,5 @@
 //\===========================================================================================
-//\ File: gba_mathUtility.cpp
+//\ File: gba_mathUtility.c
 //\ Author: Morgan James
 //\ Date Created: 13/11/2017
 //\ Brief: Contains the function information for the class contained in gba_mathUtility.h.
@@ -44,4 +44,9 @@ s32 absolute(s32 a_s32Value)//Returns the absolute value of a variable with rega
 {
 	s32 mask = a_s32Value >> 31;//Sets the mask by shifting down the argument by 31.
 	return (a_s32Value ^ mask) - mask;//Returns the number but without the sign ( - or + ).
+}
+
+void delay(unsigned int a_amount)
+{
+	for (int i = 0; i < a_amount * 10; ++i);
 }

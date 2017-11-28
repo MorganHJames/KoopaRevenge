@@ -36,4 +36,4 @@ typedef	volatile s32	vs32;//Volatile Signed 8 bit value.
 
 typedef u16             COLOR;//A define for a color which is a unsigned 16 bit value.
 
-#endif //__GBA_TYPES_H__
+#endif//__GBA_TYPES_H__

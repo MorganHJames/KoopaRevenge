@@ -12,8 +12,6 @@
 #include "gba_graphics.h"
 #include "koopa.h"
 #include "gba_vector2.h"
-#include "map.h"
-#include "background.h"
 
 /* a struct for the koopa's logic and behavior */
 struct Player {
@@ -44,21 +42,8 @@ struct Player {
 	/* the number of pixels away from the edge of the screen the koopa stays */
 	int border;
 	/* if the koopa is currently falling */
-    int falling;
+	int falling;
 };			
-
-
-void loadBackground()
-{
-	dma_word_cpy(PALETTE_BACKGROUND_MEMORY, background_palette, background_paletteLen);
-	u16* tileMemoryLocation = tileBlockAddress(0);
-	dma_word_cpy(tileMemoryLocation, background_data, background_dataLen);
-	u16* tileMapMemoryLocation = tileMapBlockAddress(16);
-	dma_word_cpy(tileMapMemoryLocation, map, map_dataLen);
-
-	setBackgroundControlRegister(0, 0, 0, 0, 1, 16, 0, BACKGROUND_REGISTRY_SIZE_32x32);
-
-}
 
 void playerInitialization(Player* a_player)
 {
@@ -72,6 +57,10 @@ void playerInitialization(Player* a_player)
 	a_player->counter = 0;
 	a_player->falling = 0;
 	a_player->animation_delay = 8;
+	//a_player->sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
+	//a_player->sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
+	//a_player->sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
+	//a_player->sprite->Attribute->attribute2 = setAttribute2(0, 0, 0);
 }
 
 /* move the Player left or right returns if it is at edge of the screen */
@@ -114,7 +103,6 @@ int playerMoveRight(Player* a_player)
 
 void playerStop(Player* a_player)
 {
-	a_player->move = 0;
 	a_player->frame = 0;
 	a_player->counter = 7;
 	spriteSetOffset(a_player->sprite, a_player->frame);
@@ -128,16 +116,16 @@ void playerUpdate(Player* a_player)
 		a_player->counter++;
 		if (a_player->counter >= a_player->animation_delay)
 		{
-			a_player->frame = a_player->frame + 16;
-			if (a_player->frame > 16)
+			a_player->frame = a_player->frame + 8;
+			if (a_player->frame > 8)
 			{
 				a_player->frame = 0;
 			}
 			spriteSetOffset(a_player->sprite, a_player->frame);
 			a_player->counter = 0;
 		}
+		a_player->move = 0;
 	}
-
 	spriteSetPosition(a_player->sprite, a_player->position.x, a_player->position.y);
 }
 

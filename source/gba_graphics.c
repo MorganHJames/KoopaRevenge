@@ -1,5 +1,5 @@
 //\===========================================================================================
-//\ File: gba_graphics.cpp
+//\ File: gba_graphics.c
 //\ Author: Morgan James
 //\ Date Created: 13/11/2017
 //\ Brief: Contains the function information for the class contained in gba_graphics.h.
@@ -13,11 +13,19 @@
 ObjectAttribute objectBuffer[128] = {};
 ObjectAffine *const objectAffineBuffer = (ObjectAffine*)objectBuffer;
 
+//\===========================================================================================
+//\ Vertical Blank Testing Function
+//\===========================================================================================
+
 void verticalSync()//A function to allow for the drawing to be done on the vertical blank.
 {
 	while (REGISTRY_VERTICAL_COUNT >= 160);
 	while (REGISTRY_VERTICAL_COUNT < 160);
 }
+
+//\===========================================================================================
+//\ Functionality For Setting Up Page Flipping In Bitmap Rendering Modes
+//\===========================================================================================
 
 u16* videoPage = VIDEO_RANDOM_ACCESS_MEMORY_PAGE_BACK;
 
@@ -28,6 +36,10 @@ u16* pageFlip()//A function to flip the screen from the back page to the front a
 
 	return videoPage;
 }
+
+//\===========================================================================================
+//\ Background Tiled Rendering
+//\===========================================================================================
 
 u16* tileBlockAddress(u32 a_u32BlockNum)//Function to return the memory address (pointer) to one of the four tile block locations (0-3).
 {

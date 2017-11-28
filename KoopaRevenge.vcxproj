@@ -85,6 +85,7 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\gba_directMemoryAccess.c" />
     <ClCompile Include="source\gba_drawing.c" />
     <ClCompile Include="source\gba_graphics.c" />
     <ClCompile Include="source\gba_input.c" />
@@ -96,8 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\background.h" />
+    <ClInclude Include="include\backgroundFunctions.h" />
     <ClInclude Include="include\gba.h" />
-    <ClInclude Include="include\gba_dma.h" />
+    <ClInclude Include="include\gba_directMemoryAccesss.h" />
     <ClInclude Include="include\gba_drawing.h" />
     <ClInclude Include="include\gba_graphics.h" />
     <ClInclude Include="include\gba_input.h" />

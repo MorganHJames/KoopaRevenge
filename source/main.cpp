@@ -10,7 +10,7 @@
 #include <string.h>
 
 #include "Player.h"
-
+#include "backgroundFunctions.h"
 
 
 int main()
@@ -47,33 +47,25 @@ int main()
 
 		REGISTRY_BACKGROUND_OFF_SET->s16X = iXScroll;
 
-		if (keyDown(RIGHT))
+		if (keyHeld(RIGHT))
 		{
 			if (playerMoveRight(&player))
 			{
 				iXScroll++;
 			}
 		}
-		else if (keyDown(LEFT))
+		else if (keyHeld(LEFT))
 		{
 			if (playerMoveLeft(&player))
 			{
 				iXScroll--;
 			}
 		}
-		else
-		{
-			//playerStop(&player);
-		}
 
-
-
-		
 		verticalSync();
 
-
 		/* delay some */
-		//delay(300);
+		delay(200);
 
 	}
 

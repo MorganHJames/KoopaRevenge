@@ -9,7 +9,7 @@
 #define __SPRITE_H__
 
 #include "gba_graphics.h"
-#include "gba_dma.h"
+#include "gba_directMemoryAccesss.h"
 
 //* a sprite is a moveable image on the screen */
 struct Sprite 

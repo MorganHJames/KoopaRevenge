@@ -10,9 +10,9 @@
 
 #include "gba_math.h"
 
-typedef struct Vector2//. 
+typedef struct Vector2//A structure to hold two variables. 
 {
-	fixed x, y;
+	fixed x, y;//A variable for x and y.
 }Vector2;
 
 #endif//__GBA_VECTOR2_H__

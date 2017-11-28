@@ -1,5 +1,5 @@
 //\===========================================================================================
-//\ File: gba_input.cpp
+//\ File: gba_input.c
 //\ Author: Morgan James
 //\ Date Created: 13/11/2017
 //\ Brief: Contains the function information for the class contained in gba_input.h.

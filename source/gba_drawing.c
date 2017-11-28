@@ -1,5 +1,5 @@
 //\===========================================================================================
-//\ File: gba_drawing.cpp
+//\ File: gba_drawing.c
 //\ Author: Morgan James
 //\ Date Created: 13/11/2017
 //\ Brief: Contains the function information for the class contained in gba_drawing.h.
