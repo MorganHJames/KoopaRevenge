@@ -148,7 +148,7 @@ typedef TILE8 TILEBLOCK8[256];//A collection of tiles that use 8 bits per pixel.
 #define TILEBLOCK8_MEMORY	 ((TILEBLOCK8*)0x06000000)//Where the 8 bits per pixel tile block memory is located.
 
 #define ENABLE_OBJECTS		 0x1000//Sets a flag in video IO to use sprites.
-#define MAPPINGMODE_1D		 0x0040//Sets a flag in video IO to read the sprites from and array.
+#define MAPPINGMODE_1D		 0x40//Sets a flag in video IO to read the sprites from and array.
 
 typedef struct ObjectAttribute//A structure that makes up a sprite.
 {

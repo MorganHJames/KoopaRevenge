@@ -95,8 +95,9 @@
     <ClCompile Include="source\sinlut.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\background.h" />
     <ClInclude Include="include\gba.h" />
-    <ClInclude Include="include\gba_directMemoryAccess.h" />
+    <ClInclude Include="include\gba_dma.h" />
     <ClInclude Include="include\gba_drawing.h" />
     <ClInclude Include="include\gba_graphics.h" />
     <ClInclude Include="include\gba_input.h" />
@@ -107,6 +108,8 @@
     <ClInclude Include="include\gba_vector2.h" />
     <ClInclude Include="include\Intellisense.h" />
     <ClInclude Include="include\koopa.h" />
+    <ClInclude Include="include\map.h" />
+    <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\sinlut.h" />
     <ClInclude Include="include\sprite.h" />
   </ItemGroup>

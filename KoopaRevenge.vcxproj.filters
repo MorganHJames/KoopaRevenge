@@ -93,8 +93,17 @@
     <ClInclude Include="include\gba_vector2.h">
       <Filter>gba_library\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\gba_directMemoryAccess.h">
+    <ClInclude Include="include\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gba_dma.h">
       <Filter>gba_library\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\background.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\map.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

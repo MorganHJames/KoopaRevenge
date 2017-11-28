@@ -1,5 +1,9 @@
 ﻿  main.cpp
   arm-none-eabi-g++ -MMD -MP -MF /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/build/main.d -g -Wall -O3 -mcpu=arm7tdmi -mtune=arm7tdmi -fomit-frame-pointer -ffast-math -mthumb -mthumb-interwork -iquote /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include -I/c/devkitPro/libgba/include -I/d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/build -fno-rtti -fno-exceptions -c /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp -o main.o 
+  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp: In function 'int main()':
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(31,64): warning GD44A65DF: 'player.Player::sprite' is used uninitialized in this function [-Wuninitialized]
+     player.sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
+                                                                  ^
   linking cartridge
   built ... KoopaRevenge.gba
   ROM fixed!

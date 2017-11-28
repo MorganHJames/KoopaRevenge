@@ -9,58 +9,71 @@
 #include "gba.h"
 #include <string.h>
 
-#include "sprite.h"
+#include "Player.h"
 
-#include "koopa.h"//Sprite include.
 
 
 int main()
 {
 	REGISTRY_DISPLAYCONTROL = DISPLAYCONTROL_BACKGROUNDMODE_0 | ENABLE_OBJECTS | DISPLAYCONTROL_VIDEOMODE_0 | MAPPINGMODE_1D;//Set the mode to 0 with background 0.
 
-	//setup_background();//setup the background 0.
+	//setupBackground();//setup the background 0.
+	setupSprites();//clear all the sprites on screen now 
 
-	//setup_sprite_image();//Setup the sprite image data.
+	struct Player player;//Create the player.
+	//playerInitialize(&player);//Initialize the player
 
-	//sprite_clear();//clear all the sprites on screen now 
+	playerSetupSpriteImage();//Setup the sprite image data.	
 
-	//struct Koopa koopa;//Create the Koopa.
-	//koopa_init(&koopa);//Initilize the Koopa.
+	//PLayer Initialization.
+	{
+		playerInitialization(&player);
+		player.sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
+		player.sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
+		player.sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
+		player.sprite->Attribute->attribute2 = setAttribute2(0, 0, 0);
+	}
 
-	//int xscroll = 0;//Set initial scroll to 0.
+	loadBackground();
 
-	memcpy(PALETTE_SPRITE_MEMORY, koopaPal, koopaPalLen);
-	memcpy(&TILEBLOCK_MEMORY[4][0], koopaTiles, koopaTilesLen);
-
-	Sprite myDude;
-
-	myDude.position.x = integerToFixed(120);
-	myDude.position.y = integerToFixed(128);
-
-	myDude.Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
-
-	objectAttributeMemoryInitialize(MEMORY_OBJECT_ATTRIBUTE_MEMORY, 128);
-
-	myDude.Attribute->attribute0 = setAttribute0(myDude.position.y, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
-	myDude.Attribute->attribute1 = setAttribute1(myDude.position.x, 0, ATTRIBUTE1_SIZE_2);
-	myDude.Attribute->attribute2 = setAttribute2(0, 0, 0);
-
-	setObjectPosition(myDude.Attribute, fixedToUnsignedInteger(myDude.position.x), fixedToUnsignedInteger(myDude.position.y));
-	
+	s32 iXScroll = 0;//Set initial scroll to 0.
 
 	while(1)//Loop forever.
 	{
 		pollKeys();
+		playerUpdate(&player);//Update the player.
 
-		myDude.position.x = fixedAddition(myDude.position.x, integerToFixed(getAxis(HORIZONTAL)));
-		myDude.position.y = fixedSubtraction(myDude.position.y, integerToFixed(getAxis(VERTICAL)));
+		// now the arrow keys move the koopa 
 
-		setObjectPosition(myDude.Attribute, fixedToUnsignedInteger(myDude.position.x), fixedToUnsignedInteger(myDude.position.y));
+		REGISTRY_BACKGROUND_OFF_SET->s16X = iXScroll;
 
+		if (keyDown(RIGHT))
+		{
+			if (playerMoveRight(&player))
+			{
+				iXScroll++;
+			}
+		}
+		else if (keyDown(LEFT))
+		{
+			if (playerMoveLeft(&player))
+			{
+				iXScroll--;
+			}
+		}
+		else
+		{
+			//playerStop(&player);
+		}
+
+
+
+		
 		verticalSync();
 
 
-
+		/* delay some */
+		//delay(300);
 
 	}
 
