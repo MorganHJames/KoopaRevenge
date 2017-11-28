@@ -51,6 +51,13 @@ public:
 
 	void playerInitialization()
 	{
+		/* setup the sprite image and palette */
+		/* load the palette from the image into palette memory*/
+		directMemoryAccessWordCopy(PALETTE_SPRITE_MEMORY, koopaPal, koopaPalLen);
+
+		/* load the image into char block 0 */
+		directMemoryAccessWordCopy(&TILEBLOCK_MEMORY[4][0], &koopaTiles[0], koopaTilesLen);
+
 		position.x = 120;
 		position.y = 113;
 		yvel = 0;
@@ -133,23 +140,41 @@ public:
 		
 		sprite->spriteSetPosition(position.x, position.y);
 
-
-
 		REGISTRY_BACKGROUND_OFF_SET->s16X = iXScroll;
 
-
+		switch (getAxis(HORIZONTAL))
+		{
+			// Moving Right
+		case 1:
+		{
+			if (playerMoveRight())
+			{
+				iXScroll++;
+			}
+			break;
+		}
+		// Moving left
+		case -1:
+		{
+			if (playerMoveLeft())
+			{
+				iXScroll--;
+			}
+			break;
+		}
+		// Not moving
+		case 0:
+		{
+			playerStop();
+			break;
+		}
+		default:
+		{
+			break;
+		}
+		}
 	}
 
-	/* setup the sprite image and palette */
-	void playerSetupSpriteImage()
-	{
-		/* load the palette from the image into palette memory*/
-		directMemoryAccessWordCopy(PALETTE_SPRITE_MEMORY, koopaPal, koopaPalLen);
-
-		/* load the image into char block 0 */
-		directMemoryAccessWordCopy(&TILEBLOCK_MEMORY[4][0], &koopaTiles[0], koopaTilesLen);
-
-	}
 };			
 
 #endif//__PLAYER_H__

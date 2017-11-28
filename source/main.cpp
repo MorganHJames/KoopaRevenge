@@ -22,59 +22,21 @@ int main()
 
 	Player player;//Create the player.
 	//playerInitialize(&player);//Initialize the player
-
-	player.playerSetupSpriteImage();//Setup the sprite image data.	
-
-	//PLayer Initialization.
-	player.playerInitialization();
+	
+	player.playerInitialization();//PLayer Initialization.
 
 	loadBackground();
 
 	while(1)//Loop forever.
 	{
 		pollKeys();
+
 		player.playerUpdate();//Update the player.
 
-		// now the arrow keys move the koopa 
-		s32 axis = getAxis(HORIZONTAL);
-
-		switch (axis)
-		{
-			// Moving Right
-		case 1:
-		{
-			if (player.playerMoveRight())
-			{
-				player.iXScroll++;
-			}
-			break;
-		}
-		// Moving left
-		case -1:
-		{
-			if (player.playerMoveLeft())
-			{
-				player.iXScroll--;
-			}
-			break;
-		}
-		// Not moving
-		case 0:
-		{
-			player.playerStop();
-			break;
-		}
-		default:
-		{
-			break;
-		}
-		}
 		verticalSync();
 
 		/* delay some */
 		delay(200);
-
 	}
-
 	return 0;
 }
