@@ -12,6 +12,7 @@
 #include "gba_graphics.h"
 #include "koopa.h"
 #include "gba_vector2.h"
+#include "gba_input.h"
 
 /* a struct for the koopa's logic and behavior */
 class Player {
@@ -22,6 +23,8 @@ public:
 
 	/* the x and y postion */
 	Vector2 position;
+
+	s32 iXScroll;
 
 	/* the koopa's y velocity in 1/256 pixels/second */
 	int yvel;
@@ -126,11 +129,15 @@ public:
 				sprite->spriteSetOffset(frame);
 				counter = 0;
 			}
-			move = 0;
-			
 		}
 		
 		sprite->spriteSetPosition(position.x, position.y);
+
+
+
+		REGISTRY_BACKGROUND_OFF_SET->s16X = iXScroll;
+
+
 	}
 
 	/* setup the sprite image and palette */

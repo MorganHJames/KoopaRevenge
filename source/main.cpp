@@ -30,32 +30,45 @@ int main()
 
 	loadBackground();
 
-	s32 iXScroll = 0;//Set initial scroll to 0.
-
 	while(1)//Loop forever.
 	{
 		pollKeys();
 		player.playerUpdate();//Update the player.
 
 		// now the arrow keys move the koopa 
+		s32 axis = getAxis(HORIZONTAL);
 
-		REGISTRY_BACKGROUND_OFF_SET->s16X = iXScroll;
-
-		if (keyDown(RIGHT))
+		switch (axis)
+		{
+			// Moving Right
+		case 1:
 		{
 			if (player.playerMoveRight())
 			{
-				iXScroll++;
+				player.iXScroll++;
 			}
+			break;
 		}
-		else if (keyDown(LEFT))
+		// Moving left
+		case -1:
 		{
 			if (player.playerMoveLeft())
 			{
-				iXScroll--;
+				player.iXScroll--;
 			}
+			break;
 		}
-
+		// Not moving
+		case 0:
+		{
+			player.playerStop();
+			break;
+		}
+		default:
+		{
+			break;
+		}
+		}
 		verticalSync();
 
 		/* delay some */
