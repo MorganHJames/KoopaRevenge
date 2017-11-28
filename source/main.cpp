@@ -20,14 +20,14 @@ int main()
 	//setupBackground();//setup the background 0.
 	setupSprites();//clear all the sprites on screen now 
 
-	struct Player player;//Create the player.
+	Player player;//Create the player.
 	//playerInitialize(&player);//Initialize the player
 
-	playerSetupSpriteImage();//Setup the sprite image data.	
+	player.playerSetupSpriteImage();//Setup the sprite image data.	
 
 	//PLayer Initialization.
 	{
-		playerInitialization(&player);
+		player.playerInitialization();
 		player.sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
 		player.sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
 		player.sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
@@ -41,7 +41,7 @@ int main()
 	while(1)//Loop forever.
 	{
 		pollKeys();
-		playerUpdate(&player);//Update the player.
+		player.playerUpdate();//Update the player.
 
 		// now the arrow keys move the koopa 
 
@@ -49,14 +49,14 @@ int main()
 
 		if (keyHeld(RIGHT))
 		{
-			if (playerMoveRight(&player))
+			if (player.playerMoveRight())
 			{
 				iXScroll++;
 			}
 		}
 		else if (keyHeld(LEFT))
 		{
-			if (playerMoveLeft(&player))
+			if (player.playerMoveLeft())
 			{
 				iXScroll--;
 			}

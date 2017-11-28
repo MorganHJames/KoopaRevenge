@@ -14,7 +14,9 @@
 #include "gba_vector2.h"
 
 /* a struct for the koopa's logic and behavior */
-struct Player {
+class Player {
+private:
+public:
 	/* the actual sprite attribute info */
 	Sprite* sprite;
 
@@ -43,103 +45,103 @@ struct Player {
 	int border;
 	/* if the koopa is currently falling */
 	int falling;
-};			
 
-void playerInitialization(Player* a_player)
-{
-	a_player->position.x = 120;
-	a_player->position.y = 113;
-	a_player->yvel = 0;
-	a_player->gravity = 50;
-	a_player->border = 40;
-	a_player->frame = 0;
-	a_player->move = 0;
-	a_player->counter = 0;
-	a_player->falling = 0;
-	a_player->animation_delay = 8;
-	//a_player->sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
-	//a_player->sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
-	//a_player->sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
-	//a_player->sprite->Attribute->attribute2 = setAttribute2(0, 0, 0);
-}
-
-/* move the Player left or right returns if it is at edge of the screen */
-int playerMoveLeft(Player* a_player)
-{
-	/* face left */
-	spriteSetHorizontalFlip(a_player->sprite, 1);
-	a_player->move = 1;
-
-	/* if we are at the left end, just scroll the screen */
-	if (a_player->position.x < a_player->border)
+	void playerInitialization()
 	{
-		return 1;
+		position.x = 120;
+		position.y = 113;
+		yvel = 0;
+		gravity = 50;
+		border = 40;
+		frame = 0;
+		move = 0;
+		counter = 0;
+		falling = 0;
+		animation_delay = 8;
+		//a_player->sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
+		//a_player->sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
+		//a_player->sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
+		//a_player->sprite->Attribute->attribute2 = setAttribute2(0, 0, 0);
 	}
-	else
-	{
-		/* else move left */
-		a_player->position.x--;
-		return 0;
-	}
-}
-int playerMoveRight(Player* a_player)
-{
-	/* face right */
-	spriteSetHorizontalFlip(a_player->sprite, 0);
-	a_player->move = 1;
 
-	/* if we are at the right end, just scroll the screen */
-	if (a_player->position.x > (240 - 16 - a_player->border))
+	/* move the Player left or right returns if it is at edge of the screen */
+	int playerMoveLeft()
 	{
-		return 1;
-	}
-	else
-	{
-		/* else move right */
-		a_player->position.x++;
-		return 0;
-	}
-}
+		/* face left */
+		sprite->spriteSetHorizontalFlip(1);
+		move = 1;
 
-void playerStop(Player* a_player)
-{
-	a_player->frame = 0;
-	a_player->counter = 7;
-	spriteSetOffset(a_player->sprite, a_player->frame);
-}
-
-/* update the koopa */
-void playerUpdate(Player* a_player)
-{
-	if (a_player->move)
-	{
-		a_player->counter++;
-		if (a_player->counter >= a_player->animation_delay)
+		/* if we are at the left end, just scroll the screen */
+		if (position.x < border)
 		{
-			a_player->frame = a_player->frame + 8;
-			if (a_player->frame > 8)
-			{
-				a_player->frame = 0;
-			}
-			spriteSetOffset(a_player->sprite, a_player->frame);
-			a_player->counter = 0;
+			return 1;
 		}
-		a_player->move = 0;
+		else
+		{
+			/* else move left */
+			position.x--;
+			return 0;
+		}
 	}
-	spriteSetPosition(a_player->sprite, a_player->position.x, a_player->position.y);
-}
 
-/* setup the sprite image and palette */
-void playerSetupSpriteImage()
-{
-	/* load the palette from the image into palette memory*/
+	int playerMoveRight()
+	{
+		/* face right */
+		sprite->spriteSetHorizontalFlip(0);
+		move = 1;
 
-	dma_word_cpy(PALETTE_SPRITE_MEMORY, koopaPal, koopaPalLen);
+		/* if we are at the right end, just scroll the screen */
+		if (position.x > (240 - 16 - border))
+		{
+			return 1;
+		}
+		else
+		{
+			/* else move right */
+			position.x++;
+			return 0;
+		}
+	}
 
-	/* load the image into char block 0 */
-	dma_word_cpy(&TILEBLOCK_MEMORY[4][0], &koopaTiles[0], koopaTilesLen);
+	void playerStop()
+	{
+		frame = 0;
+		counter = 7;
+		sprite->spriteSetOffset(frame);
+	}
 
-}
+	/* update the koopa */
+	void playerUpdate()
+	{
+		if (move)
+		{
+			counter++;
+			if (counter >= animation_delay)
+			{
+				frame = frame + 8;
+				if (frame > 8)
+				{
+					frame = 0;
+				}
+				sprite->spriteSetOffset(frame);
+				counter = 0;
+			}
+			move = 0;
+		}
+		sprite->spriteSetPosition(position.x, position.y);
+	}
 
+	/* setup the sprite image and palette */
+	void playerSetupSpriteImage()
+	{
+		/* load the palette from the image into palette memory*/
+
+		dma_word_cpy(PALETTE_SPRITE_MEMORY, koopaPal, koopaPalLen);
+
+		/* load the image into char block 0 */
+		dma_word_cpy(&TILEBLOCK_MEMORY[4][0], &koopaTiles[0], koopaTilesLen);
+
+	}
+};			
 
 #endif//__PLAYER_H__

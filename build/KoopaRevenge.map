@@ -25,7 +25,7 @@ Discarded input sections
  .bss           0x00000000        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crti.o
  .data          0x00000000        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtbegin.o
  .data          0x00000000        0x0 main.o
- .bss           0x00000000      0x204 main.o
+ .bss           0x00000000        0x0 main.o
  .data          0x00000000        0x0 gba_directMemoryAccess.o
  .bss           0x00000000        0x0 gba_directMemoryAccess.o
  .text          0x00000000      0x170 gba_drawing.o
@@ -100,195 +100,184 @@ Linker script and memory map
  *(.plt)
                 0x0800021c                . = ALIGN (0x4)
 
-.text           0x08000220     0x1080
+.text           0x08000220      0xef8
  *(EXCLUDE_FILE(*.iwram*) .text)
  .text          0x08000220       0xd4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtbegin.o
- .text          0x080002f4      0x21c main.o
+ .text          0x080002f4       0x74 main.o
                 0x080002f4                setupSprites()
-                0x08000308                spriteSetPosition(Sprite*, int, int)
-                0x08000320                spriteMove(Sprite*, int, int)
-                0x08000340                spriteSetVerticalFlip(Sprite*, int)
-                0x08000360                spriteSetHorizontalFlip(Sprite*, int)
-                0x08000380                spriteSetOffset(Sprite*, int)
-                0x08000394                playerInitialization(Player*)
-                0x080003b8                playerMoveLeft(Player*)
-                0x080003e0                playerMoveRight(Player*)
-                0x0800040c                playerStop(Player*)
-                0x08000424                playerUpdate(Player*)
-                0x08000480                playerSetupSpriteImage()
-                0x080004b0                loadBackground()
- .text          0x08000510       0x8c gba_directMemoryAccess.o
-                0x08000510                dma_cpy
-                0x0800052c                dma_fill
-                0x08000554                dma_word_cpy
-                0x08000574                dma_word_fill
- .text          0x0800059c      0x248 gba_graphics.o
-                0x0800059c                verticalSync
-                0x080005b4                pageFlip
-                0x080005d4                tileBlockAddress
-                0x080005e0                tileMapBlockAddress
-                0x080005ec                setBackgroundControlRegister
-                0x08000660                setAttribute0
-                0x08000694                setAttribute1
-                0x080006a8                setAttribute1AffineIndex
-                0x080006c0                setAttribute2
-                0x080006d4                setObjectPosition
-                0x080006f0                objectHide
-                0x08000704                objectUnhide
-                0x08000714                objectAttributeMemoryInitialize
-                0x08000764                objectAttributeMemoryCopy
-                0x08000788                objectAffineIdentity
-                0x080007a0                objectAffineRotationScale
- .text          0x080007e4       0xc0 gba_input.o
-                0x080007e4                pollKeys
-                0x08000800                currentKeyState
-                0x0800080c                prevKeyState
-                0x08000818                keyDown
-                0x08000824                keyUp
-                0x08000830                keyHeld
-                0x08000840                keyReleased
-                0x08000850                keyHit
-                0x08000860                keyStateChange
-                0x08000870                getAxis
- .text          0x080008a4       0x88 gba_math.o
-                0x080008a4                integerToFixed
-                0x080008a8                floatToFixed
-                0x080008bc                fixedToUnsignedInteger
-                0x080008c0                fixedToUnsignedFractionalComponent
-                0x080008c8                fixedToInteger
-                0x080008d4                fixedToFloat
-                0x080008e8                fixedAddition
-                0x080008ec                fixedSubtraction
-                0x080008f0                fixedMultiply
-                0x080008f8                fixedDivide
-                0x08000908                lookUpSin
-                0x08000918                lookUpCos
- .text          0x0800092c       0x80 gba_mathUtility.o
-                0x0800092c                seedQuasiRandom
-                0x0800093c                quasiRandom
-                0x08000960                quasiRandomRange
-                0x08000994                sign
-                0x080009a0                absolute
-                0x080009a8                delay
- .text          0x080009ac      0x150 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_divsi3.o)
-                0x080009ac                __divsi3
-                0x080009ac                __aeabi_idiv
-                0x08000adc                __aeabi_idivmod
- .text          0x08000afc        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_dvmd_tls.o)
-                0x08000afc                __aeabi_idiv0
-                0x08000afc                __aeabi_ldiv0
- .text          0x08000b00      0x2ac c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_arm_addsubsf3.o)
-                0x08000b00                __aeabi_frsub
-                0x08000b08                __subsf3
-                0x08000b08                __aeabi_fsub
-                0x08000b0c                __aeabi_fadd
-                0x08000b0c                __addsf3
-                0x08000cc8                __aeabi_ui2f
-                0x08000cc8                __floatunsisf
-                0x08000cd0                __aeabi_i2f
-                0x08000cd0                __floatsisf
-                0x08000cf0                __aeabi_ul2f
-                0x08000cf0                __floatundisf
-                0x08000d00                __aeabi_l2f
-                0x08000d00                __floatdisf
- .text          0x08000dac      0x2f8 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_arm_muldivsf3.o)
-                0x08000dac                __mulsf3
-                0x08000dac                __aeabi_fmul
-                0x08000f44                __aeabi_fdiv
-                0x08000f44                __divsf3
- .text          0x080010a4       0x5c c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_arm_fixsfsi.o)
-                0x080010a4                __aeabi_f2iz
-                0x080010a4                __fixsfsi
+                0x08000308                loadBackground()
+ .text          0x08000368       0x8c gba_directMemoryAccess.o
+                0x08000368                dma_cpy
+                0x08000384                dma_fill
+                0x080003ac                dma_word_cpy
+                0x080003cc                dma_word_fill
+ .text          0x080003f4      0x248 gba_graphics.o
+                0x080003f4                verticalSync
+                0x0800040c                pageFlip
+                0x0800042c                tileBlockAddress
+                0x08000438                tileMapBlockAddress
+                0x08000444                setBackgroundControlRegister
+                0x080004b8                setAttribute0
+                0x080004ec                setAttribute1
+                0x08000500                setAttribute1AffineIndex
+                0x08000518                setAttribute2
+                0x0800052c                setObjectPosition
+                0x08000548                objectHide
+                0x0800055c                objectUnhide
+                0x0800056c                objectAttributeMemoryInitialize
+                0x080005bc                objectAttributeMemoryCopy
+                0x080005e0                objectAffineIdentity
+                0x080005f8                objectAffineRotationScale
+ .text          0x0800063c       0xc0 gba_input.o
+                0x0800063c                pollKeys
+                0x08000658                currentKeyState
+                0x08000664                prevKeyState
+                0x08000670                keyDown
+                0x0800067c                keyUp
+                0x08000688                keyHeld
+                0x08000698                keyReleased
+                0x080006a8                keyHit
+                0x080006b8                keyStateChange
+                0x080006c8                getAxis
+ .text          0x080006fc       0x88 gba_math.o
+                0x080006fc                integerToFixed
+                0x08000700                floatToFixed
+                0x08000714                fixedToUnsignedInteger
+                0x08000718                fixedToUnsignedFractionalComponent
+                0x08000720                fixedToInteger
+                0x0800072c                fixedToFloat
+                0x08000740                fixedAddition
+                0x08000744                fixedSubtraction
+                0x08000748                fixedMultiply
+                0x08000750                fixedDivide
+                0x08000760                lookUpSin
+                0x08000770                lookUpCos
+ .text          0x08000784       0x80 gba_mathUtility.o
+                0x08000784                seedQuasiRandom
+                0x08000794                quasiRandom
+                0x080007b8                quasiRandomRange
+                0x080007ec                sign
+                0x080007f8                absolute
+                0x08000800                delay
+ .text          0x08000804      0x150 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_divsi3.o)
+                0x08000804                __divsi3
+                0x08000804                __aeabi_idiv
+                0x08000934                __aeabi_idivmod
+ .text          0x08000954        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_dvmd_tls.o)
+                0x08000954                __aeabi_idiv0
+                0x08000954                __aeabi_ldiv0
+ .text          0x08000958      0x2ac c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_arm_addsubsf3.o)
+                0x08000958                __aeabi_frsub
+                0x08000960                __subsf3
+                0x08000960                __aeabi_fsub
+                0x08000964                __aeabi_fadd
+                0x08000964                __addsf3
+                0x08000b20                __aeabi_ui2f
+                0x08000b20                __floatunsisf
+                0x08000b28                __aeabi_i2f
+                0x08000b28                __floatsisf
+                0x08000b48                __aeabi_ul2f
+                0x08000b48                __floatundisf
+                0x08000b58                __aeabi_l2f
+                0x08000b58                __floatdisf
+ .text          0x08000c04      0x2f8 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_arm_muldivsf3.o)
+                0x08000c04                __mulsf3
+                0x08000c04                __aeabi_fmul
+                0x08000d9c                __aeabi_fdiv
+                0x08000d9c                __divsf3
+ .text          0x08000efc       0x5c c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb\libgcc.a(_arm_fixsfsi.o)
+                0x08000efc                __aeabi_f2iz
+                0x08000efc                __fixsfsi
  *(.text .stub .text.* .gnu.linkonce.t.*)
- .text.startup  0x08001100      0x118 main.o
-                0x08001100                main
+ .text.startup  0x08000f58      0x138 main.o
+                0x08000f58                main
  .text.__libc_init_array
-                0x08001218       0x58 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/../../../../arm-none-eabi/lib/thumb\libg.a(lib_a-init.o)
-                0x08001218                __libc_init_array
+                0x08001090       0x58 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/../../../../arm-none-eabi/lib/thumb\libg.a(lib_a-init.o)
+                0x08001090                __libc_init_array
  .text.__libc_init_array.__stub
-                0x08001270       0x2c linker stubs
+                0x080010e8       0x2c linker stubs
  *(.text.*personality*)
  *(.gnu.warning)
  *(.glue_7t)
- .glue_7t       0x080012a0        0x0 linker stubs
+ .glue_7t       0x08001118        0x0 linker stubs
  *(.glue_7)
- .glue_7        0x080012a0        0x0 linker stubs
+ .glue_7        0x08001118        0x0 linker stubs
  *(.vfp11_veneer)
- .vfp11_veneer  0x080012a0        0x0 linker stubs
-                0x080012a0                . = ALIGN (0x4)
-                0x080012a0                __text_end = .
+ .vfp11_veneer  0x08001118        0x0 linker stubs
+                0x08001118                . = ALIGN (0x4)
+                0x08001118                __text_end = .
 
-.v4_bx          0x080012a0        0x0
- .v4_bx         0x080012a0        0x0 linker stubs
+.v4_bx          0x08001118        0x0
+ .v4_bx         0x08001118        0x0 linker stubs
 
-.iplt           0x080012a0        0x0
- .iplt          0x080012a0        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
+.iplt           0x08001118        0x0
+ .iplt          0x08001118        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
 
-.fini           0x080012a0        0xc
+.fini           0x08001118        0xc
  *(.fini)
- .fini          0x080012a0        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crti.o
-                0x080012a0                _fini
- .fini          0x080012a4        0x8 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtn.o
-                0x080012ac                . = ALIGN (0x4)
+ .fini          0x08001118        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crti.o
+                0x08001118                _fini
+ .fini          0x0800111c        0x8 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtn.o
+                0x08001124                . = ALIGN (0x4)
 
-.rodata         0x080012ac     0x20a0
+.rodata         0x08001124     0x20a0
  *(.rodata)
- .rodata        0x080012ac     0x1a80 main.o
- .rodata        0x08002d2c      0x220 koopa.o
-                0x08002d2c                koopaPal
-                0x08002d4c                koopaTiles
- .rodata        0x08002f4c      0x400 sinlut.o
-                0x08002f4c                sin_lut
+ .rodata        0x08001124     0x1a80 main.o
+ .rodata        0x08002ba4      0x220 koopa.o
+                0x08002ba4                koopaPal
+                0x08002bc4                koopaTiles
+ .rodata        0x08002dc4      0x400 sinlut.o
+                0x08002dc4                sin_lut
  *all.rodata*(*)
  *(.roda)
  *(.rodata.*)
  *(.gnu.linkonce.r*)
-                0x0800334c                . = ALIGN (0x4)
+                0x080031c4                . = ALIGN (0x4)
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0800334c                __exidx_start = .
+                0x080031c4                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x0800334c                __exidx_end = .
+                0x080031c4                __exidx_end = .
 
-.ctors          0x0800334c        0x0
+.ctors          0x080031c4        0x0
  *crtbegin.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o) .ctors)
  *(SORT(.ctors.*))
  *(.ctors)
-                0x0800334c                . = ALIGN (0x4)
+                0x080031c4                . = ALIGN (0x4)
 
-.dtors          0x0800334c        0x0
+.dtors          0x080031c4        0x0
  *crtbegin.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT(.dtors.*))
  *(.dtors)
-                0x0800334c                . = ALIGN (0x4)
+                0x080031c4                . = ALIGN (0x4)
 
-.eh_frame       0x0800334c        0x4
+.eh_frame       0x080031c4        0x4
  *(.eh_frame)
- .eh_frame      0x0800334c        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtbegin.o
- .eh_frame      0x0800334c        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtend.o
-                0x08003350                . = ALIGN (0x4)
+ .eh_frame      0x080031c4        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtbegin.o
+ .eh_frame      0x080031c4        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtend.o
+                0x080031c8                . = ALIGN (0x4)
 
-.rel.dyn        0x08003350        0x0
- .rel.iplt      0x08003350        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
+.rel.dyn        0x080031c8        0x0
+ .rel.iplt      0x080031c8        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
 
 .gcc_except_table
-                0x08003350        0x0
+                0x080031c8        0x0
  *(.gcc_except_table)
-                0x08003350                . = ALIGN (0x4)
-                0x08003350                __iwram_lma = .
+                0x080031c8                . = ALIGN (0x4)
+                0x080031c8                __iwram_lma = .
 
-.iwram          0x03000000        0x0 load address 0x08003350
+.iwram          0x03000000        0x0 load address 0x080031c8
                 0x03000000                __iwram_start__ = ABSOLUTE (.)
  *(.iwram)
  *iwram.*(.text)
                 0x03000000                . = ALIGN (0x4)
                 0x03000000                __iwram_end__ = ABSOLUTE (.)
-                0x08003350                __data_lma = (__iwram_lma + SIZEOF (.iwram))
+                0x080031c8                __data_lma = (__iwram_lma + SIZEOF (.iwram))
 
 .bss            0x03000000       0x28
                 0x03000000                __bss_start = ABSOLUTE (.)
@@ -307,7 +296,7 @@ Linker script and memory map
                 0x03000028                . = ALIGN (0x4)
                 0x03000028                __bss_end__ = ABSOLUTE (.)
 
-.data           0x03000028        0x8 load address 0x08003350
+.data           0x03000028        0x8 load address 0x080031c8
                 0x03000028                __data_start__ = ABSOLUTE (.)
  *(.data)
  .data          0x03000028        0x4 gba_graphics.o
@@ -317,53 +306,53 @@ Linker script and memory map
  *(.data.*)
  *(.gnu.linkonce.d*)
                 0x03000030                . = ALIGN (0x4)
-                0x08003358                __preinit_lma = (__data_lma + SIZEOF (.data))
+                0x080031d0                __preinit_lma = (__data_lma + SIZEOF (.data))
 
-.igot.plt       0x03000030        0x0 load address 0x08003358
+.igot.plt       0x03000030        0x0 load address 0x080031d0
  .igot.plt      0x03000030        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
 
 .tm_clone_table
-                0x03000030        0x0 load address 0x08003358
+                0x03000030        0x0 load address 0x080031d0
  .tm_clone_table
                 0x03000030        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtbegin.o
  .tm_clone_table
                 0x03000030        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtend.o
 
-.preinit_array  0x03000030        0x0 load address 0x08003358
+.preinit_array  0x03000030        0x0 load address 0x080031d0
                 0x03000030                __preinit_array_start = ABSOLUTE (.)
  *(.preinit_array)
                 0x03000030                __preinit_array_end = ABSOLUTE (.)
-                0x08003358                __init_lma = (__preinit_lma + SIZEOF (.preinit_array))
+                0x080031d0                __init_lma = (__preinit_lma + SIZEOF (.preinit_array))
 
-.init_array     0x03000030        0x4 load address 0x08003358
+.init_array     0x03000030        0x4 load address 0x080031d0
                 0x03000030                __init_array_start = ABSOLUTE (.)
  *(SORT(.init_array.*))
  *(.init_array)
  .init_array    0x03000030        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtbegin.o
                 0x03000034                __init_array_end = ABSOLUTE (.)
-                0x0800335c                __fini_lma = (__init_lma + SIZEOF (.init_array))
+                0x080031d4                __fini_lma = (__init_lma + SIZEOF (.init_array))
 
-.fini_array     0x03000034        0x4 load address 0x0800335c
+.fini_array     0x03000034        0x4 load address 0x080031d4
                 0x03000034                __fini_array_start = ABSOLUTE (.)
  *(SORT(.fini_array.*))
  *(.fini_array)
  .fini_array    0x03000034        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtbegin.o
                 0x03000038                __fini_array_end = ABSOLUTE (.)
-                0x08003360                __jcr_lma = (__fini_lma + SIZEOF (.fini_array))
+                0x080031d8                __jcr_lma = (__fini_lma + SIZEOF (.fini_array))
 
-.jcr            0x03000038        0x4 load address 0x08003360
+.jcr            0x03000038        0x4 load address 0x080031d8
  *(.jcr)
  .jcr           0x03000038        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtbegin.o
  .jcr           0x03000038        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtend.o
                 0x0300003c                __data_end__ = ABSOLUTE (.)
-                0x08003364                __iwram_overlay_lma = (__jcr_lma + SIZEOF (.jcr))
+                0x080031dc                __iwram_overlay_lma = (__jcr_lma + SIZEOF (.jcr))
                 0x0300003c                __iwram_overlay_start = .
 
-.iwram0         0x0300003c        0x0 load address 0x08003364
+.iwram0         0x0300003c        0x0 load address 0x080031dc
  *(.iwram0)
                 0x0300003c                . = ALIGN (0x4)
-                0x08003364                PROVIDE (__load_start_iwram0, LOADADDR (.iwram0))
-                0x08003364                PROVIDE (__load_stop_iwram0, (LOADADDR (.iwram0) + SIZEOF (.iwram0)))
+                0x080031dc                PROVIDE (__load_start_iwram0, LOADADDR (.iwram0))
+                0x080031dc                PROVIDE (__load_stop_iwram0, (LOADADDR (.iwram0) + SIZEOF (.iwram0)))
 
 .iwram1         0x0300003c        0x0
  *(.iwram1)
@@ -419,15 +408,15 @@ Linker script and memory map
                 [!provide]                PROVIDE (__load_start_iwram9, LOADADDR (.iwram9))
                 [!provide]                PROVIDE (__load_stop_iwram9, (LOADADDR (.iwram9) + SIZEOF (.iwram9)))
                 0x0300003c                __iwram_overlay_end = .
-                0x08003364                __ewram_lma = (__iwram_overlay_lma + (__iwram_overlay_end - __iwram_overlay_start))
+                0x080031dc                __ewram_lma = (__iwram_overlay_lma + (__iwram_overlay_end - __iwram_overlay_start))
                 0x0300003c                __iheap_start = .
                 0x02000000                __ewram_start = ORIGIN (ewram)
 
-.ewram          0x02000000        0x0 load address 0x08003364
+.ewram          0x02000000        0x0 load address 0x080031dc
  *(.ewram)
                 0x02000000                . = ALIGN (0x4)
                 0x02000000                __ewram_end = ABSOLUTE (.)
-                0x08003364                __pad_lma = (__ewram_lma + SIZEOF (.ewram))
+                0x080031dc                __pad_lma = (__ewram_lma + SIZEOF (.ewram))
 
 .sbss           0x02000000        0x0
                 0x02000000                __sbss_start__ = ABSOLUTE (.)
@@ -437,11 +426,11 @@ Linker script and memory map
                 0x02000000                __end__ = ABSOLUTE (.)
                 0x02000000                __eheap_start = ABSOLUTE (.)
 
-.pad            0x02000000        0x8 load address 0x08003364
+.pad            0x02000000        0x8 load address 0x080031dc
                 0x02000000        0x4 LONG 0x52416b64
                 0x02000004        0x4 LONG 0x4d
                 0x02000008                . = ALIGN (0x4)
-                0x0800336c                __rom_end__ = (__pad_lma + SIZEOF (.pad))
+                0x080031e4                __rom_end__ = (__pad_lma + SIZEOF (.pad))
 
 .stab
  *(.stab)
@@ -514,82 +503,82 @@ Linker script and memory map
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x2264
+.debug_info     0x00000000     0x2061
  *(.debug_info)
- .debug_info    0x00000000      0xd2e main.o
- .debug_info    0x00000d2e      0x294 gba_directMemoryAccess.o
- .debug_info    0x00000fc2      0x332 gba_drawing.o
- .debug_info    0x000012f4      0x783 gba_graphics.o
- .debug_info    0x00001a77      0x270 gba_input.o
- .debug_info    0x00001ce7      0x306 gba_math.o
- .debug_info    0x00001fed      0x1b4 gba_mathUtility.o
- .debug_info    0x000021a1       0x74 koopa.o
- .debug_info    0x00002215       0x4f sinlut.o
+ .debug_info    0x00000000      0xb2b main.o
+ .debug_info    0x00000b2b      0x294 gba_directMemoryAccess.o
+ .debug_info    0x00000dbf      0x332 gba_drawing.o
+ .debug_info    0x000010f1      0x783 gba_graphics.o
+ .debug_info    0x00001874      0x270 gba_input.o
+ .debug_info    0x00001ae4      0x306 gba_math.o
+ .debug_info    0x00001dea      0x1b4 gba_mathUtility.o
+ .debug_info    0x00001f9e       0x74 koopa.o
+ .debug_info    0x00002012       0x4f sinlut.o
 
-.debug_abbrev   0x00000000      0xa43
+.debug_abbrev   0x00000000      0xa40
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x2da main.o
- .debug_abbrev  0x000002da      0x13b gba_directMemoryAccess.o
- .debug_abbrev  0x00000415      0x104 gba_drawing.o
- .debug_abbrev  0x00000519      0x208 gba_graphics.o
- .debug_abbrev  0x00000721       0xd6 gba_input.o
- .debug_abbrev  0x000007f7       0xd1 gba_math.o
- .debug_abbrev  0x000008c8       0xf5 gba_mathUtility.o
- .debug_abbrev  0x000009bd       0x43 koopa.o
- .debug_abbrev  0x00000a00       0x43 sinlut.o
+ .debug_abbrev  0x00000000      0x2d7 main.o
+ .debug_abbrev  0x000002d7      0x13b gba_directMemoryAccess.o
+ .debug_abbrev  0x00000412      0x104 gba_drawing.o
+ .debug_abbrev  0x00000516      0x208 gba_graphics.o
+ .debug_abbrev  0x0000071e       0xd6 gba_input.o
+ .debug_abbrev  0x000007f4       0xd1 gba_math.o
+ .debug_abbrev  0x000008c5       0xf5 gba_mathUtility.o
+ .debug_abbrev  0x000009ba       0x43 koopa.o
+ .debug_abbrev  0x000009fd       0x43 sinlut.o
 
-.debug_line     0x00000000     0x107b
+.debug_line     0x00000000      0xfd1
  *(.debug_line)
- .debug_line    0x00000000      0x3cb main.o
- .debug_line    0x000003cb      0x1f4 gba_directMemoryAccess.o
- .debug_line    0x000005bf      0x22a gba_drawing.o
- .debug_line    0x000007e9      0x22d gba_graphics.o
- .debug_line    0x00000a16      0x1bd gba_input.o
- .debug_line    0x00000bd3      0x1d9 gba_math.o
- .debug_line    0x00000dac      0x1b4 gba_mathUtility.o
- .debug_line    0x00000f60       0x8d koopa.o
- .debug_line    0x00000fed       0x8e sinlut.o
+ .debug_line    0x00000000      0x321 main.o
+ .debug_line    0x00000321      0x1f4 gba_directMemoryAccess.o
+ .debug_line    0x00000515      0x22a gba_drawing.o
+ .debug_line    0x0000073f      0x22d gba_graphics.o
+ .debug_line    0x0000096c      0x1bd gba_input.o
+ .debug_line    0x00000b29      0x1d9 gba_math.o
+ .debug_line    0x00000d02      0x1b4 gba_mathUtility.o
+ .debug_line    0x00000eb6       0x8d koopa.o
+ .debug_line    0x00000f43       0x8e sinlut.o
 
-.debug_frame    0x00000000      0x588
+.debug_frame    0x00000000      0x4b8
  *(.debug_frame)
- .debug_frame   0x00000000      0x13c main.o
- .debug_frame   0x0000013c       0x74 gba_directMemoryAccess.o
- .debug_frame   0x000001b0       0x6c gba_drawing.o
- .debug_frame   0x0000021c      0x15c gba_graphics.o
- .debug_frame   0x00000378       0xb0 gba_input.o
- .debug_frame   0x00000428       0xe8 gba_math.o
- .debug_frame   0x00000510       0x78 gba_mathUtility.o
+ .debug_frame   0x00000000       0x6c main.o
+ .debug_frame   0x0000006c       0x74 gba_directMemoryAccess.o
+ .debug_frame   0x000000e0       0x6c gba_drawing.o
+ .debug_frame   0x0000014c      0x15c gba_graphics.o
+ .debug_frame   0x000002a8       0xb0 gba_input.o
+ .debug_frame   0x00000358       0xe8 gba_math.o
+ .debug_frame   0x00000440       0x78 gba_mathUtility.o
 
-.debug_str      0x00000000      0xfe0
+.debug_str      0x00000000      0xfda
  *(.debug_str)
- .debug_str     0x00000000      0x68a main.o
-                                0x71c (size before relaxing)
- .debug_str     0x0000068a      0x124 gba_directMemoryAccess.o
+ .debug_str     0x00000000      0x684 main.o
+                                0x708 (size before relaxing)
+ .debug_str     0x00000684      0x124 gba_directMemoryAccess.o
                                 0x1c9 (size before relaxing)
- .debug_str     0x000007ae      0x145 gba_drawing.o
+ .debug_str     0x000007a8      0x145 gba_drawing.o
                                 0x27a (size before relaxing)
- .debug_str     0x000008f3      0x2f6 gba_graphics.o
+ .debug_str     0x000008ed      0x2f6 gba_graphics.o
                                 0x569 (size before relaxing)
- .debug_str     0x00000be9       0xfc gba_input.o
+ .debug_str     0x00000be3       0xfc gba_input.o
                                 0x23f (size before relaxing)
- .debug_str     0x00000ce5      0x139 gba_math.o
+ .debug_str     0x00000cdf      0x139 gba_math.o
                                 0x275 (size before relaxing)
- .debug_str     0x00000e1e       0xe7 gba_mathUtility.o
+ .debug_str     0x00000e18       0xe7 gba_mathUtility.o
                                 0x1fb (size before relaxing)
- .debug_str     0x00000f05       0x6d koopa.o
+ .debug_str     0x00000eff       0x6d koopa.o
                                 0x10c (size before relaxing)
- .debug_str     0x00000f72       0x6e sinlut.o
+ .debug_str     0x00000f6c       0x6e sinlut.o
                                  0xf8 (size before relaxing)
 
-.debug_loc      0x00000000     0x1cdc
+.debug_loc      0x00000000     0x18c5
  *(.debug_loc)
- .debug_loc     0x00000000      0x7e8 main.o
- .debug_loc     0x000007e8      0x23f gba_directMemoryAccess.o
- .debug_loc     0x00000a27      0x510 gba_drawing.o
- .debug_loc     0x00000f37      0xa37 gba_graphics.o
- .debug_loc     0x0000196e      0x119 gba_input.o
- .debug_loc     0x00001a87      0x1af gba_math.o
- .debug_loc     0x00001c36       0xa6 gba_mathUtility.o
+ .debug_loc     0x00000000      0x3d1 main.o
+ .debug_loc     0x000003d1      0x23f gba_directMemoryAccess.o
+ .debug_loc     0x00000610      0x510 gba_drawing.o
+ .debug_loc     0x00000b20      0xa37 gba_graphics.o
+ .debug_loc     0x00001557      0x119 gba_input.o
+ .debug_loc     0x00001670      0x1af gba_math.o
+ .debug_loc     0x0000181f       0xa6 gba_mathUtility.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -687,8 +676,8 @@ LOAD c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtend.o
 LOAD c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtn.o
 OUTPUT(d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/KoopaRevenge.elf elf32-littlearm)
 
-.debug_ranges   0x00000000      0x130
- .debug_ranges  0x00000000       0xc8 main.o
- .debug_ranges  0x000000c8       0x30 gba_directMemoryAccess.o
- .debug_ranges  0x000000f8       0x20 gba_graphics.o
- .debug_ranges  0x00000118       0x18 gba_mathUtility.o
+.debug_ranges   0x00000000       0xe8
+ .debug_ranges  0x00000000       0x80 main.o
+ .debug_ranges  0x00000080       0x30 gba_directMemoryAccess.o
+ .debug_ranges  0x000000b0       0x20 gba_graphics.o
+ .debug_ranges  0x000000d0       0x18 gba_mathUtility.o
