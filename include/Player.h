@@ -26,6 +26,8 @@ public:
 
 	s32 iXScroll;
 
+	int xvel;
+
 	/* the koopa's y velocity in 1/256 pixels/second */
 	int yvel;
 
@@ -36,7 +38,7 @@ public:
 	int frame;
 
 	/* the number of frames to wait before flipping */
-	int animation_delay;
+	int animationDelay;
 
 	/* the animation counter counts how many frames until we flip */
 	int counter;
@@ -60,6 +62,7 @@ public:
 
 		position.x = 120;
 		position.y = 113;
+		xvel = 1;
 		yvel = 0;
 		gravity = 50;
 		border = 40;
@@ -67,7 +70,7 @@ public:
 		move = 0;
 		counter = 0;
 		falling = 0;
-		animation_delay = 8;
+		animationDelay = 8;
 		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
 		sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
 		sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
@@ -89,7 +92,7 @@ public:
 		else
 		{
 			/* else move left */
-			position.x--;
+			position.x -= xvel;
 			return 0;
 		}
 	}
@@ -108,7 +111,7 @@ public:
 		else
 		{
 			/* else move right */
-			position.x++;
+			position.x += xvel;
 			return 0;
 		}
 	}
@@ -126,7 +129,7 @@ public:
 		if (move)
 		{
 			counter++;
-			if (counter >= animation_delay)
+			if (counter >= animationDelay)
 			{
 				frame = frame + 8;
 				if (frame > 8)
@@ -147,18 +150,40 @@ public:
 			// Moving Right
 		case 1:
 		{
-			if (playerMoveRight())
+			if (keyDown(B))
 			{
-				iXScroll++;
+				if (playerMoveRight())
+				{
+					xvel = 2;
+					iXScroll += xvel;
+					animationDelay = 4;
+				}
+			}
+			else if (playerMoveRight())
+			{
+				xvel = 1;
+				iXScroll += xvel;
+				animationDelay = 8;
 			}
 			break;
 		}
 		// Moving left
 		case -1:
 		{
-			if (playerMoveLeft())
+			if (keyDown(B))
 			{
-				iXScroll--;
+				if (playerMoveLeft())
+				{
+					xvel = 2;
+					iXScroll -= xvel;
+					animationDelay = 4;
+				}
+			}
+			else if (playerMoveLeft())
+			{
+				xvel = 1;
+				iXScroll -= xvel;
+				animationDelay = 8;
 			}
 			break;
 		}
@@ -166,6 +191,7 @@ public:
 		case 0:
 		{
 			playerStop();
+			
 			break;
 		}
 		default:
