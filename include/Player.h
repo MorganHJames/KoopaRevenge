@@ -152,17 +152,22 @@ public:
 		{
 			if (keyDown(B))
 			{
+				xvel = 2;
+				animationDelay = 4;
 				if (playerMoveRight())
 				{
-					xvel = 2;
 					iXScroll += xvel;
-					animationDelay = 4;
 				}
 			}
 			else if (playerMoveRight())
 			{
 				xvel = 1;
 				iXScroll += xvel;
+				animationDelay = 8;
+			}
+			else
+			{
+				xvel = 1;
 				animationDelay = 8;
 			}
 			break;
@@ -172,17 +177,22 @@ public:
 		{
 			if (keyDown(B))
 			{
+				xvel = 2;
+				animationDelay = 4;
 				if (playerMoveLeft())
 				{
-					xvel = 2;
 					iXScroll -= xvel;
-					animationDelay = 4;
 				}
 			}
 			else if (playerMoveLeft())
 			{
 				xvel = 1;
 				iXScroll -= xvel;
+				animationDelay = 8;
+			}
+			else
+			{
+				xvel = 1;
 				animationDelay = 8;
 			}
 			break;
