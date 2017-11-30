@@ -26,6 +26,14 @@ public:
 
 	s32 iXScroll;
 
+	int walkSpeed;
+
+	int runSpeed;
+
+	int walkAnimationDelay;
+
+	int runAnimationDelay;
+
 	int xvel;
 
 	/* the koopa's y velocity in 1/256 pixels/second */
@@ -64,6 +72,11 @@ public:
 		position.y = 113;
 		xvel = 1;
 		yvel = 0;
+		walkSpeed = 1;
+		runSpeed = 2;
+		iXScroll = 0;
+		walkAnimationDelay = 8;
+		runAnimationDelay = 4;
 		gravity = 50;
 		border = 40;
 		frame = 0;
@@ -152,8 +165,8 @@ public:
 		{
 			if (keyDown(B))
 			{
-				xvel = 2;
-				animationDelay = 4;
+				xvel = runSpeed;
+				animationDelay = runAnimationDelay;
 				if (playerMoveRight())
 				{
 					iXScroll += xvel;
@@ -161,14 +174,14 @@ public:
 			}
 			else if (playerMoveRight())
 			{
-				xvel = 1;
+				xvel = walkSpeed;
 				iXScroll += xvel;
-				animationDelay = 8;
+				animationDelay = walkAnimationDelay;
 			}
 			else
 			{
-				xvel = 1;
-				animationDelay = 8;
+				xvel = walkSpeed;
+				animationDelay = walkAnimationDelay;
 			}
 			break;
 		}
@@ -177,8 +190,8 @@ public:
 		{
 			if (keyDown(B))
 			{
-				xvel = 2;
-				animationDelay = 4;
+				xvel = runSpeed;
+				animationDelay = runAnimationDelay;
 				if (playerMoveLeft())
 				{
 					iXScroll -= xvel;
@@ -186,14 +199,14 @@ public:
 			}
 			else if (playerMoveLeft())
 			{
-				xvel = 1;
+				xvel = walkSpeed;
 				iXScroll -= xvel;
-				animationDelay = 8;
+				animationDelay = walkAnimationDelay;
 			}
 			else
 			{
-				xvel = 1;
-				animationDelay = 8;
+				xvel = walkSpeed;
+				animationDelay = walkAnimationDelay;
 			}
 			break;
 		}
