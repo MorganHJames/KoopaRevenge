@@ -85,6 +85,7 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\backgroundSprites.c" />
     <ClCompile Include="source\gba_directMemoryAccess.c" />
     <ClCompile Include="source\gba_drawing.c" />
     <ClCompile Include="source\gba_graphics.c" />
@@ -96,8 +97,11 @@
     <ClCompile Include="source\sinlut.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\background.h" />
+    <ClInclude Include="include\background1.h" />
+    <ClInclude Include="include\background2.h" />
+    <ClInclude Include="include\background3.h" />
     <ClInclude Include="include\backgroundFunctions.h" />
+    <ClInclude Include="include\backgroundSprites.h" />
     <ClInclude Include="include\gba.h" />
     <ClInclude Include="include\gba_directMemoryAccesss.h" />
     <ClInclude Include="include\gba_drawing.h" />
@@ -110,7 +114,6 @@
     <ClInclude Include="include\gba_vector2.h" />
     <ClInclude Include="include\Intellisense.h" />
     <ClInclude Include="include\koopa.h" />
-    <ClInclude Include="include\map.h" />
     <ClInclude Include="include\player.h" />
     <ClInclude Include="include\sinlut.h" />
     <ClInclude Include="include\sprite.h" />

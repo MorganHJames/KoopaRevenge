@@ -57,6 +57,9 @@
     <ClCompile Include="source\gba_directMemoryAccess.c">
       <Filter>gba_library\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\backgroundSprites.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Intellisense.h">
@@ -98,12 +101,6 @@
     <ClInclude Include="include\gba_vector2.h">
       <Filter>gba_library\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\background.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\map.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\gba_directMemoryAccesss.h">
       <Filter>gba_library\Header Files</Filter>
     </ClInclude>
@@ -112,6 +109,18 @@
     </ClInclude>
     <ClInclude Include="include\player.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\backgroundSprites.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\background1.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\background2.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\background3.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

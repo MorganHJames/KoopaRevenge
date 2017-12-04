@@ -15,13 +15,11 @@
 
 int main()
 {
-	REGISTRY_DISPLAYCONTROL = DISPLAYCONTROL_BACKGROUNDMODE_0 | ENABLE_OBJECTS | DISPLAYCONTROL_VIDEOMODE_0 | MAPPINGMODE_1D;//Set the mode to 0 with background 0.
-
-	//setupBackground();//setup the background 0.
+	REGISTRY_DISPLAYCONTROL = DISPLAYCONTROL_BACKGROUNDMODE_0 | DISPLAYCONTROL_BACKGROUNDMODE_1 | DISPLAYCONTROL_BACKGROUNDMODE_2 | ENABLE_OBJECTS | DISPLAYCONTROL_VIDEOMODE_0 | MAPPINGMODE_1D;//Set the mode to 0 with background 0.																						   //set up the BG Control Register
+	
 	setupSprites();//clear all the sprites on screen now 
 
 	Player player;//Create the player.
-	//playerInitialize(&player);//Initialize the player
 	
 	player.playerInitialization();//PLayer Initialization.
 
@@ -31,12 +29,9 @@ int main()
 	{
 		pollKeys();
 
-		player.playerUpdate();//Update the player.
-
+		player.playerUpdate();
 		verticalSync();
-
-		/* delay some */
-		delay(200);
+	
 	}
 	return 0;
 }

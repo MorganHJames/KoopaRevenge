@@ -91,7 +91,7 @@ typedef struct BackgroundOffsets//Structure to control background offset x & y f
 }__attribute__((packed, aligned(4))) BGOffset;//Data structure padding. So the computer reads the correct data as computers read in word sized chunks.
 
 #define REGISTRY_BACKGROUND_OFF_SET					   ((BackgroundOffsets*)(REGISTRY_BASE+0x0010))//Define for REG_BG_OFS accessed as an array to access offset data for background modes 0-3. 
-//REG_BG_OFS[1].x accesses x .y accesses y value
+//[1].x accesses x .y accesses y value
 
 #define TILE_BLOCK_SIZE								   0x4000//The size of a tile block.
 #define TILE_MAP_BLOCK_SIZE							   0x0800//The size of a tile map block.

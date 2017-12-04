@@ -25,6 +25,8 @@ public:
 	Vector2 position;
 
 	s32 iXScroll;
+	fixed iXSrollBackground2Offset;
+	fixed iXSrollBackground3Offset;
 
 	int walkSpeed;
 
@@ -75,6 +77,8 @@ public:
 		walkSpeed = 1;
 		runSpeed = 2;
 		iXScroll = 0;
+		iXSrollBackground2Offset = fixedDivide(integerToFixed(75), integerToFixed(100));
+		iXSrollBackground3Offset = fixedDivide(integerToFixed(5), integerToFixed(10));
 		walkAnimationDelay = 8;
 		runAnimationDelay = 4;
 		gravity = 50;
@@ -156,8 +160,10 @@ public:
 		
 		sprite->spriteSetPosition(position.x, position.y);
 
-		REGISTRY_BACKGROUND_OFF_SET->s16X = iXScroll;
-
+		REGISTRY_BACKGROUND_OFF_SET[0].s16X = iXScroll;
+	    REGISTRY_BACKGROUND_OFF_SET[1].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground2Offset));
+		REGISTRY_BACKGROUND_OFF_SET[2].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground3Offset));
+	
 		switch (getAxis(HORIZONTAL))
 		{
 			// Moving Right
