@@ -16,9 +16,10 @@
 #include "backgroundFunctions.h"
 
 #include "collision.h"
+#include "collisionMap.h"
 
 /* a struct for the koopa's logic and behavior */
-class Player 
+class Player
 {
 private:
 public:
@@ -162,10 +163,51 @@ public:
 			falling = 1;
 		}
 	}
-	
+
+	void playerCollision()
+	{
+
+		//feet 
+		if (tile_lookup((position.x >> 8) + 8, (position.y >> 8) + 32, REGISTRY_BACKGROUND_OFF_SET[0].s16X,
+			REGISTRY_BACKGROUND_OFF_SET[0].s16Y, collisionMap, 64, 32) > 0)
+		{
+			yvel = 0;
+			falling = 0;
+			position.y &= ~0x7ff;
+
+			/* move him down one because there is a one pixel gap in the image */
+			position.y++;
+		}
+		else
+		{
+			/* he is falling now */
+			falling = 1;
+		}
+		//head
+		if (tile_lookup((position.x >> 8) + 8, (position.y >> 8), REGISTRY_BACKGROUND_OFF_SET[0].s16X,
+			REGISTRY_BACKGROUND_OFF_SET[0].s16Y, collisionMap, 64, 32) > 0)
+		{
+			yvel = 0;
+		}
+		//Left
+		if (tile_lookup((position.x >> 8), (position.y >> 8) + 16, REGISTRY_BACKGROUND_OFF_SET[0].s16X,
+			REGISTRY_BACKGROUND_OFF_SET[0].s16Y, collisionMap, 64, 32) > 0)
+		{
+			xvel = 0;
+		}
+		//Right
+		if (tile_lookup((position.x >> 8) + 16, (position.y >> 8) + 16, REGISTRY_BACKGROUND_OFF_SET[0].s16X,
+			REGISTRY_BACKGROUND_OFF_SET[0].s16Y, collisionMap, 64, 32) > 0)
+		{
+			xvel = 0;
+		}
+
+	}
+
 	/* update the koopa */
 	void playerUpdate()
 	{
+
 		/* update y position and speed if falling */
 		if (falling)
 		{
@@ -173,19 +215,6 @@ public:
 			yvel += gravity;
 		}
 
-		collision = collisionTest(position.x, position.y, position.x + 15, position.y + 31, REGISTRY_BACKGROUND_OFF_SET[0].s16X, REGISTRY_BACKGROUND_OFF_SET[0].s16Y);
-		
-		if (collision & COLLISION_Y)
-		{
-			falling = 0;
-			yvel = 0;
-		}
-		else
-		{
-			/* he is falling now */
-			falling = 1;
-		}
-			
 		if (move)
 		{
 			counter++;
@@ -204,9 +233,11 @@ public:
 		sprite->spriteSetPosition(position.x, position.y);
 
 		REGISTRY_BACKGROUND_OFF_SET[0].s16X = iXScroll;
-	    REGISTRY_BACKGROUND_OFF_SET[1].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground2Offset));
+		REGISTRY_BACKGROUND_OFF_SET[1].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground2Offset));
 		REGISTRY_BACKGROUND_OFF_SET[2].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground3Offset));
-		
+
+		playerCollision();
+
 		if (keyDown(A))
 		{
 			playerJump();
@@ -217,64 +248,62 @@ public:
 			// Moving Right
 		case 1:
 		{
-			if (!(collision & COLLISION_X))
+
+			if (keyDown(B))
 			{
-				if (keyDown(B))
+				xvel = runSpeed;
+				animationDelay = runAnimationDelay;
+				if (playerMoveRight())
 				{
-					xvel = runSpeed;
-					animationDelay = runAnimationDelay;
-					if (playerMoveRight())
-					{
-						iXScroll += xvel;
-					}
-				}
-				else if (playerMoveRight())
-				{
-					xvel = walkSpeed;
 					iXScroll += xvel;
-					animationDelay = walkAnimationDelay;
-				}
-				else
-				{
-					xvel = walkSpeed;
-					animationDelay = walkAnimationDelay;
 				}
 			}
+			else if (playerMoveRight())
+			{
+				xvel = walkSpeed;
+				iXScroll += xvel;
+				animationDelay = walkAnimationDelay;
+			}
+			else
+			{
+				xvel = walkSpeed;
+				animationDelay = walkAnimationDelay;
+			}
+
 			break;
 		}
 		// Moving left
 		case -1:
 		{
-			if (!(collision & COLLISION_X))
+
+			if (keyDown(B))
 			{
-				if (keyDown(B))
+				xvel = runSpeed;
+				animationDelay = runAnimationDelay;
+				if (playerMoveLeft())
 				{
-					xvel = runSpeed;
-					animationDelay = runAnimationDelay;
-					if (playerMoveLeft())
-					{
-						iXScroll -= xvel;
-					}
-				}
-				else if (playerMoveLeft())
-				{
-					xvel = walkSpeed;
 					iXScroll -= xvel;
-					animationDelay = walkAnimationDelay;
-				}
-				else
-				{
-					xvel = walkSpeed;
-					animationDelay = walkAnimationDelay;
 				}
 			}
+			else if (playerMoveLeft())
+			{
+				xvel = walkSpeed;
+				iXScroll -= xvel;
+				animationDelay = walkAnimationDelay;
+			}
+			else
+			{
+				xvel = walkSpeed;
+				animationDelay = walkAnimationDelay;
+			}
+
 			break;
 		}
 		// Not moving
 		case 0:
 		{
 			playerStop();
-			
+
 			break;
 		}
 		default:
@@ -282,8 +311,9 @@ public:
 			break;
 		}
 		}
+
 	}
 
-};			
+};
 
 #endif//__PLAYER_H__
