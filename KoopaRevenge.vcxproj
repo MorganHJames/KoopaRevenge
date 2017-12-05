@@ -104,9 +104,7 @@
     <ClInclude Include="include\background3.h" />
     <ClInclude Include="include\backgroundFunctions.h" />
     <ClInclude Include="include\backgroundSprites.h" />
-    <ClInclude Include="include\collision.h" />
     <ClInclude Include="include\collisionMap.h" />
-    <ClInclude Include="include\game.h" />
     <ClInclude Include="include\gameStates.h" />
     <ClInclude Include="include\gba.h" />
     <ClInclude Include="include\gba_directMemoryAccesss.h" />

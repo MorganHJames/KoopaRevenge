@@ -128,14 +128,8 @@
     <ClInclude Include="include\background3.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\collisionMap.h">
       <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\game.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\gameStates.h">
       <Filter>Header Files</Filter>

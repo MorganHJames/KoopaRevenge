@@ -14,7 +14,20 @@
 #include "background1.h"
 #include "background2.h"
 #include "background3.h"
+#include "splash.h"
 
+void splash()
+{
+	//\===========================================================================================
+	//\ SPLASH Setup 
+	//\===========================================================================================
+
+	REGISTRY_DISPLAYCONTROL = DISPLAYCONTROL_VIDEOMODE_4 | DISPLAYCONTROL_BACKGROUNDMODE_2;
+
+	directMemoryAccessWordCopy(VIDEO_RANDOM_ACCESS_MEMORY_PAGE, splashBitmap, splashBitmapLen);
+	directMemoryAccessWordCopy(PALETTE_BACKGROUND_MEMORY, splashPal, splashPalLen);
+	sleep(3, TIMER_SECONED);
+}
 
 void loadGameBackground()
 {

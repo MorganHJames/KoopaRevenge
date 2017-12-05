@@ -1,4 +1,6 @@
 
+#define collisionMapWidth 64
+#define collisionMapHeight 32
 
 const unsigned short collisionMap[] = {
 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
