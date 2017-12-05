@@ -24,6 +24,7 @@ extern "C" {
 #include "gba_graphics.h"		//Includes the gba_graphics header file.
 #include "gba_drawing.h"		//Includes the gba_drawing header file.
 #include "gba_directMemoryAccesss.h"//Includes the gba_directMemoryAccess header file.
+#include "gba_timers.h"         //Includes the gba_timers header file.
 
 #ifdef __cplusplus
 };

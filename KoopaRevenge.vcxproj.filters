@@ -60,6 +60,12 @@
     <ClCompile Include="source\backgroundSprites.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\splash.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gba_timers.c">
+      <Filter>gba_library\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Intellisense.h">
@@ -121,6 +127,24 @@
     </ClInclude>
     <ClInclude Include="include\background3.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\collisionMap.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gameStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\splash.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gba_timers.h">
+      <Filter>gba_library\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

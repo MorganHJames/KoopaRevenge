@@ -1,17 +1,19 @@
 //\===========================================================================================
-//\ File: main.cpp
+//\ File: gameStates.h
 //\ Author: Morgan James
-//\ Date Created: 13/11/2017
-//\ Brief: Contains the start point for the game.
+//\ Date Created: 04/12/2017
+//\ Brief: 
 //\===========================================================================================
 
+#ifndef _GAMESTATES_H_
+#define _GAMESTATES_H_
 
-#include "game.h"
-
-
-int main()
+typedef enum GameStates
 {
-	Game game;
-	game.initialize();
-	return 0;
-}
+	SPLASH,
+	MENU,
+	GAME,
+	HIGHSCORE
+}GameState;
+
+#endif

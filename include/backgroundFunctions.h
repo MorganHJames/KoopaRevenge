@@ -15,7 +15,8 @@
 #include "background2.h"
 #include "background3.h"
 
-void loadBackground()
+
+void loadGameBackground()
 {
 	// Load background
 	// Load palette
@@ -34,47 +35,47 @@ void loadBackground()
 	
 
 	//Background 0 - collision and bushes
-	u16* tileMapMemoryLocation1 = tileMapBlockAddress(16);
-	u16* mapLocation1 = (u16*)background1;
+	u16* tileMapMemoryLocation = tileMapBlockAddress(16);
+	u16* mapLocation = (u16*)background1;
 
 	for (int i = 0; i < 128; ++i)
 	{
-		directMemoryAccessWordCopy(tileMapMemoryLocation1, mapLocation1, 64);
-		tileMapMemoryLocation1 = tileMapMemoryLocation1 + 32;
-		mapLocation1 += 64;
+		directMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
+		tileMapMemoryLocation = tileMapMemoryLocation + 32;
+		mapLocation += 64;
 		if (i == 31)
 		{
-			mapLocation1 = (u16*)background1 + 32;
+			mapLocation = (u16*)background1 + 32;
 		}
 	}
 
 	//Background 1 - hills
-	u16* tileMapMemoryLocation2 = tileMapBlockAddress(18);
-	u16* mapLocation2 = (u16*)background2;
+	tileMapMemoryLocation = tileMapBlockAddress(18);
+	mapLocation = (u16*)background2;
 	
     for (int i = 0; i < 128; ++i)
     {
-    	directMemoryAccessWordCopy(tileMapMemoryLocation2, mapLocation2, 64);
-    	tileMapMemoryLocation2 = tileMapMemoryLocation2 + 32;
-    	mapLocation2 += 64;
+    	directMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
+		tileMapMemoryLocation = tileMapMemoryLocation + 32;
+		mapLocation += 64;
     	if (i == 31)
     	{
-    		mapLocation2 = (u16*)background2 + 32;
+			mapLocation = (u16*)background2 + 32;
     	}	
     }
 	
 	//Background 2 - clouds and sky
-	u16* tileMapMemoryLocation3 = tileMapBlockAddress(20);
-	u16* mapLocation3 = (u16*)background3;
+	tileMapMemoryLocation = tileMapBlockAddress(20);
+	mapLocation = (u16*)background3;
 	
 	for (int i = 0; i < 128; ++i)
 	{
-		directMemoryAccessWordCopy(tileMapMemoryLocation3, mapLocation3, 64);
-		tileMapMemoryLocation3 = tileMapMemoryLocation3 + 32;
-		mapLocation3 += 64;
+		directMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
+		tileMapMemoryLocation = tileMapMemoryLocation + 32;
+		mapLocation += 64;
 		if (i == 31)
 		{
-			mapLocation3 = (u16*)background3 + 32;
+			mapLocation = (u16*)background3 + 32;
 		}
 	}
 	
@@ -89,6 +90,16 @@ void loadBackground()
 	REGISTRY_BACKGROUND_OFF_SET[1].s16Y = 80;
     REGISTRY_BACKGROUND_OFF_SET[2].s16Y = 80;
 
+}
+
+void unloadGameBackground()
+{
+	u16* tileMapMemoryLocation = tileMapBlockAddress(16);
+	directMemoryAccessWordCopy(tileMapMemoryLocation, 0, 64);
+	tileMapMemoryLocation = tileMapBlockAddress(18);
+	directMemoryAccessWordCopy(tileMapMemoryLocation, 0, 64);
+	tileMapMemoryLocation = tileMapBlockAddress(20);
+	directMemoryAccessWordCopy(tileMapMemoryLocation, 0, 64);
 }
 
 #endif//#define __BACKGROUND_FUNCTIONS_H__

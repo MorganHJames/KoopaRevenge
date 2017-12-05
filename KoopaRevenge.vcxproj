@@ -92,9 +92,11 @@
     <ClCompile Include="source\gba_input.c" />
     <ClCompile Include="source\gba_math.c" />
     <ClCompile Include="source\gba_mathUtility.c" />
+    <ClCompile Include="source\gba_timers.c" />
     <ClCompile Include="source\koopa.c" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\sinlut.c" />
+    <ClCompile Include="source\splash.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\background1.h" />
@@ -102,6 +104,10 @@
     <ClInclude Include="include\background3.h" />
     <ClInclude Include="include\backgroundFunctions.h" />
     <ClInclude Include="include\backgroundSprites.h" />
+    <ClInclude Include="include\collision.h" />
+    <ClInclude Include="include\collisionMap.h" />
+    <ClInclude Include="include\game.h" />
+    <ClInclude Include="include\gameStates.h" />
     <ClInclude Include="include\gba.h" />
     <ClInclude Include="include\gba_directMemoryAccesss.h" />
     <ClInclude Include="include\gba_drawing.h" />
@@ -110,12 +116,14 @@
     <ClInclude Include="include\gba_math.h" />
     <ClInclude Include="include\gba_mathUtility.h" />
     <ClInclude Include="include\gba_registry.h" />
+    <ClInclude Include="include\gba_timers.h" />
     <ClInclude Include="include\gba_types.h" />
     <ClInclude Include="include\gba_vector2.h" />
     <ClInclude Include="include\Intellisense.h" />
     <ClInclude Include="include\koopa.h" />
     <ClInclude Include="include\player.h" />
     <ClInclude Include="include\sinlut.h" />
+    <ClInclude Include="include\splash.h" />
     <ClInclude Include="include\sprite.h" />
   </ItemGroup>
   <ItemGroup>

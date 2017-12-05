@@ -13,9 +13,13 @@
 #include "koopa.h"
 #include "gba_vector2.h"
 #include "gba_input.h"
+#include "backgroundFunctions.h"
+
+#include "collision.h"
 
 /* a struct for the koopa's logic and behavior */
-class Player {
+class Player 
+{
 private:
 public:
 	/* the actual sprite attribute info */
@@ -25,12 +29,15 @@ public:
 	Vector2 position;
 
 	s32 iXScroll;
+	s32 iYScroll;
 	fixed iXSrollBackground2Offset;
 	fixed iXSrollBackground3Offset;
 
 	int walkSpeed;
 
 	int runSpeed;
+
+	int collision;
 
 	int walkAnimationDelay;
 
@@ -40,6 +47,8 @@ public:
 
 	/* the koopa's y velocity in 1/256 pixels/second */
 	int yvel;
+
+	int jumpHeight;
 
 	/* the koopa's y acceleration in 1/256 pixels/second^2 */
 	int gravity;
@@ -74,17 +83,20 @@ public:
 		position.y = 113;
 		xvel = 1;
 		yvel = 0;
+		jumpHeight = 10;
 		walkSpeed = 1;
 		runSpeed = 2;
 		iXScroll = 0;
+		iYScroll = REGISTRY_BACKGROUND_OFF_SET[0].s16Y;
 		iXSrollBackground2Offset = fixedDivide(integerToFixed(75), integerToFixed(100));
 		iXSrollBackground3Offset = fixedDivide(integerToFixed(5), integerToFixed(10));
 		walkAnimationDelay = 8;
 		runAnimationDelay = 4;
-		gravity = 50;
+		gravity = 1;
 		border = 40;
 		frame = 0;
 		move = 0;
+		collision = 0;
 		counter = 0;
 		falling = 0;
 		animationDelay = 8;
@@ -135,14 +147,45 @@ public:
 
 	void playerStop()
 	{
+		move = 0;
 		frame = 0;
 		counter = 7;
 		sprite->spriteSetOffset(frame);
 	}
 
+	/* start the koopa jumping, unless already fgalling */
+	void playerJump()
+	{
+		if (!falling)
+		{
+			yvel = -jumpHeight;
+			falling = 1;
+		}
+	}
+	
 	/* update the koopa */
 	void playerUpdate()
 	{
+		/* update y position and speed if falling */
+		if (falling)
+		{
+			position.y += yvel;
+			yvel += gravity;
+		}
+
+		collision = collisionTest(position.x, position.y, position.x + 15, position.y + 31, REGISTRY_BACKGROUND_OFF_SET[0].s16X, REGISTRY_BACKGROUND_OFF_SET[0].s16Y);
+		
+		if (collision & COLLISION_Y)
+		{
+			falling = 0;
+			yvel = 0;
+		}
+		else
+		{
+			/* he is falling now */
+			falling = 1;
+		}
+			
 		if (move)
 		{
 			counter++;
@@ -157,62 +200,73 @@ public:
 				counter = 0;
 			}
 		}
-		
+
 		sprite->spriteSetPosition(position.x, position.y);
 
 		REGISTRY_BACKGROUND_OFF_SET[0].s16X = iXScroll;
 	    REGISTRY_BACKGROUND_OFF_SET[1].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground2Offset));
 		REGISTRY_BACKGROUND_OFF_SET[2].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground3Offset));
-	
+		
+		if (keyDown(A))
+		{
+			playerJump();
+		}
+
 		switch (getAxis(HORIZONTAL))
 		{
 			// Moving Right
 		case 1:
 		{
-			if (keyDown(B))
+			if (!(collision & COLLISION_X))
 			{
-				xvel = runSpeed;
-				animationDelay = runAnimationDelay;
-				if (playerMoveRight())
+				if (keyDown(B))
 				{
-					iXScroll += xvel;
+					xvel = runSpeed;
+					animationDelay = runAnimationDelay;
+					if (playerMoveRight())
+					{
+						iXScroll += xvel;
+					}
 				}
-			}
-			else if (playerMoveRight())
-			{
-				xvel = walkSpeed;
-				iXScroll += xvel;
-				animationDelay = walkAnimationDelay;
-			}
-			else
-			{
-				xvel = walkSpeed;
-				animationDelay = walkAnimationDelay;
+				else if (playerMoveRight())
+				{
+					xvel = walkSpeed;
+					iXScroll += xvel;
+					animationDelay = walkAnimationDelay;
+				}
+				else
+				{
+					xvel = walkSpeed;
+					animationDelay = walkAnimationDelay;
+				}
 			}
 			break;
 		}
 		// Moving left
 		case -1:
 		{
-			if (keyDown(B))
+			if (!(collision & COLLISION_X))
 			{
-				xvel = runSpeed;
-				animationDelay = runAnimationDelay;
-				if (playerMoveLeft())
+				if (keyDown(B))
 				{
-					iXScroll -= xvel;
+					xvel = runSpeed;
+					animationDelay = runAnimationDelay;
+					if (playerMoveLeft())
+					{
+						iXScroll -= xvel;
+					}
 				}
-			}
-			else if (playerMoveLeft())
-			{
-				xvel = walkSpeed;
-				iXScroll -= xvel;
-				animationDelay = walkAnimationDelay;
-			}
-			else
-			{
-				xvel = walkSpeed;
-				animationDelay = walkAnimationDelay;
+				else if (playerMoveLeft())
+				{
+					xvel = walkSpeed;
+					iXScroll -= xvel;
+					animationDelay = walkAnimationDelay;
+				}
+				else
+				{
+					xvel = walkSpeed;
+					animationDelay = walkAnimationDelay;
+				}
 			}
 			break;
 		}
