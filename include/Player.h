@@ -84,7 +84,7 @@ public:
 		position.y = 113;
 		xvel = 1;
 		yvel = 0;
-		jumpHeight = 10;
+		jumpHeight = 20;
 		walkSpeed = 1;
 		runSpeed = 2;
 		iXScroll = 0;
@@ -168,35 +168,35 @@ public:
 	{
 
 		//feet 
-		if (tile_lookup((position.x >> 8) + 8, (position.y >> 8) + 32, REGISTRY_BACKGROUND_OFF_SET[0].s16X,
+		if (tile_lookup(position.x + 8, position.y + 32, REGISTRY_BACKGROUND_OFF_SET[0].s16X,
 			REGISTRY_BACKGROUND_OFF_SET[0].s16Y, collisionMap, 64, 32) > 0)
 		{
 			yvel = 0;
 			falling = 0;
-			position.y &= ~0x7ff;
+			//position.y &= ~0x7ff;
 
 			/* move him down one because there is a one pixel gap in the image */
-			position.y++;
+			//position.y++;
 		}
 		else
 		{
 			/* he is falling now */
 			falling = 1;
 		}
-		//head
-		if (tile_lookup((position.x >> 8) + 8, (position.y >> 8), REGISTRY_BACKGROUND_OFF_SET[0].s16X,
+		////head
+		if (tile_lookup(position.x  + 8, position.y, REGISTRY_BACKGROUND_OFF_SET[0].s16X,
 			REGISTRY_BACKGROUND_OFF_SET[0].s16Y, collisionMap, 64, 32) > 0)
 		{
 			yvel = 0;
 		}
-		//Left
-		if (tile_lookup((position.x >> 8), (position.y >> 8) + 16, REGISTRY_BACKGROUND_OFF_SET[0].s16X,
+		////Left
+		if (tile_lookup(position.x, position.y + 16, REGISTRY_BACKGROUND_OFF_SET[0].s16X,
 			REGISTRY_BACKGROUND_OFF_SET[0].s16Y, collisionMap, 64, 32) > 0)
 		{
 			xvel = 0;
 		}
-		//Right
-		if (tile_lookup((position.x >> 8) + 16, (position.y >> 8) + 16, REGISTRY_BACKGROUND_OFF_SET[0].s16X,
+		////Right
+		if (tile_lookup(position.x + 16, position.y + 16, REGISTRY_BACKGROUND_OFF_SET[0].s16X,
 			REGISTRY_BACKGROUND_OFF_SET[0].s16Y, collisionMap, 64, 32) > 0)
 		{
 			xvel = 0;
