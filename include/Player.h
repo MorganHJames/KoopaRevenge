@@ -67,9 +67,6 @@ public:
 	int border;
 	/* if the koopa is currently falling */
 	int falling;
-
-	int canMoveRight;
-	int canMoveLeft;
 	int xDir;
 	int yDir;
 
@@ -84,10 +81,8 @@ public:
 
 		position.x = 120;
 		position.y = 100;
-		xvel = 1;
+		xvel = 0;
 		yvel = 0;
-		canMoveRight = 1;
-		canMoveLeft = 1;
 		jumpHeight = 11;
 		walkSpeed = 1;
 		runSpeed = 2;
@@ -156,6 +151,7 @@ public:
 		move = 0;
 		frame = 0;
 		counter = 7;
+		xvel = 0;
 		sprite->spriteSetOffset(frame);
 	}
 
@@ -170,24 +166,11 @@ public:
 	}
 
 
-	void playerCollision(int a_xDir, int a_yDir)
-	{
-
-		//		|	TL	| TR   |  
-		//----------------------------
-		//	ITL	|		|	   |  ITR
-		//----------------------------
-		//		|		|	   |  
-		//----------------------------
-		//		|		|	   |  
-		//----------------------------
-		//	IBL	|	BL	|	BR |  IBR
-		//----------------------------
-		//		|		|	   |  
+	void playerCollision()
+	{	 
 	
-
-		s32 pX = ((position.x) >> 3) + (iXScroll >> 3);
-		s32 pY = ((position.y) >> 3) + (iYScroll >> 3);
+		s32 pX = ((position.x + xvel) >> 3) + (iXScroll >> 3);
+		s32 pY = ((position.y + yvel) >> 3) + (iYScroll >> 3);
 
 
 		/* account for wraparound */
@@ -211,17 +194,23 @@ public:
 		pY *= collisionMapWidth;
 
 
-		s32 TL = (pX + pY);
+		s32 TL = pX + pY;
 		s32 TR = (pX + pY) + 2;
 
-		s32 BL = (pX + (pY + (collisionMapWidth << 2)));
-		s32 BR = (pX + (pY + (collisionMapWidth << 2)) + 2);
+		s32 BL = pX + pY + (collisionMapWidth << 2);
+		s32 BR = pX + pY + (collisionMapWidth << 2) + 2;
 
-		s32 ITL = (pX + (pY + (collisionMapWidth)));
-		s32 IBL = (pX + (pY + (collisionMapWidth << 1)));
+		s32 ITL = pX + pY ;
+		s32 IBL = pX + pY + (collisionMapWidth << 1) + collisionMapWidth;
 
-		s32 ITR = (pX + (pY + (collisionMapWidth)) + 2);
-		s32 IBR = (pX + (pY + (collisionMapWidth << 1)) + 2);
+		s32 IITL = pX + pY + collisionMapWidth;
+		s32 IIBL = pX + pY + (collisionMapWidth << 1);
+
+		s32 ITR = pX + pY + 2;
+		s32 IBR = pX + pY + (collisionMapWidth << 1) + collisionMapWidth + 2;
+
+		s32 IITR = pX + pY + 2 + collisionMapWidth;
+		s32 IIBR = pX + pY + (collisionMapWidth << 1) + 2;
 
 		//Down collision
 		if (collisionMap[BL] > 0 || collisionMap[BR] > 0 )
@@ -240,31 +229,127 @@ public:
 		if (collisionMap[TL] > 0 || collisionMap[TR] > 0)
 		{
 			yvel = 0;
-			position.y++;
 		}
 
-		//Left collision
-		if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0)
-		{
-			canMoveLeft = 0;
-			position.x++;
-		}
-		else
-		{
-			canMoveLeft = 1;
-		
-		}
-		//Right collision
-		if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0)
-		{
-			canMoveRight = 0;
-			position.x--;
-		}
-		else
-		{
-			canMoveRight = 1;
-		}
 
+		if (keyDown(A))
+		{
+			playerJump();
+		}
+		switch (xDir)
+		{
+			// Moving Right
+		case 1:
+		{
+
+			if (keyDown(B))
+			{
+				//Right collision
+				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0 || collisionMap[IITR] > 0 || collisionMap[IIBR] > 0)
+				{
+					--position.x;
+				}
+				else
+				{
+					xvel = runSpeed;
+					animationDelay = runAnimationDelay;
+					if (playerMoveRight())
+					{
+						iXScroll += xvel;
+					}
+				}
+			}
+			else if (playerMoveRight())
+			{
+				//Right collision
+				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0 || collisionMap[IITR] > 0 || collisionMap[IIBR] > 0)
+				{
+					--position.x;
+				}
+				else
+				{
+					xvel = walkSpeed;
+					iXScroll += xvel;
+					animationDelay = walkAnimationDelay;
+				}
+			}
+			else 
+			{
+				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0 || collisionMap[IITR] > 0 || collisionMap[IIBR] > 0)
+				{
+					--position.x;
+				}
+				else
+				{
+					xvel = walkSpeed;
+					animationDelay = walkAnimationDelay;
+				}
+			}
+
+			break;
+		}
+		// Moving left
+		case -1:
+		{
+			if (keyDown(B))
+			{
+				//Left collision
+				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0 || collisionMap[IITL] > 0 || collisionMap[IIBL] > 0)
+				{
+					++position.x;
+				}
+				else
+				{
+					xvel = runSpeed;
+					animationDelay = runAnimationDelay;
+					if (playerMoveLeft())
+					{
+						iXScroll -= xvel;
+					}
+				}
+			}
+			else if (playerMoveLeft())
+			{
+				//Left collision
+				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0 || collisionMap[IITL] > 0 || collisionMap[IIBL] > 0)
+				{
+					++position.x;
+				}
+				else
+				{
+					xvel = walkSpeed;
+					iXScroll -= xvel;
+					animationDelay = walkAnimationDelay;
+				}
+			}
+			else
+			{
+				//Left collision
+				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0 || collisionMap[IITL] > 0 || collisionMap[IIBL] > 0)
+				{
+					++position.x;
+				}
+				else
+				{
+					xvel = walkSpeed;
+					animationDelay = walkAnimationDelay;
+				}
+			}
+
+			break;
+		}
+		// Not moving
+		case 0:
+		{
+			playerStop();
+
+			break;
+		}
+		default:
+		{
+			break;
+		}
+		}
 
 	}
 
@@ -294,90 +379,10 @@ public:
 				counter = 0;
 			}
 		}
-
-		
 		xDir = getAxis(HORIZONTAL);
 		yDir = getAxis(VERTICAL);
-
-		playerCollision(xDir, yDir);
-
-		if (keyDown(A))
-		{
-			playerJump();
-		}
-
 		
-
-		switch (xDir)
-		{
-			// Moving Right
-		case 1:
-		{
-
-			if (keyDown(B) && canMoveRight)
-			{
-				xvel = runSpeed;
-				animationDelay = runAnimationDelay;
-				if (playerMoveRight())
-				{
-					iXScroll += xvel;
-				}
-			}
-			else if (playerMoveRight() && canMoveRight)
-			{
-				xvel = walkSpeed;
-				iXScroll += xvel;
-				animationDelay = walkAnimationDelay;
-			}
-			else if (canMoveRight)
-			{
-				xvel = walkSpeed;
-				animationDelay = walkAnimationDelay;
-			}
-
-			break;
-		}
-		// Moving left
-		case -1:
-		{
-
-			if (keyDown(B) && canMoveLeft)
-			{
-				xvel = runSpeed;
-				animationDelay = runAnimationDelay;
-				if (playerMoveLeft())
-				{
-					iXScroll -= xvel;
-				}
-			}
-			else if (playerMoveLeft() && canMoveLeft)
-			{
-				xvel = walkSpeed;
-				iXScroll -= xvel;
-				animationDelay = walkAnimationDelay;
-			}
-			else if (canMoveLeft)
-			{
-				xvel = walkSpeed;
-				animationDelay = walkAnimationDelay;
-			}
-
-			break;
-		}
-		// Not moving
-		case 0:
-		{
-			playerStop();
-
-			break;
-		}
-		default:
-		{
-			break;
-		}
-		}
-
-
+		playerCollision();
 		sprite->spriteSetPosition(position.x, position.y);
 
 		REGISTRY_BACKGROUND_OFF_SET[0].s16X = iXScroll;
