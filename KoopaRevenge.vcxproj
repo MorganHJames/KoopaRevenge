@@ -95,6 +95,7 @@
     <ClCompile Include="source\gba_timers.c" />
     <ClCompile Include="source\koopa.c" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\particles.c" />
     <ClCompile Include="source\sinlut.c" />
     <ClCompile Include="source\splash.c" />
   </ItemGroup>
@@ -119,6 +120,8 @@
     <ClInclude Include="include\gba_vector2.h" />
     <ClInclude Include="include\Intellisense.h" />
     <ClInclude Include="include\koopa.h" />
+    <ClInclude Include="include\particleFunctions.h" />
+    <ClInclude Include="include\particles.h" />
     <ClInclude Include="include\player.h" />
     <ClInclude Include="include\sinlut.h" />
     <ClInclude Include="include\splash.h" />

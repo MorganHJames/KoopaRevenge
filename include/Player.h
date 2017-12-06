@@ -70,6 +70,8 @@ public:
 
 	int canMoveRight;
 	int canMoveLeft;
+	int xDir;
+	int yDir;
 
 	void playerInitialization()
 	{
@@ -81,7 +83,7 @@ public:
 		directMemoryAccessWordCopy(&TILEBLOCK_MEMORY[4][0], &koopaTiles[0], koopaTilesLen);
 
 		position.x = 120;
-		position.y = 113;
+		position.y = 100;
 		xvel = 1;
 		yvel = 0;
 		canMoveRight = 1;
@@ -89,8 +91,8 @@ public:
 		jumpHeight = 11;
 		walkSpeed = 1;
 		runSpeed = 2;
-		iXScroll = REGISTRY_BACKGROUND_OFF_SET[0].s16X;
-		iYScroll = REGISTRY_BACKGROUND_OFF_SET[0].s16Y;
+		iXScroll = 0;
+		iYScroll = 80;
 		iXSrollBackground2Offset = fixedDivide(integerToFixed(75), integerToFixed(100));
 		iXSrollBackground3Offset = fixedDivide(integerToFixed(5), integerToFixed(10));
 		walkAnimationDelay = 8;
@@ -102,6 +104,8 @@ public:
 		counter = 0;
 		falling = 0;
 		animationDelay = 8;
+		xDir = 0;
+		yDir = 0;
 		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
 		sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
 		sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
@@ -166,75 +170,95 @@ public:
 	}
 
 
-	void playerCollision()
+	void playerCollision(int a_xDir, int a_yDir)
 	{
-		u8 px = position.x + iXScroll;
-		u8 py = position.y + iYScroll;
 
-		// Corners of player
-		Vector2 TL, TR, BL, BR, ITL, ITR, IBL, IBR;
+		//		|	TL	| TR   |  
+		//----------------------------
+		//	ITL	|		|	   |  ITR
+		//----------------------------
+		//		|		|	   |  
+		//----------------------------
+		//		|		|	   |  
+		//----------------------------
+		//	IBL	|	BL	|	BR |  IBR
+		//----------------------------
+		//		|		|	   |  
+	
 
-		TL.x = (px + 0) >> 3; TL.y = (py + 0) >> 3;
-		TR.x = (px + 15) >> 3; TR.y = (py + 0) >> 3;
+		s32 pX = ((position.x) >> 3) + (iXScroll >> 3);
+		s32 pY = ((position.y) >> 3) + (iYScroll >> 3);
 
-		ITL.x = (px + 0) >> 3; TL.y = (py + 1) >> 3;
-		ITR.x = (px + 15) >> 3; TR.y = (py + 1) >> 3;
 
-		BL.x = (px + 0) >> 3; BL.y = (py + 31) >> 3;
-		BR.x = (px + 15) >> 3; BR.y = (py + 31) >> 3;
-
-		IBL.x = (px + 0) >> 3; IBL.y = (py + 30) >> 3;
-		IBR.x = (px + 15) >> 3; IBR.y = (py + 30) >> 3;
-
-		// Tile space
-		u8 TopLeft = collisionMap[((TL.y * collisionMapWidth) + TL.x)];
-		u8 TopRight = collisionMap[((TR.y * collisionMapWidth) + TR.x)];
-		u8 BottomLeft = collisionMap[((BL.y * collisionMapWidth) + BL.x)];
-		u8 BottomRight = collisionMap[((BR.y * collisionMapWidth) + BR.x)];
-		u8 InnerTopLeft = collisionMap[((ITL.y * collisionMapWidth) + ITL.x)];
-		u8 InnerTopRight = collisionMap[((ITR.y * collisionMapWidth) + ITR.x)];
-		u8 InnerBottomLeft = collisionMap[((IBL.y * collisionMapWidth) + IBL.x)];
-		u8 InnerBottomRight = collisionMap[((IBR.y * collisionMapWidth) + IBR.x)];
-
-		//Up collision
-
-		if (TopLeft || TopRight)
+		/* account for wraparound */
+		while (pX >= collisionMapWidth)
 		{
-			yvel = 0;
-		
+			pX -= collisionMapWidth;
+		}
+		while (pY >= collisionMapHeight)
+		{
+			pY -= collisionMapHeight;
+		}
+		while (pX < 0)
+		{
+			pX += collisionMapWidth;
+		}
+		while (pY < 0)
+		{
+			pY += collisionMapHeight;
 		}
 
-		//Down collision
+		pY *= collisionMapWidth;
 
-		if (BottomLeft || BottomRight)
+
+		s32 TL = (pX + pY);
+		s32 TR = (pX + pY) + 2;
+
+		s32 BL = (pX + (pY + (collisionMapWidth << 2)));
+		s32 BR = (pX + (pY + (collisionMapWidth << 2)) + 2);
+
+		s32 ITL = (pX + (pY + (collisionMapWidth)));
+		s32 IBL = (pX + (pY + (collisionMapWidth << 1)));
+
+		s32 ITR = (pX + (pY + (collisionMapWidth)) + 2);
+		s32 IBR = (pX + (pY + (collisionMapWidth << 1)) + 2);
+
+		//Down collision
+		if (collisionMap[BL] > 0 || collisionMap[BR] > 0 )
 		{
 			yvel = 0;
 			falling = 0;
+			//position.y--;
 		}
 		else
 		{
 			/* he is falling now */
 			falling = 1;
 		}
+		
+		//Up collision
+		if (collisionMap[TL] > 0 || collisionMap[TR] > 0)
+		{
+			yvel = 0;
+			position.y++;
+		}
 
 		//Left collision
-
-		if (InnerTopLeft || InnerBottomLeft)
+		if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0)
 		{
-			xvel = 0;
 			canMoveLeft = 0;
+			position.x++;
 		}
 		else
 		{
 			canMoveLeft = 1;
+		
 		}
-		
 		//Right collision
-		
-		if (InnerBottomRight || InnerTopRight)
+		if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0)
 		{
-			xvel = 0;
 			canMoveRight = 0;
+			position.x--;
 		}
 		else
 		{
@@ -243,7 +267,6 @@ public:
 
 
 	}
-	// position.y &= ~0x7ff;
 
 
 	/* update the koopa */
@@ -272,20 +295,20 @@ public:
 			}
 		}
 
-		sprite->spriteSetPosition(position.x, position.y);
+		
+		xDir = getAxis(HORIZONTAL);
+		yDir = getAxis(VERTICAL);
 
-		REGISTRY_BACKGROUND_OFF_SET[0].s16X = iXScroll;
-		REGISTRY_BACKGROUND_OFF_SET[1].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground2Offset));
-		REGISTRY_BACKGROUND_OFF_SET[2].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground3Offset));
-
-		playerCollision();
+		playerCollision(xDir, yDir);
 
 		if (keyDown(A))
 		{
 			playerJump();
 		}
 
-		switch (getAxis(HORIZONTAL))
+		
+
+		switch (xDir)
 		{
 			// Moving Right
 		case 1:
@@ -354,7 +377,17 @@ public:
 		}
 		}
 
+
+		sprite->spriteSetPosition(position.x, position.y);
+
+		REGISTRY_BACKGROUND_OFF_SET[0].s16X = iXScroll;
+		REGISTRY_BACKGROUND_OFF_SET[0].s16Y = iYScroll;
+		REGISTRY_BACKGROUND_OFF_SET[1].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground2Offset));
+		REGISTRY_BACKGROUND_OFF_SET[2].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground3Offset));
+
 	}
+
+
 
 };
 
