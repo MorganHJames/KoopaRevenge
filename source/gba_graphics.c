@@ -41,6 +41,18 @@ u16* pageFlip()//A function to flip the screen from the back page to the front a
 //\ Background Tiled Rendering
 //\===========================================================================================
 
+u16* paletteBackgroundBlockAddress(u32 a_blockNum)
+{
+	//each block is 16KB in size
+	return (u16*)(PALETTE_BACKGROUND_MEMORY + (a_blockNum * 16));
+}
+
+u16* paletteSpriteBlockAddress(u32 a_blockNum)
+{
+	//each block is 16KB in size
+	return (u16*)(PALETTE_SPRITE_MEMORY + (a_blockNum * 16));
+}
+
 u16* tileBlockAddress(u32 a_u32BlockNum)//Function to return the memory address (pointer) to one of the four tile block locations (0-3).
 {
 	return (u16*)(VIDEO_RANDOM_ACCESS_MEMORY + (a_u32BlockNum * TILE_BLOCK_SIZE));//Each block is 16KB in size.
@@ -61,6 +73,13 @@ void setBackgroundControlRegister(u8 a_u8RegNum, u8 a_u8Priority, u8 a_u8TileBlo
 //====================================================================================
 //Sprites & Object Attribute Memory
 //====================================================================================
+
+u16* spriteTileBlockAddress(u32 a_tile_number)
+{
+	//each block is 16KB in size sprites occur on block 4 of tile memory (blocks 0-3 are for bg tiles)
+	return (u16*)(VIDEO_RANDOM_ACCESS_MEMORY + (4 * TILE_BLOCK_SIZE) + ((a_tile_number & 0x3FF) * sizeof(TILE)));
+
+}
 
 u16 setAttribute0(u8 a_u8Y, u8 a_u8ObjectMode, u8 a_u8GfxMode, u8 a_u8mosiac, u8 a_u8ColorMode, u8 a_u8Shape)//Sets the attribute 0 of the sprite.
 {

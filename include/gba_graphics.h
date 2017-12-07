@@ -126,6 +126,9 @@ extern void setBackgroundControlRegister(u8 a_u8RegNum, u8 a_u8Priority, u8 a_u8
 #define PALETTE_BACKGROUND_MEMORY		((u16*)MEMORY_PALETTE)//The palette background memory.
 #define PALETTE_SPRITE_MEMORY			((u16*)(MEMORY_PALETTE + 0x200))//The sprite pallet memory.
 
+extern u16* paletteBackgroundBlockAddress(u32 a_blockNum);
+extern u16* paletteSpriteBlockAddress(u32 a_blockNum);
+
 //\===========================================================================================
 //\ Defines And Functionality For Sprites & Object Attribute Memory
 //\===========================================================================================
@@ -146,6 +149,8 @@ typedef TILE8 TILEBLOCK8[256];//A collection of tiles that use 8 bits per pixel.
 
 #define TILEBLOCK_MEMORY	 ((TILEBLOCK*)0x06000000)//Where the 4 bits per pixel tile block memory is located.
 #define TILEBLOCK8_MEMORY	 ((TILEBLOCK8*)0x06000000)//Where the 8 bits per pixel tile block memory is located.
+
+extern u16* spriteTileBlockAddress(u32 a_tile_number);
 
 #define ENABLE_OBJECTS		 0x1000//Sets a flag in video IO to use sprites.
 #define MAPPINGMODE_1D		 0x40//Sets a flag in video IO to read the sprites from and array.

@@ -1,10 +1,9 @@
+#ifndef __PARTICLE_FUNCTIONS_H__
+#define __PARTICLE_FUNCTIONS_H__
+
 #include "gba_math.h"
 #include "gba_mathUtility.h"
 
-//this is a fixed point representation of -9.8mps
-fixed g_gravity = -0x9CC;
-fixed g_frameTime = 0x04;
-fixed g_pixels2Meter = integerToFixed(5);
 
 struct Emitter
 {
@@ -19,6 +18,7 @@ struct Particle
 	u32 life;		//lifespan
 };
 
+
 void InitParticle(Particle& a_p, Emitter& a_e)
 {
 	a_p.x = 0; a_p.y = 0; a_p.vx = 0; a_p.vy = 0; a_p.life = 0x1FF;
@@ -31,7 +31,7 @@ void EmitParticle(Particle& a_p, Emitter& a_e)
 	a_p.life = 0;
 }
 
-void UpdateParticle(Particle& a_p, Emitter& a_e)
+void UpdateParticle(Particle& a_p, Emitter& a_e, fixed g_frameTime,fixed g_pixels2Meter, fixed g_gravity)
 {
 	a_p.x = fixedAddition(a_p.x, fixedMultiply(fixedMultiply(a_p.vx, g_frameTime), g_pixels2Meter));
 	a_p.y = fixedAddition(a_p.y, fixedMultiply(fixedMultiply(a_p.vy, g_frameTime), g_pixels2Meter));
@@ -43,3 +43,5 @@ void UpdateParticle(Particle& a_p, Emitter& a_e)
 		EmitParticle(a_p, a_e);
 	}
 }
+
+#endif//__PARTICLE_FUNCTIONS_H__

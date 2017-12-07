@@ -28,6 +28,15 @@ int main()
 
 	GameStates currentState = MENU;
 
+	//payer mem
+	directMemoryAccessWordCopy(paletteSpriteBlockAddress(0), koopaPal, koopaPalLen);
+	directMemoryAccessWordCopy(spriteTileBlockAddress(0), koopaTiles, koopaTilesLen);
+
+	//jump particle mem
+	directMemoryAccessWordCopy(paletteSpriteBlockAddress(1), particlesPal, particlesPalLen);
+	directMemoryAccessWordCopy(spriteTileBlockAddress(32), particlesTiles, particlesTilesLen);
+
+
 	while (1)//Loop forever.
 	{
 		switch (currentState)

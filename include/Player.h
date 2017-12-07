@@ -14,6 +14,8 @@
 #include "gba_vector2.h"
 #include "gba_input.h"
 #include "backgroundFunctions.h"
+#include "particleFunctions.h"
+#include "particles.h"
 
 #include "collisionMap.h"
 
@@ -70,15 +72,45 @@ public:
 	int xDir;
 	int yDir;
 
+
+	//Particles
+
+	fixed g_gravity;
+	fixed g_frameTime;
+	fixed g_pixels2Meter;
+	Emitter emitter;
+	Particle particles[64];
+	ObjectAttribute particleOAM;
+	ObjectAttribute* particleOAMStart;
+
+	
+
 	void playerInitialization()
 	{
-		/* setup the sprite image and palette */
-		/* load the palette from the image into palette memory*/
-		directMemoryAccessWordCopy(PALETTE_SPRITE_MEMORY, koopaPal, koopaPalLen);
+		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
+		sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
+		sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
+		sprite->Attribute->attribute2 = setAttribute2(0, 0, 0);
 
-		/* load the image into char block 0 */
-		directMemoryAccessWordCopy(&TILEBLOCK_MEMORY[4][0], &koopaTiles[0], koopaTilesLen);
 
+		// --- Particles ---
+
+		g_gravity = -0x9CC;
+		g_frameTime = 0x04;
+		g_pixels2Meter = integerToFixed(5);
+
+		emitter.x = integerToFixed((SCREEN_WIDTH >> 1) - 4);
+		emitter.y = integerToFixed((SCREEN_HEIGHT >> 1) - 16);
+
+	    particleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[1];
+
+		for (int i = 0; i < 64; ++i)
+		{
+			EmitParticle(particles[i], emitter);
+			particleOAMStart[i] = particleOAM;
+		}
+
+		// --- ---
 		position.x = 120;
 		position.y = 100;
 		xvel = 0;
@@ -101,10 +133,8 @@ public:
 		animationDelay = 8;
 		xDir = 0;
 		yDir = 0;
-		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
-		sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
-		sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
-		sprite->Attribute->attribute2 = setAttribute2(0, 0, 0);
+
+
 	}
 
 	/* move the Player left or right returns if it is at edge of the screen */
@@ -357,6 +387,17 @@ public:
 	/* update the koopa */
 	void playerUpdate()
 	{
+		//Particle update.
+		for (int i = 0; i < 64; ++i)
+		{
+			UpdateParticle(particles[i], emitter, g_frameTime, g_pixels2Meter, g_gravity);
+
+			setObjectPosition(&particleOAMStart[i], fixedToInteger(particles[i].x), fixedToInteger(particles[i].y));
+			u32 frameID = (1 << 9) - particles[i].life;
+			frameID = frameID << 4 >> 9;
+			particleOAMStart[i].attribute2 = setAttribute2(32 + frameID, 0, 1);
+
+		}
 
 		/* update y position and speed if falling */
 		if (falling)
