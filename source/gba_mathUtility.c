@@ -37,7 +37,7 @@ int quasiRandomRange(s32 a_s32Min, s32 a_s32Max)//Returns a quasi random s32 bet
 
 s32 sign(s32 a_s32Value)//Returns the sign of a variable.
 {
-	return (!(a_s32Value & 0x80000000) && !a_s32Value) ? 1 : -1;//Returns 1 if positive and -1 if negative.
+	return (a_s32Value > 0) - (a_s32Value < 0);//Returns 1 if positive and -1 if negative and 0 if neither.
 }
 
 s32 absolute(s32 a_s32Value)//Returns the absolute value of a variable with regards to having no sign (-3 = 3 && 3 = 3).

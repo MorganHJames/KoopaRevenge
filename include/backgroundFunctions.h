@@ -66,16 +66,16 @@ void loadGameBackground()
 	tileMapMemoryLocation = tileMapBlockAddress(18);
 	mapLocation = (u16*)background2;
 	
-    for (int i = 0; i < 128; ++i)
-    {
-    	directMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
+	for (int i = 0; i < 128; ++i)
+	{
+		directMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
 		tileMapMemoryLocation = tileMapMemoryLocation + 32;
 		mapLocation += 64;
-    	if (i == 31)
-    	{
+		if (i == 31)
+		{
 			mapLocation = (u16*)background2 + 32;
-    	}	
-    }
+		}	
+	}
 	
 	//Background 2 - clouds and sky
 	tileMapMemoryLocation = tileMapBlockAddress(20);
@@ -101,7 +101,7 @@ void loadGameBackground()
 	//Move the maps the correct starting positions
 	REGISTRY_BACKGROUND_OFF_SET[0].s16Y = 80;
 	REGISTRY_BACKGROUND_OFF_SET[1].s16Y = 80;
-    REGISTRY_BACKGROUND_OFF_SET[2].s16Y = 80;
+	REGISTRY_BACKGROUND_OFF_SET[2].s16Y = 80;
 
 }
 

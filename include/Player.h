@@ -78,8 +78,8 @@ public:
 	fixed g_gravity;
 	fixed g_frameTime;
 	fixed g_pixels2Meter;
-	Emitter emitter;
-	Particle particles[64];
+	Emitter emitterJumpEffect;
+	Particle particlesJumpEffect[64];
 	ObjectAttribute particleOAM;
 	ObjectAttribute* particleOAMStart;
 
@@ -191,10 +191,9 @@ public:
 
 
 	void playerCollision()
-	{	 
-	
+	{
 		s32 pX = ((position.x + xvel) >> 3) + (iXScroll >> 3);
-		s32 pY = ((position.y + yvel) >> 3) + (iYScroll >> 3);
+		s32 pY = ((position.y + (yvel  )) >> 3) + (iYScroll >> 3);
 
 
 		/* account for wraparound */
@@ -253,21 +252,24 @@ public:
 		if (collisionMap[TL] > 0 || collisionMap[TR] > 0)
 		{
 			yvel = 0;
+			
 		}
 
 
 		if (keyDown(A))
 		{
-			emitter.x = integerToFixed(position.x + 7);//Move the emiter to the players x pos.
-			emitter.y = integerToFixed(position.y + 31);//Move the emiter to the players y pos.
+			emitterJumpEffect.x = integerToFixed(position.x + 7);//Move the emiter to the players x pos.
+			emitterJumpEffect.y = integerToFixed(position.y + 31);//Move the emiter to the players y pos.
 			for (int i = 0; i < 64; ++i)
 			{
-				EmitParticle(particles[i], emitter);
+				EmitParticle(particlesJumpEffect[i], emitterJumpEffect);
 				particleOAMStart[i] = particleOAM;
 			}
 
 			playerJump();
 		}
+
+		s32 xDir = getAxis(HORIZONTAL);
 		switch (xDir)
 		{
 			// Moving Right
@@ -288,6 +290,16 @@ public:
 					if (playerMoveRight())
 					{
 						iXScroll += xvel;
+
+						//Keep the particles in the same spot
+						for (int i = 0; i < 64; ++i)
+						{
+
+							particlesJumpEffect[i].x -= integerToFixed(xvel);
+							setObjectPosition(&particleOAMStart[i], fixedToInteger(particlesJumpEffect[i].x), fixedToInteger(particlesJumpEffect[i].y));//Move particle
+
+						}
+
 					}
 				}
 			}
@@ -303,6 +315,15 @@ public:
 					xvel = walkSpeed;
 					iXScroll += xvel;
 					animationDelay = walkAnimationDelay;
+
+					//Keep the particles in the same spot
+					for (int i = 0; i < 64; ++i)
+					{
+
+						particlesJumpEffect[i].x -= integerToFixed(xvel);
+						setObjectPosition(&particleOAMStart[i], fixedToInteger(particlesJumpEffect[i].x), fixedToInteger(particlesJumpEffect[i].y));//Move particle
+
+					}
 				}
 			}
 			else 
@@ -337,6 +358,15 @@ public:
 					if (playerMoveLeft())
 					{
 						iXScroll -= xvel;
+
+						//Keep the particles in the same spot
+						for (int i = 0; i < 64; ++i)
+						{
+
+							particlesJumpEffect[i].x += integerToFixed(xvel);
+							setObjectPosition(&particleOAMStart[i], fixedToInteger(particlesJumpEffect[i].x), fixedToInteger(particlesJumpEffect[i].y));//Move particle
+
+						}
 					}
 				}
 			}
@@ -352,6 +382,15 @@ public:
 					xvel = walkSpeed;
 					iXScroll -= xvel;
 					animationDelay = walkAnimationDelay;
+
+					//Keep the particles in the same spot
+					for (int i = 0; i < 64; ++i)
+					{
+
+						particlesJumpEffect[i].x += integerToFixed(xvel);
+						setObjectPosition(&particleOAMStart[i], fixedToInteger(particlesJumpEffect[i].x), fixedToInteger(particlesJumpEffect[i].y));//Move particle
+
+					}
 				}
 			}
 			else
@@ -389,19 +428,7 @@ public:
 	/* update the koopa */
 	void playerUpdate()
 	{
-		//Particle update.
-		for (int i = 0; i < 64; ++i)
-		{
-		
-			UpdateParticleOneShot(particles[i], emitter, g_frameTime, g_pixels2Meter, g_gravity);//Updates each particle.
-
-			setObjectPosition(&particleOAMStart[i], fixedToInteger(particles[i].x), fixedToInteger(particles[i].y));//Move particle
-
-			u32 frameID = (1 << 9) - particles[i].life;//Set the frame ID based on the particles life.
-			frameID = frameID << 4 >> 9;//Set the frame ID based on the particles life.
-			particleOAMStart[i].attribute2 = setAttribute2(32 + frameID, 0, 1);//Change the particle frame.
-
-		}
+	
 
 		/* update y position and speed if falling */
 		if (falling)
@@ -424,9 +451,22 @@ public:
 				counter = 0;
 			}
 		}
-		xDir = getAxis(HORIZONTAL);
-		yDir = getAxis(VERTICAL);
 		
+
+		//Particle update.
+		for (int i = 0; i < 64; ++i)
+		{
+
+			UpdateParticleOneShot(particlesJumpEffect[i], emitterJumpEffect, g_frameTime, g_pixels2Meter, g_gravity);//Updates each particle.
+
+			setObjectPosition(&particleOAMStart[i], fixedToInteger(particlesJumpEffect[i].x), fixedToInteger(particlesJumpEffect[i].y));//Move particle
+
+			u32 frameID = (1 << 9) - particlesJumpEffect[i].life;//Set the frame ID based on the particles life.
+			frameID = frameID << 4 >> 9;//Set the frame ID based on the particles life.
+			particleOAMStart[i].attribute2 = setAttribute2(32 + frameID, 0, 1);//Change the particle frame.
+
+		}
+
 		playerCollision();
 		sprite->spriteSetPosition(position.x, position.y);
 
