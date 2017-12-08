@@ -8,6 +8,14 @@ d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge
   d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:23:9: note: 'player.Player::sprite' was declared here
     Player player;//Create the player.
            ^
+  In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/player.h:17:0,
+                   from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:11:
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/particleFunctions.h(52,13): warning GB444C78F: 'player.Player::emitter.Emitter::y' may be used uninitialized in this function [-Wmaybe-uninitialized]
+    if ((a_p.y - a_e.y) < (40 << 8))
+               ^
+  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:23:9: note: 'player.Player::emitter.Emitter::y' was declared here
+    Player player;//Create the player.
+           ^
   linking cartridge
   built ... KoopaRevenge.gba
   ROM fixed!

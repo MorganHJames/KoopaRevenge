@@ -99,17 +99,11 @@ public:
 		g_frameTime = 0x04;
 		g_pixels2Meter = integerToFixed(5);
 
-		emitter.x = integerToFixed((SCREEN_WIDTH >> 1) - 4);
-		emitter.y = integerToFixed((SCREEN_HEIGHT >> 1) - 16);
+	
 
 	    particleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[1];
 
-		for (int i = 0; i < 64; ++i)
-		{
-			EmitParticle(particles[i], emitter);
-			particleOAMStart[i] = particleOAM;
-		}
-
+	
 		// --- ---
 		position.x = 120;
 		position.y = 100;
@@ -264,6 +258,14 @@ public:
 
 		if (keyDown(A))
 		{
+			emitter.x = integerToFixed(position.x + 7);//Move the emiter to the players x pos.
+			emitter.y = integerToFixed(position.y + 31);//Move the emiter to the players y pos.
+			for (int i = 0; i < 64; ++i)
+			{
+				EmitParticle(particles[i], emitter);
+				particleOAMStart[i] = particleOAM;
+			}
+
 			playerJump();
 		}
 		switch (xDir)
@@ -390,12 +392,14 @@ public:
 		//Particle update.
 		for (int i = 0; i < 64; ++i)
 		{
-			UpdateParticle(particles[i], emitter, g_frameTime, g_pixels2Meter, g_gravity);
+		
+			UpdateParticleOneShot(particles[i], emitter, g_frameTime, g_pixels2Meter, g_gravity);//Updates each particle.
 
-			setObjectPosition(&particleOAMStart[i], fixedToInteger(particles[i].x), fixedToInteger(particles[i].y));
-			u32 frameID = (1 << 9) - particles[i].life;
-			frameID = frameID << 4 >> 9;
-			particleOAMStart[i].attribute2 = setAttribute2(32 + frameID, 0, 1);
+			setObjectPosition(&particleOAMStart[i], fixedToInteger(particles[i].x), fixedToInteger(particles[i].y));//Move particle
+
+			u32 frameID = (1 << 9) - particles[i].life;//Set the frame ID based on the particles life.
+			frameID = frameID << 4 >> 9;//Set the frame ID based on the particles life.
+			particleOAMStart[i].attribute2 = setAttribute2(32 + frameID, 0, 1);//Change the particle frame.
 
 		}
 
