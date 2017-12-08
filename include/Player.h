@@ -84,6 +84,10 @@ public:
 	ObjectAttribute particleOAM;
 	ObjectAttribute* particleOAMStart;
 
+	//passed infor to enemy
+	int screenRight;
+	int screenLeft;
+
 	
 
 	void playerInitialization()
@@ -128,6 +132,10 @@ public:
 		animationDelay = 8;
 		xDir = 0;
 		yDir = 0;
+
+		//passed info to enemys
+		screenRight = 0;
+		screenLeft = 0;
 
 
 	}
@@ -271,6 +279,12 @@ public:
 		}
 
 		s32 xDir = getAxis(HORIZONTAL);
+
+
+		screenRight = 0;
+		screenLeft = 0;
+
+
 		switch (xDir)
 		{
 			// Moving Right
@@ -291,6 +305,7 @@ public:
 					if (playerMoveRight())
 					{
 						iXScroll += xvel;
+						screenRight = 1;
 
 						//Keep the particles in the same spot
 						for (int i = 0; i < 64; ++i)
@@ -315,6 +330,7 @@ public:
 				{
 					xvel = walkSpeed;
 					iXScroll += xvel;
+					screenRight = 1;
 					animationDelay = walkAnimationDelay;
 
 					//Keep the particles in the same spot
@@ -359,7 +375,7 @@ public:
 					if (playerMoveLeft())
 					{
 						iXScroll -= xvel;
-
+						screenLeft = 1;
 						//Keep the particles in the same spot
 						for (int i = 0; i < 64; ++i)
 						{
@@ -382,6 +398,7 @@ public:
 				{
 					xvel = walkSpeed;
 					iXScroll -= xvel;
+					screenLeft = 1;
 					animationDelay = walkAnimationDelay;
 
 					//Keep the particles in the same spot
@@ -429,8 +446,6 @@ public:
 	/* update the koopa */
 	void playerUpdate()
 	{
-	
-
 		/* update y position and speed if falling */
 		if (falling)
 		{

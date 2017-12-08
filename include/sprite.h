@@ -91,6 +91,16 @@ public:
 
 
 	}
+
+	void hideSprite()
+	{
+		objectHide(Attribute);
+	}
+
+	void unHideSprite(int a_mode)
+	{
+		objectUnhide(Attribute, a_mode);
+	}
 };
 
 #endif//__SPRITE_H__

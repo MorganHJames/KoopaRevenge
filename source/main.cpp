@@ -61,7 +61,7 @@ int main()
 			pollKeys();
 
 			player.playerUpdate();
-			enemy1.enemyUpdate();
+			enemy1.enemyUpdate(player);
 			//enemy2.enemyUpdate();
 			//enemy3.enemyUpdate();
 

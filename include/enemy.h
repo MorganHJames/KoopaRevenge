@@ -44,11 +44,27 @@ public:
 
 
 	/* update the koopa */
-	void enemyUpdate()
+	void enemyUpdate(Player a_player)
 	{
 
-
-		sprite->spriteSetPosition(position.x, position.y);
+		if (a_player.screenLeft)
+		{
+			position.x += a_player.xvel;
+		}
+		if (a_player.screenRight)
+		{
+			position.x -= a_player.xvel;
+		}
+		//hide and make not affine
+		if (position.x > 0 && position.x < 240)
+		{
+			
+			sprite->spriteSetPosition(position.x, position.y);
+		}
+		else
+		{
+			sprite->spriteSetPosition(0, 160);
+		}
 	}
 
 
