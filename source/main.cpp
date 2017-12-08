@@ -9,6 +9,7 @@
 #include "gba.h"
 #include <string.h>
 #include "player.h"
+#include "enemy.h"
 #include "backgroundFunctions.h"
 #include "gameStates.h"
 
@@ -22,7 +23,15 @@ int main()
 
 	Player player;//Create the player.
 
+	Enemy enemy1;//Creates the first enemy.
+	//Enemy enemy2;//Creates the second enemy.
+	//Enemy enemy3;//Creates the third enemy.
+
 	player.playerInitialization();//PLayer Initialization.
+
+	enemy1.enemyInitialization();//enemy Initialization.
+	//enemy2.enemyInitialization();//enemy Initialization.
+	//enemy3.enemyInitialization();//enemy Initialization.
 
 	loadGameBackground();
 
@@ -36,6 +45,10 @@ int main()
 	directMemoryAccessWordCopy(paletteSpriteBlockAddress(1), particlesPal, particlesPalLen);
 	directMemoryAccessWordCopy(spriteTileBlockAddress(32), particlesTiles, particlesTilesLen);
 
+	//enemy mem
+	directMemoryAccessWordCopy(paletteSpriteBlockAddress(2), marioPal, marioPalLen);
+	directMemoryAccessWordCopy(spriteTileBlockAddress(64), marioTiles, marioTilesLen);
+
 
 	while (1)//Loop forever.
 	{
@@ -48,6 +61,9 @@ int main()
 			pollKeys();
 
 			player.playerUpdate();
+			enemy1.enemyUpdate();
+			//enemy2.enemyUpdate();
+			//enemy3.enemyUpdate();
 
 			verticalSync();
 

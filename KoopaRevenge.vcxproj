@@ -95,6 +95,7 @@
     <ClCompile Include="source\gba_timers.c" />
     <ClCompile Include="source\koopa.c" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\mario.c" />
     <ClCompile Include="source\particles.c" />
     <ClCompile Include="source\sinlut.c" />
     <ClCompile Include="source\splash.c" />
@@ -106,6 +107,7 @@
     <ClInclude Include="include\backgroundFunctions.h" />
     <ClInclude Include="include\backgroundSprites.h" />
     <ClInclude Include="include\collisionMap.h" />
+    <ClInclude Include="include\enemy.h" />
     <ClInclude Include="include\gameStates.h" />
     <ClInclude Include="include\gba.h" />
     <ClInclude Include="include\gba_directMemoryAccesss.h" />
@@ -120,6 +122,7 @@
     <ClInclude Include="include\gba_vector2.h" />
     <ClInclude Include="include\Intellisense.h" />
     <ClInclude Include="include\koopa.h" />
+    <ClInclude Include="include\mario.h" />
     <ClInclude Include="include\particleFunctions.h" />
     <ClInclude Include="include\particles.h" />
     <ClInclude Include="include\player.h" />

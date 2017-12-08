@@ -24,6 +24,7 @@ class Player
 {
 private:
 public:
+
 	/* the actual sprite attribute info */
 	Sprite* sprite;
 
