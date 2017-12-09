@@ -27,7 +27,7 @@ int main()
 	//Enemy enemy2;//Creates the second enemy.
 	//Enemy enemy3;//Creates the third enemy.
 
-	enemy1.enemyInitialization();//enemy Initialization.
+	enemy1.enemyInitialization(player);//enemy Initialization.
 	player.playerInitialization();//PLayer Initialization.
 
 	//enemy2.enemyInitialization();//enemy Initialization.

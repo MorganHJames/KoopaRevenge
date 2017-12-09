@@ -195,7 +195,11 @@ public:
 			falling = 1;
 		}
 	}
+	void playerBounce()
+	{
+		yvel = -jumpHeight;
 
+	}
 
 	void playerCollision()
 	{
