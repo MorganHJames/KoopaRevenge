@@ -202,7 +202,7 @@ public:
 	void playerCollision()
 	{
 		s32 pX = ((position.x + xvel) >> 3) + (iXScroll >> 3);
-		s32 pY = ((position.y + (yvel  )) >> 3) + (iYScroll >> 3);
+		s32 pY = ((position.y + yvel) >> 3) + (iYScroll >> 3);
 
 
 		/* account for wraparound */
