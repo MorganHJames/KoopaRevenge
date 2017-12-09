@@ -42,6 +42,10 @@ public:
 	int counter;
 	int frame;
 	int flip;
+	int animationDelay;
+	int walkAnimationDelay;
+
+	int runAnimationDelay;
 
 	void enemyInitialization()
 	{
@@ -61,18 +65,21 @@ public:
 		yvel = 0;
 		flip = 0;
 		gravity = 1;
-		frame = 0;
+		frame = 64;
 		jumpHeight = 11;
 		counter = 0;
 		walkSpeed = 1;
 		runSpeed = 2;
+		animationDelay = 8;
+		walkAnimationDelay = 8;
+		runAnimationDelay = 4;
 	}
 
 	void enemyMoveLeft()
 	{
 		/* face left */
 		flip = 1;
-		move = 1;
+		//move = 1;
 		position.x -= xvel;
 	}
 
@@ -80,14 +87,17 @@ public:
 	{
 		/* face right */
 		flip = 0;
-		move = 1;
+		//move = 1;
 		position.x += xvel;
 	}
 
 	void enemyJump()
 	{
+		
 		if (!falling)
 		{
+			move = 0;
+			frame = 80;
 			yvel = -jumpHeight;
 			falling = 1;
 		}
@@ -95,10 +105,10 @@ public:
 	void enemyStop()
 	{
 		move = 0;
-		frame = 0;
+		frame = 64;
 		counter = 7;
 		xvel = 0;
-	//	sprite->spriteSetOffset(frame);
+		sprite->spriteSetOffset(frame);
 	}
 
 	void enemyAI(Player a_player)
@@ -143,6 +153,7 @@ public:
 		{
 			yvel = 0;
 			falling = 0;
+			move = 1;
 			//position.y--;
 		}
 		else
@@ -166,11 +177,12 @@ public:
 			{
 				--position.x;
 				enemyJump();
+				
 			}
 			else
 			{
 				xvel = runSpeed;
-				//animationDelay = runAnimationDelay;
+				animationDelay = runAnimationDelay;
 				enemyMoveRight();
 				
 			}
@@ -187,10 +199,15 @@ public:
 			else
 			{
 				xvel = walkSpeed;
-				//animationDelay = runAnimationDelay;
+				animationDelay = runAnimationDelay;
 				enemyMoveRight();
 
 			}
+		}
+		//Stop
+		else if (a_player.position.x == position.x)
+		{
+			enemyStop();
 		}
 
 		//Running left
@@ -205,7 +222,7 @@ public:
 			else
 			{
 				xvel = runSpeed;
-				//animationDelay = runAnimationDelay;
+				animationDelay = runAnimationDelay;
 				enemyMoveLeft();
 
 			}
@@ -222,7 +239,7 @@ public:
 			else
 			{
 				xvel = walkSpeed;
-				//animationDelay = runAnimationDelay;
+				animationDelay = runAnimationDelay;
 				enemyMoveLeft();
 
 			}
@@ -246,8 +263,24 @@ public:
 	{	
 		//sprite flip didn't work for the enemy for some unannounced reason.
 		sprite->Attribute->attribute1 = setAttribute1(position.x, flip, ATTRIBUTE1_SIZE_1);
-
+		sprite->spriteSetOffset(frame);
 		enemyAI(a_player);
+
+
+		if (move)
+		{
+			counter++;
+			if (counter >= animationDelay)
+			{
+				frame += 4;
+				
+				if (frame > 76)
+				{
+					frame = 68;
+				}
+				counter = 0;
+			}
+		}
 
 		/* update y position and speed if falling */
 		if (falling)

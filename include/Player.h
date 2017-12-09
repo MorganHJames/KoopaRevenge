@@ -88,8 +88,6 @@ public:
 	int screenRight;
 	int screenLeft;
 
-	
-
 	void playerInitialization()
 	{
 		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
