@@ -15,7 +15,7 @@
 #include "gba_input.h"
 #include "backgroundFunctions.h"
 #include "particleFunctions.h"
-#include "particles.h"
+#include "smoke.h"
 #include "sinlut.h"
 
 #include "collisionMap.h"
@@ -196,6 +196,13 @@ public:
 		{
 			yvel = -jumpHeight;
 			falling = 1;
+			emitterJumpEffect.x = integerToFixed(position.x + 7);//Move the emiter to the players x pos.
+			emitterJumpEffect.y = integerToFixed(position.y + 31);//Move the emiter to the players y pos.
+			for (int i = 0; i < 64; ++i)
+			{
+				EmitParticle(particlesJumpEffect[i], emitterJumpEffect);
+				particleOAMStart[i] = particleOAM;
+			}
 		}
 	}
 	void playerBounce()
@@ -272,15 +279,10 @@ public:
 
 		if (keyDown(A))
 		{
-			emitterJumpEffect.x = integerToFixed(position.x + 7);//Move the emiter to the players x pos.
-			emitterJumpEffect.y = integerToFixed(position.y + 31);//Move the emiter to the players y pos.
-			for (int i = 0; i < 64; ++i)
-			{
-				EmitParticle(particlesJumpEffect[i], emitterJumpEffect);
-				particleOAMStart[i] = particleOAM;
-			}
-
 			playerJump();
+			
+
+			
 		}
 
 		s32 xDir = getAxis(HORIZONTAL);
@@ -478,7 +480,7 @@ public:
 		
 
 		//Particle update.
-		for (int i = 0; i < 64; ++i)
+		for (int i = 0; i < 32; ++i)
 		{
 
 			UpdateParticleOneShot(particlesJumpEffect[i], emitterJumpEffect, g_frameTime, g_pixels2Meter, g_gravity);//Updates each particle.

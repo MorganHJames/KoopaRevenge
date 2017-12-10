@@ -20,7 +20,7 @@ int main()
 	splash();
 
 	REGISTRY_DISPLAYCONTROL = DISPLAYCONTROL_BACKGROUNDMODE_0 | DISPLAYCONTROL_BACKGROUNDMODE_1 | DISPLAYCONTROL_BACKGROUNDMODE_2 | ENABLE_OBJECTS | DISPLAYCONTROL_VIDEOMODE_0 | MAPPINGMODE_1D;//Set the mode to 0 with background 0.																						   //set up the BG Control Register
-
+	TIMER_3_CONTROL = TIMER_ENABLE | TIMER_CASCADE;
 	setupSprites();//clear all the sprites on screen now 
 
 	Player player;//Create the player.
@@ -42,8 +42,8 @@ int main()
 	directMemoryAccessWordCopy(spriteTileBlockAddress(0), koopaTiles, koopaTilesLen);
 
 	//jump particle mem
-	directMemoryAccessWordCopy(paletteSpriteBlockAddress(1), particlesPal, particlesPalLen);
-	directMemoryAccessWordCopy(spriteTileBlockAddress(32), particlesTiles, particlesTilesLen);
+	directMemoryAccessWordCopy(paletteSpriteBlockAddress(1), smokePal, smokePalLen);
+	directMemoryAccessWordCopy(spriteTileBlockAddress(32), smokeTiles, smokeTilesLen);
 
 	//enemy mem
 	directMemoryAccessWordCopy(paletteSpriteBlockAddress(2), marioPal, marioPalLen);//mario colours

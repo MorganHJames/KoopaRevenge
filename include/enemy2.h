@@ -22,6 +22,7 @@
 /* a struct for the koopa's logic and behavior */
 class Enemy2
 {
+
 private:
 public:
 
@@ -47,6 +48,7 @@ public:
 	int walkAnimationDelay;
 	int alive;
 	int runAnimationDelay;
+	u32 time;
 
 	void enemyInitialization(Player a_player, int objMem)
 	{
@@ -60,7 +62,7 @@ public:
 		falling = 0;
 		runDistance = 100;
 		move = 0;
-
+		time = 0;
 		xvel = 0;
 		yvel = 0;
 		flip = 0;
@@ -174,13 +176,13 @@ public:
 			player.y < enemy.y + enemy.h &&
 			player.h + player.y > enemy.y)
 		{
+			a_player.frameSkip = 16;
 			a_player.invulnerable = 1;
 
+			u32 time = TIMER_3_DATA;
 		}
-
-
-
 	}
+
 
 	void enemyAI(Player& a_player)
 	{
@@ -341,12 +343,18 @@ public:
 	/* update the koopa */
 	void enemyUpdate(Player& a_player)
 	{
+		if (TIMER_3_DATA < (time + (TIMER_SECONED >> 8)))
+		{
+			a_player.frameSkip = 8;
+			a_player.invulnerable = 0;
+		}
 		////sprite flip didn't work for the enemy for some unannounced reason.
 		sprite->Attribute->attribute1 = setAttribute1(position.x, flip, ATTRIBUTE1_SIZE_1);
 		sprite->spriteSetOffset(frame);
 		enemyAI(a_player);
-		//
-		//
+
+		
+
 		if (move)
 		{
 			counter++;
