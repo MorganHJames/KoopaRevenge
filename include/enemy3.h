@@ -165,22 +165,6 @@ public:
 		}
 	}
 
-	void hurtPlayer(Player& a_player)
-	{
-		Vector4 player = { a_player.position.x, a_player.position.y, 16 , 32 };
-		Vector4 enemy = { position.x, position.y, 16 , 16 };
-		//Hurt by player
-		if (player.x < enemy.x + enemy.w &&
-			player.x + player.w > enemy.x &&
-			player.y < enemy.y + enemy.h &&
-			player.h + player.y > enemy.y)
-		{
-			a_player.frameSkip = 16;
-			a_player.invulnerable = 1;
-
-			u32 time = TIMER_3_DATA;
-		}
-	}
 
 
 	void enemyAI(Player& a_player)
@@ -223,7 +207,6 @@ public:
 		if (alive)
 		{
 			gotHit(a_player);
-			hurtPlayer(a_player);
 		}
 
 		if (alive)
@@ -342,12 +325,6 @@ public:
 	/* update the koopa */
 	void enemyUpdate(Player& a_player)
 	{
-		if (TIMER_3_DATA < (time + (TIMER_SECONED >> 8)))
-		{
-			a_player.frameSkip = 8;
-			a_player.invulnerable = 0;
-		}
-
 		////sprite flip didn't work for the enemy for some unannounced reason.
 		sprite->Attribute->attribute1 = setAttribute1(position.x, flip, ATTRIBUTE1_SIZE_1);
 		sprite->spriteSetOffset(frame);

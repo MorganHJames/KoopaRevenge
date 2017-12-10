@@ -18,6 +18,8 @@
 #include "particles.h"
 #include "gba_vector4.h"
 #include "gba_timers.h"
+#include "enemy2.h"
+#include "enemy3.h"
 
 
 /* a struct for the koopa's logic and behavior */
@@ -49,7 +51,6 @@ public:
 	int walkAnimationDelay;
 	int alive;
 	int runAnimationDelay;
-	u32 time;
 
 	void enemyInitialization(Player a_player, int objMem)
 	{
@@ -59,11 +60,9 @@ public:
 
 
 		spawnEnemy(a_player);
-
 		falling = 0;
 		runDistance = 100;
 		move = 0;
-		time = 0;
 		xvel = 0;
 		yvel = 0;
 		flip = 0;
@@ -167,21 +166,6 @@ public:
 		}
 	}
 
-	void hurtPlayer(Player& a_player)
-	{
-		Vector4 player = { a_player.position.x, a_player.position.y, 16 , 32 };
-		Vector4 enemy = { position.x, position.y, 16 , 16 };
-		//Hurt by player
-		if (player.x < enemy.x + enemy.w &&
-			player.x + player.w > enemy.x &&
-			player.y < enemy.y + enemy.h &&
-			player.h + player.y > enemy.y)
-		{
-			a_player.frameSkip = 16;
-			a_player.invulnerable = 1;
-			u32 time = TIMER_3_DATA;
-		}
-	}
 
 
 	void enemyAI(Player& a_player)
@@ -224,7 +208,6 @@ public:
 		if (alive)
 		{
 			gotHit(a_player);
-			hurtPlayer(a_player);
 		}
 
 		if (alive)
@@ -340,21 +323,47 @@ public:
 
 	}
 
-	/* update the koopa */
-	void enemyUpdate(Player& a_player)
+	void hurtPlayer(Player& a_player, Enemy2& a_enemy2, Enemy3& a_enemy3 )
 	{
-		if (TIMER_3_DATA < (time + (TIMER_SECONED >> 8)))
+		Vector4 player = { a_player.position.x, a_player.position.y, 16 , 32 };
+		Vector4 enemy = { position.x, position.y, 16 , 16 };
+		Vector4 enemy2 = { a_enemy2.position.x, a_enemy2.position.y, 16 , 16 };
+		Vector4 enemy3 = { a_enemy2.position.x, a_enemy2.position.y, 16 , 16 };
+		//Hurt by player
+		if (player.x < enemy.x + enemy.w &&
+			player.x + player.w > enemy.x &&
+			player.y < enemy.y + enemy.h &&
+			player.h + player.y > enemy.y ||
+
+			player.x < enemy2.x + enemy2.w &&
+			player.x + player.w > enemy2.x &&
+			player.y < enemy.y + enemy2.h &&
+			player.h + player.y > enemy.y ||
+
+			player.x < enemy3.x + enemy3.w &&
+			player.x + player.w > enemy3.x &&
+			player.y < enemy3.y + enemy3.h &&
+			player.h + player.y > enemy3.y )
+		{
+			a_player.frameSkip = 16;
+			a_player.invulnerable = 1;
+		}
+		else
 		{
 			a_player.frameSkip = 8;
 			a_player.invulnerable = 0;
 		}
-		////sprite flip didn't work for the enemy for some unannounced reason.
+	}
+
+	/* update the koopa */
+	void enemyUpdate(Player& a_player, Enemy2& a_enemy2, Enemy3& a_enemy3)
+	{
+
+		//sprite flip didn't work for the enemy for some unannounced reason.
 		sprite->Attribute->attribute1 = setAttribute1(position.x, flip, ATTRIBUTE1_SIZE_1);
 		sprite->spriteSetOffset(frame);
 		enemyAI(a_player);
-
-		
-
+		hurtPlayer(a_player, a_enemy2, a_enemy3);
 		if (move)
 		{
 			counter++;

@@ -207,9 +207,11 @@ public:
 	}
 	void playerBounce()
 	{
-		yvel = -jumpHeight;
+		yvel = -(jumpHeight >> 1) ;
 
 	}
+
+	
 
 	void playerCollision()
 	{

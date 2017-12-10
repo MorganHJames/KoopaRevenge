@@ -62,9 +62,11 @@ int main()
 
 			player.playerUpdate();
 
-			enemy1.enemyUpdate(player);
+			
 			enemy2.enemyUpdate(player);
 			enemy3.enemyUpdate(player);
+			enemy1.enemyUpdate(player, enemy2, enemy3);
+
 			verticalSync();
 
 		}
