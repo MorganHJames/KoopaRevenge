@@ -326,24 +326,31 @@ public:
 	void hurtPlayer(Player& a_player, Enemy2& a_enemy2, Enemy3& a_enemy3 )
 	{
 		Vector4 player = { a_player.position.x, a_player.position.y, 16 , 32 };
-		Vector4 enemy = { position.x, position.y, 16 , 16 };
+		Vector4 enemy = { this->position.x, this->position.y, 16 , 16 };
 		Vector4 enemy2 = { a_enemy2.position.x, a_enemy2.position.y, 16 , 16 };
-		Vector4 enemy3 = { a_enemy2.position.x, a_enemy2.position.y, 16 , 16 };
+		Vector4 enemy3 = { a_enemy3.position.x, a_enemy3.position.y, 16 , 16 };
 		//Hurt by player
-		if (player.x < enemy.x + enemy.w &&
+		if (
+			(player.x < enemy.x + enemy.w &&
 			player.x + player.w > enemy.x &&
 			player.y < enemy.y + enemy.h &&
-			player.h + player.y > enemy.y ||
+			player.h + player.y > enemy.y && alive == 1 )
+			
+			||
 
-			player.x < enemy2.x + enemy2.w &&
+			(player.x < enemy2.x + enemy2.w &&
 			player.x + player.w > enemy2.x &&
-			player.y < enemy.y + enemy2.h &&
-			player.h + player.y > enemy.y ||
+			player.y < enemy2.y + enemy2.h &&
+			player.h + player.y > enemy2.y && a_enemy2.alive == 1 )
+			
+			||
 
-			player.x < enemy3.x + enemy3.w &&
+			(player.x < enemy3.x + enemy3.w &&
 			player.x + player.w > enemy3.x &&
 			player.y < enemy3.y + enemy3.h &&
-			player.h + player.y > enemy3.y )
+			player.h + player.y > enemy3.y && a_enemy3.alive == 1)
+			
+			)
 		{
 			a_player.frameSkip = 16;
 			a_player.invulnerable = 1;
@@ -354,7 +361,7 @@ public:
 			a_player.invulnerable = 0;
 		}
 	}
-
+		
 	/* update the koopa */
 	void enemyUpdate(Player& a_player, Enemy2& a_enemy2, Enemy3& a_enemy3)
 	{
