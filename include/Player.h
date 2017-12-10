@@ -461,7 +461,7 @@ public:
 			yvel += gravity;
 		}
 
-		if (move)
+		if (move || invulnerable)
 		{
 			counter++;
 			if (counter >= animationDelay)

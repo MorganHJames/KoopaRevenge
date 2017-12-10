@@ -2,15 +2,15 @@
   arm-none-eabi-g++ -MMD -MP -MF /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/build/main.d -g -Wall -O3 -mcpu=arm7tdmi -mtune=arm7tdmi -fomit-frame-pointer -ffast-math -mthumb -mthumb-interwork -iquote /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include -I/c/devkitPro/libgba/include -I/d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/build -fno-rtti -fno-exceptions -c /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp -o main.o 
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:12:0:
   d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h: In function 'int main()':
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h(275,6): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h(298,6): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
         if (a_player.position.x + runDistance < position.x)
         ^
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:13:0:
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy2.h(272,4): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy2.h(294,4): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
       if (a_player.position.x + runDistance < position.x)
       ^
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:14:0:
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy3.h(273,4): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy3.h(294,4): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
       if (a_player.position.x + runDistance < position.x)
       ^
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:12:0:
@@ -33,6 +33,21 @@ d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge
                                                                 ^
   d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:30:9: note: 'enemy3.Enemy3::sprite' was declared here
     Enemy3 enemy3;//Creates the third enemy.
+           ^
+  In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:11:0:
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/player.h(95,57): warning GD44A65DF: 'player.Player::sprite' is used uninitialized in this function [-Wuninitialized]
+     sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
+                                                           ^
+  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:26:9: note: 'player.Player::sprite' was declared here
+    Player player;//Create the player.
+           ^
+  In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/player.h:17:0,
+                   from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:11:
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/particleFunctions.h(50,13): warning G826543E3: 'player.Player::emitterJumpEffect.Emitter::y' may be used uninitialized in this function [-Wmaybe-uninitialized]
+    if ((a_p.y - a_e.y) < (40 << 8))
+               ^
+  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:26:9: note: 'player.Player::emitterJumpEffect.Emitter::y' was declared here
+    Player player;//Create the player.
            ^
   linking cartridge
   built ... KoopaRevenge.gba

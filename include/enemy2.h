@@ -142,7 +142,7 @@ public:
 		sprite->spriteSetOffset(frame);
 	}
 
-	void gotHit(Player a_player)
+	void gotHit(Player& a_player)
 	{
 		Vector4 playerFeet = { a_player.position.x, a_player.position.y + 32, 16 , 8 };
 		Vector4 enemyHead = { position.x, position.y, 16 , 8 };
@@ -152,10 +152,11 @@ public:
 			playerFeet.y < enemyHead.y + enemyHead.h &&
 			playerFeet.h + playerFeet.y > enemyHead.y  && a_player.yvel > 0)
 		{
+			alive = 0;
 			// collision detected!
 			a_player.playerBounce();
 			move = 0;
-			alive = 0;
+
 			frame = 84;
 			falling = 1;
 			yvel = -jumpHeight;
@@ -163,7 +164,25 @@ public:
 		}
 	}
 
-	void enemyAI(Player a_player)
+	void hurtPlayer(Player& a_player)
+	{
+		Vector4 player = { a_player.position.x, a_player.position.y, 16 , 32 };
+		Vector4 enemy = { position.x, position.y, 16 , 16 };
+		//Hurt by player
+		if (player.x < enemy.x + enemy.w &&
+			player.x + player.w > enemy.x &&
+			player.y < enemy.y + enemy.h &&
+			player.h + player.y > enemy.y)
+		{
+			a_player.invulnerable = 1;
+
+		}
+
+
+
+	}
+
+	void enemyAI(Player& a_player)
 	{
 		s32 pX = ((position.x + xvel) >> 3) + (a_player.iXScroll >> 3);
 		s32 pY = ((position.y + yvel) >> 3) + (a_player.iYScroll >> 3);
@@ -203,9 +222,12 @@ public:
 		if (alive)
 		{
 			gotHit(a_player);
+			hurtPlayer(a_player);
 		}
+
 		if (alive)
 		{
+			gotHit(a_player);
 			//Down collision
 			if (collisionMap[BL] > 0 || collisionMap[BR] > 0)
 			{
@@ -317,7 +339,7 @@ public:
 	}
 
 	/* update the koopa */
-	void enemyUpdate(Player a_player)
+	void enemyUpdate(Player& a_player)
 	{
 		////sprite flip didn't work for the enemy for some unannounced reason.
 		sprite->Attribute->attribute1 = setAttribute1(position.x, flip, ATTRIBUTE1_SIZE_1);
