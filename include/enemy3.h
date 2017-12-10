@@ -200,7 +200,10 @@ public:
 		s32 ITR = pX + pY + 2;
 		s32 IBR = pX + pY + collisionMapWidth + 2;
 
-		gotHit(a_player);
+		if (alive)
+		{
+			gotHit(a_player);
+		}
 
 		if (alive)
 		{

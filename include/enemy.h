@@ -152,10 +152,11 @@ public:
 			playerFeet.y < enemyHead.y + enemyHead.h &&
 			playerFeet.h + playerFeet.y > enemyHead.y  && a_player.yvel > 0)
 		{
+			alive = 0;
 			// collision detected!
 			a_player.playerBounce();
 			move = 0;
-			alive = 0;
+			
 			frame = 84;
 			falling = 1;
 			yvel = -jumpHeight;
@@ -200,10 +201,14 @@ public:
 		s32 ITR = pX + pY + 2;
 		s32 IBR = pX + pY + collisionMapWidth + 2;
 		
-		gotHit(a_player);
-		
+		if (alive)
+		{
+			gotHit(a_player);
+		}
+
 	    if (alive)
 	    {
+			gotHit(a_player);
 	    	//Down collision
 	    	if (collisionMap[BL] > 0 || collisionMap[BR] > 0)
 	    	{
