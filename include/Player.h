@@ -16,6 +16,7 @@
 #include "backgroundFunctions.h"
 #include "particleFunctions.h"
 #include "particles.h"
+#include "sinlut.h"
 
 #include "collisionMap.h"
 
@@ -72,7 +73,8 @@ public:
 	int falling;
 	int xDir;
 	int yDir;
-
+	int frameSkip;
+	int invulnerable;
 
 	//Particles
 
@@ -130,7 +132,8 @@ public:
 		animationDelay = 8;
 		xDir = 0;
 		yDir = 0;
-
+		frameSkip = 8;
+		invulnerable = 0;
 		//passed info to enemys
 		screenRight = 0;
 		screenLeft = 0;
@@ -432,7 +435,10 @@ public:
 		// Not moving
 		case 0:
 		{
-			playerStop();
+			if (invulnerable == 0)
+			{
+				playerStop(); 
+			}
 
 			break;
 		}
@@ -460,8 +466,8 @@ public:
 			counter++;
 			if (counter >= animationDelay)
 			{
-				frame = frame + 8;
-				if (frame > 8)
+				frame = frame + frameSkip;
+				if (frame > frameSkip)
 				{
 					frame = 0;
 				}
@@ -492,6 +498,7 @@ public:
 		REGISTRY_BACKGROUND_OFF_SET[0].s16Y = iYScroll;
 		REGISTRY_BACKGROUND_OFF_SET[1].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground2Offset));
 		REGISTRY_BACKGROUND_OFF_SET[2].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground3Offset));
+		
 
 	}
 

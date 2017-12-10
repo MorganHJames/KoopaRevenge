@@ -158,5 +158,11 @@
     <ClInclude Include="include\enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\enemy2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enemy3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

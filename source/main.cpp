@@ -10,6 +10,8 @@
 #include <string.h>
 #include "player.h"
 #include "enemy.h"
+#include "enemy2.h"
+#include "enemy3.h"
 #include "backgroundFunctions.h"
 #include "gameStates.h"
 
@@ -24,14 +26,12 @@ int main()
 	Player player;//Create the player.
 
 	Enemy enemy1;//Creates the first enemy.
-	//Enemy enemy2;//Creates the second enemy.
-	//Enemy enemy3;//Creates the third enemy.
-
-	enemy1.enemyInitialization(player);//enemy Initialization.
+	Enemy2 enemy2;//Creates the seconed enemy.
+	Enemy3 enemy3;//Creates the third enemy.
+	enemy1.enemyInitialization(player, 65);//enemy Initialization.
+	enemy2.enemyInitialization(player, 66);//enemy Initialization.
+	enemy3.enemyInitialization(player, 67);//enemy Initialization.
 	player.playerInitialization();//PLayer Initialization.
-
-	//enemy2.enemyInitialization();//enemy Initialization.
-	//enemy3.enemyInitialization();//enemy Initialization.
 
 	loadGameBackground();
 
@@ -46,9 +46,9 @@ int main()
 	directMemoryAccessWordCopy(spriteTileBlockAddress(32), particlesTiles, particlesTilesLen);
 
 	//enemy mem
-	directMemoryAccessWordCopy(paletteSpriteBlockAddress(2), marioPal, marioPalLen);
+	directMemoryAccessWordCopy(paletteSpriteBlockAddress(2), marioPal, marioPalLen);//mario colours
+	directMemoryAccessWordCopy(paletteSpriteBlockAddress(3), luigiPal, luigiPalLen);//luigi  colours
 	directMemoryAccessWordCopy(spriteTileBlockAddress(64), marioTiles, marioTilesLen);
-
 
 	while (1)//Loop forever.
 	{
@@ -61,10 +61,10 @@ int main()
 			pollKeys();
 
 			player.playerUpdate();
-			enemy1.enemyUpdate(player);
-			//enemy2.enemyUpdate();
-			//enemy3.enemyUpdate();
 
+			enemy1.enemyUpdate(player);
+			enemy2.enemyUpdate(player);
+			enemy3.enemyUpdate(player);
 			verticalSync();
 
 		}

@@ -23,6 +23,9 @@ extern const unsigned short marioTiles[384];
 #define marioPalLen 32
 extern const unsigned short marioPal[16];
 
+#define luigiPalLen 32
+extern const unsigned short luigiPal[16];
+
 #endif // GRIT_MARIO_H
 
 //}}BLOCK(mario)

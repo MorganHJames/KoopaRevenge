@@ -1,12 +1,12 @@
 //\===========================================================================================
-//\ File: enemy.h
+//\ File: enemy2.h
 //\ Author: Morgan James
 //\ Date Created: 08/12/2017
 //\ Brief:
 //\===========================================================================================
 
-#ifndef __ENEMY_H__
-#define __ENEMY_H__
+#ifndef __ENEMY2_H__
+#define __ENEMY2_H__
 
 #include "sprite.h"
 #include "gba_graphics.h"
@@ -20,7 +20,7 @@
 
 
 /* a struct for the koopa's logic and behavior */
-class Enemy
+class Enemy2
 {
 private:
 public:
@@ -53,7 +53,7 @@ public:
 		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[objMem];
 		sprite->Attribute->attribute0 = setAttribute0(0, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
 		sprite->Attribute->attribute1 = setAttribute1(0, 0, ATTRIBUTE1_SIZE_1);
-		
+
 
 		spawnEnemy(a_player);
 
@@ -78,10 +78,10 @@ public:
 
 	void spawnEnemy(Player a_player)
 	{
-		
+
 		int pallete = 0;
 		position.y = 0;//Sets the enemy's y to be 0 so its at the top of the screen and wont spawn in any terrain.
-		
+
 		int side = quasiRandomRange(0, 1000);//Picks a side for the player to spawn on.
 
 		if (side > 500)//Left side chosen.
@@ -159,7 +159,7 @@ public:
 			frame = 84;
 			falling = 1;
 			yvel = -jumpHeight;
-			
+
 		}
 	}
 
@@ -199,181 +199,181 @@ public:
 
 		s32 ITR = pX + pY + 2;
 		s32 IBR = pX + pY + collisionMapWidth + 2;
-		
+
 		gotHit(a_player);
-		
-	    if (alive)
-	    {
-	    	//Down collision
-	    	if (collisionMap[BL] > 0 || collisionMap[BR] > 0)
-	    	{
-	    	yvel = 0;
-	    	falling = 0;
-	    	move = 1;
-	    		//position.y--;
-	    	}
-	    	else
-	    	{
-	    		/* he is falling now */
-	    		falling = 1;
-	    	}
-	    
-	    ////Up collision
-	    if (collisionMap[TL] > 0 || collisionMap[TR] > 0)
-	    {
-	    	yvel = 0;
-	    
-	    }
-	    
-	    //Running right
-	    if (a_player.position.x - runDistance > position.x)
-	    {
-	    	//Right collision
-	    	if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0)
-	    	{
-	    		--position.x;
-	    		enemyJump();
-	    
-	    	}
-	    	else
-	    	{
-	    		xvel = runSpeed;
-	    		animationDelay = runAnimationDelay;
-	    		enemyMoveRight();
-	    
-	    	}
-	    }
-	    //Walk right
-	    else if (a_player.position.x > position.x)
-	    {
-	    	//Right collision
-	    	if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0)
-	    	{
-	    		--position.x;
-	    		enemyJump();
-	    	}
-	    	else
-	    	{
-	    		xvel = walkSpeed;
-	    		animationDelay = runAnimationDelay;
-	    		enemyMoveRight();
-	    
-	    	}
-	    }
-	    //Stop
-	    else if (a_player.position.x == position.x)
-	    {
-	    	enemyStop();
-	    }
-	    
-	    //Running left
-	    if (a_player.position.x + runDistance < position.x)
-	    {
-	    	//left collision
-	    	if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0)
-	    	{
-	    		++position.x;
-	    		enemyJump();
-	    	}
-	    	else
-	    	{
-	    		xvel = runSpeed;
-	    		animationDelay = runAnimationDelay;
-	    		enemyMoveLeft();
-	    
-	    	}
-	    }
-	    //Walk left
-	    else if (a_player.position.x < position.x)
-	    {
-	    	//left collision
-	    	if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0)
-	    	{
-	    		++position.x;
-	    		enemyJump();
-	    	}
-	    	else
-	    	{
-	    		xvel = walkSpeed;
-	    		animationDelay = runAnimationDelay;
-	    		enemyMoveLeft();
-	    
-	    	}
-	    }
-	    
-	    
-	    
-	    //Stop
-	    else if (a_player.position.x == position.x)
-	    {
-	    	enemyStop();
-	    }
-	    
-	    }
+
+		if (alive)
+		{
+			//Down collision
+			if (collisionMap[BL] > 0 || collisionMap[BR] > 0)
+			{
+				yvel = 0;
+				falling = 0;
+				move = 1;
+				//position.y--;
+			}
+			else
+			{
+				/* he is falling now */
+				falling = 1;
+			}
+
+			////Up collision
+			if (collisionMap[TL] > 0 || collisionMap[TR] > 0)
+			{
+				yvel = 0;
+
+			}
+
+			//Running right
+			if (a_player.position.x - runDistance > position.x)
+			{
+				//Right collision
+				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0)
+				{
+					--position.x;
+					enemyJump();
+
+				}
+				else
+				{
+					xvel = runSpeed;
+					animationDelay = runAnimationDelay;
+					enemyMoveRight();
+
+				}
+			}
+			//Walk right
+			else if (a_player.position.x > position.x)
+			{
+				//Right collision
+				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0)
+				{
+					--position.x;
+					enemyJump();
+				}
+				else
+				{
+					xvel = walkSpeed;
+					animationDelay = runAnimationDelay;
+					enemyMoveRight();
+
+				}
+			}
+			//Stop
+			else if (a_player.position.x == position.x)
+			{
+				enemyStop();
+			}
+
+			//Running left
+			if (a_player.position.x + runDistance < position.x)
+			{
+				//left collision
+				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0)
+				{
+					++position.x;
+					enemyJump();
+				}
+				else
+				{
+					xvel = runSpeed;
+					animationDelay = runAnimationDelay;
+					enemyMoveLeft();
+
+				}
+			}
+			//Walk left
+			else if (a_player.position.x < position.x)
+			{
+				//left collision
+				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0)
+				{
+					++position.x;
+					enemyJump();
+				}
+				else
+				{
+					xvel = walkSpeed;
+					animationDelay = runAnimationDelay;
+					enemyMoveLeft();
+
+				}
+			}
+
+
+
+			//Stop
+			else if (a_player.position.x == position.x)
+			{
+				enemyStop();
+			}
+
+		}
 
 
 	}
 
 	/* update the koopa */
 	void enemyUpdate(Player a_player)
-	{	
+	{
 		////sprite flip didn't work for the enemy for some unannounced reason.
 		sprite->Attribute->attribute1 = setAttribute1(position.x, flip, ATTRIBUTE1_SIZE_1);
 		sprite->spriteSetOffset(frame);
 		enemyAI(a_player);
 		//
 		//
-	    if (move)
-	    {
-	    	counter++;
-	    	if (counter >= animationDelay)
-	    	{
-	    		frame += 4;
-	    		
-	    		if (frame > 76)
-	    		{
-	    			frame = 68;
-	    		}
-	    		counter = 0;
-	    	}
-	    }
-	    
-	    /* update y position and speed if falling */
-	    if (falling)
-	    {
-	    	position.y += yvel;
-	    	yvel += gravity;
-	    }
-	    
-	    
-	    if (a_player.screenLeft)
-	    {
-	    	position.x += a_player.xvel;
-	    }
-	    if (a_player.screenRight)
-	    {
-	    	position.x -= a_player.xvel;
-	    }
-	    
-	    
-	    if (position.x > 0 && position.x < 240)
-	    {
-	    	sprite->spriteSetPosition(position.x, position.y);
-	    
-	    }
-	    else
-	    {
-	    	sprite->spriteSetPosition(0, 160);
-	    }
-	    if (position.y > 160)
-	    {
-	    	spawnEnemy(a_player);
-	    	alive = 1;
-	    }
+		if (move)
+		{
+			counter++;
+			if (counter >= animationDelay)
+			{
+				frame += 4;
+
+				if (frame > 76)
+				{
+					frame = 68;
+				}
+				counter = 0;
+			}
+		}
+
+		/* update y position and speed if falling */
+		if (falling)
+		{
+			position.y += yvel;
+			yvel += gravity;
+		}
+
+
+		if (a_player.screenLeft)
+		{
+			position.x += a_player.xvel;
+		}
+		if (a_player.screenRight)
+		{
+			position.x -= a_player.xvel;
+		}
+
+
+		if (position.x > 0 && position.x < 240)
+		{
+			sprite->spriteSetPosition(position.x, position.y);
+
+		}
+		else
+		{
+			sprite->spriteSetPosition(0, 160);
+		}
+		if (position.y > 160)
+		{
+			spawnEnemy(a_player);
+			alive = 1;
+		}
 	}
 
 
 
 };
 
-#endif//__ENEMY_H__
+#endif//__ENEMY2_H__
