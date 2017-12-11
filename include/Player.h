@@ -75,6 +75,8 @@ public:
 	int yDir;
 	int frameSkip;
 	int invulnerable;
+	int lives;
+	int score;
 
 	//Particles
 
@@ -95,7 +97,7 @@ public:
 		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
 		sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
 		sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
-		sprite->Attribute->attribute2 = setAttribute2(0, 0, 0);
+		sprite->Attribute->attribute2 = setAttribute2(0, 1, 0);
 
 
 		// --- Particles ---
@@ -117,6 +119,7 @@ public:
 		jumpHeight = 11;
 		walkSpeed = 1;
 		runSpeed = 2;
+		lives = 3;
 		iXScroll = 0;
 		iYScroll = 80;
 		iXSrollBackground2Offset = fixedDivide(integerToFixed(75), integerToFixed(100));
@@ -132,6 +135,7 @@ public:
 		animationDelay = 8;
 		xDir = 0;
 		yDir = 0;
+		score = 0;
 		frameSkip = 8;
 		invulnerable = 0;
 		//passed info to enemys

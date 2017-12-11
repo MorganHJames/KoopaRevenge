@@ -103,7 +103,7 @@ public:
 		}
 
 
-		sprite->Attribute->attribute2 = setAttribute2(64, 0, pallete);
+		sprite->Attribute->attribute2 = setAttribute2(64, 1, pallete);
 		position.x = side;
 	}
 
@@ -351,8 +351,16 @@ public:
 			
 			)
 		{
-			a_player.frameSkip = 16;
-			a_player.invulnerable = 1;
+			
+			if (a_player.invulnerable == 0)
+			{
+				a_player.lives--;
+				a_player.frameSkip = 16;
+				a_player.invulnerable = 1;
+				
+			}
+			
+			
 		}
 		else
 		{

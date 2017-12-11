@@ -94,14 +94,14 @@ void loadGameBackground()
 	
 
 	// Set up the background control register
-	setBackgroundControlRegister(0, 0, 0, 0, 0, 16, 0, BACKGROUND_REGISTRY_SIZE_64x32);
-	setBackgroundControlRegister(1, 1, 0, 0, 0, 18, 0, BACKGROUND_REGISTRY_SIZE_64x32);
-	setBackgroundControlRegister(2, 2, 0, 0, 0, 20, 0, BACKGROUND_REGISTRY_SIZE_64x32);
+	setBackgroundControlRegister(0, 1, 0, 0, 0, 16, 0, BACKGROUND_REGISTRY_SIZE_64x32);
+	setBackgroundControlRegister(1, 2, 0, 0, 0, 18, 0, BACKGROUND_REGISTRY_SIZE_64x32);
+	setBackgroundControlRegister(2, 3, 0, 0, 0, 20, 0, BACKGROUND_REGISTRY_SIZE_64x32);
 
 	//Move the maps the correct starting positions
 	REGISTRY_BACKGROUND_OFF_SET[0].s16Y = 80;
 	REGISTRY_BACKGROUND_OFF_SET[1].s16Y = 80;
-	REGISTRY_BACKGROUND_OFF_SET[2].s16Y = 80;
+	REGISTRY_BACKGROUND_OFF_SET[2].s16Y = 45;
 
 }
 

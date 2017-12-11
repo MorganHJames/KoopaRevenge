@@ -104,7 +104,7 @@ public:
 		}
 
 
-		sprite->Attribute->attribute2 = setAttribute2(64, 0, pallete);
+		sprite->Attribute->attribute2 = setAttribute2(64, 1, pallete);
 		position.x = side;
 	}
 

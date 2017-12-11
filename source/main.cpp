@@ -65,8 +65,16 @@ int main()
 
 	Text lives;
 	lives.textInitialization(5, 8);
-	lives.drawText("LIVES",50,50, spriteManager);
-
+	lives.drawText("LIVES", 1, 1, spriteManager);
+	Text livesLeft;
+	livesLeft.textInitialization(1, 8);
+	livesLeft.drawText("3", 45, 1, spriteManager);
+	//Text score;
+	//lives.textInitialization(5, 8);
+	//lives.drawText("SCORE", 100, 1, spriteManager);
+	//Text scoreValue;
+	//livesLeft.textInitialization(3, 8);
+	//livesLeft.drawText("000", 146, 1, spriteManager);
 
 	while (1)//Loop forever.
 	{
@@ -83,7 +91,16 @@ int main()
 			enemy2.enemyUpdate(player);
 			enemy3.enemyUpdate(player);
 			
-			lives.updateText("LIVES", 50, 50, spriteManager);
+			lives.updateText("LIVES", 1, 1, spriteManager);
+			lives.updateText("SCORE", 1, 1, spriteManager);
+
+
+			char livesLeftChar[] = { '0' + player.lives, '\0' };
+			
+			livesLeft.updateText(livesLeftChar, 45, 1, spriteManager);
+			
+			
+
 			verticalSync();
 
 		}

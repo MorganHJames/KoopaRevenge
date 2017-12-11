@@ -12,11 +12,20 @@ d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge
          ^
   d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp: In function 'int main()':
 d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(68,45): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-    lives.drawText("LIVES",50,50, spriteManager);
+    lives.drawText("LIVES", 1, 1, spriteManager);
                                                ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(87,51): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-      lives.updateText("LIVES", 50, 50, spriteManager);
-                                                     ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(71,46): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+    livesLeft.drawText("3", 45, 1, spriteManager);
+                                                ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(94,49): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+      lives.updateText("LIVES", 1, 1, spriteManager);
+                                                   ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(95,49): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+      lives.updateText("SCORE", 1, 1, spriteManager);
+                                                   ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(98,33): warning G8668B7F5: narrowing conversion of '(player.Player::lives + 48)' from 'int' to 'char' inside { } is ill-formed in C++11 [-Wnarrowing]
+      char livesLeftChar[] = { '0' + player.lives, '\0' };
+                                   ^
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:12:0:
 d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h(278,4): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
       if (a_player.position.x + runDistance < position.x)
@@ -32,7 +41,7 @@ d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge
       if (a_player.position.x + runDistance < position.x)
       ^
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:11:0:
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/player.h(95,99): warning GD44A65DF: 'player.Player::sprite' is used uninitialized in this function [-Wuninitialized]
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/player.h(97,99): warning GD44A65DF: 'player.Player::sprite' is used uninitialized in this function [-Wuninitialized]
      sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
                                                                                                      ^
   d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:31:9: note: 'player.Player::sprite' was declared here
