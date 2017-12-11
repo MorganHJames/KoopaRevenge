@@ -52,12 +52,11 @@ public:
 	int alive;
 	int runAnimationDelay;
 
-	void enemyInitialization(Player a_player, int objMem)
+	void enemyInitialization(SpriteManager& a_spriteManager, Player a_player, int objMem)
 	{
-		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[objMem];
+		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
 		sprite->Attribute->attribute0 = setAttribute0(0, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
 		sprite->Attribute->attribute1 = setAttribute1(0, 0, ATTRIBUTE1_SIZE_1);
-
 
 		spawnEnemy(a_player);
 		falling = 0;

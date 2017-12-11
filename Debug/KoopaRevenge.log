@@ -1,8 +1,28 @@
 ﻿  main.cpp
   arm-none-eabi-g++ -MMD -MP -MF /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/build/main.d -g -Wall -O3 -mcpu=arm7tdmi -mtune=arm7tdmi -fomit-frame-pointer -ffast-math -mthumb -mthumb-interwork -iquote /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include -I/c/devkitPro/libgba/include -I/d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/build -fno-rtti -fno-exceptions -c /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp -o main.o 
+  In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/player.h:20:0,
+                   from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:11:
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/spriteManager.h(17,35): warning G7AEDA003: non-static data member initializers only available with -std=c++11 or -std=gnu++11
+    int activatedSpriteAttributes = -1;
+                                     ^
+  In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:18:0:
+  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/textFunctions.h: In member function 'void Text::drawText(char*, u8, u8, SpriteManager&)':
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/textFunctions.h(55,7): warning G7C671A4C: unused variable 'objectTilesPosition' [-Wunused-variable]
+      u8 objectTilesPosition = 96;
+         ^
+  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp: In function 'int main()':
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(68,45): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+    lives.drawText("LIVES",50,50, spriteManager);
+                                               ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(87,51): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+      lives.updateText("LIVES", 50, 50, spriteManager);
+                                                     ^
+  In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:12:0:
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h(278,4): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
+      if (a_player.position.x + runDistance < position.x)
+      ^
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h:21:0,
                    from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:12:
-  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy2.h: In function 'int main()':
 d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy2.h(277,4): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
       if (a_player.position.x + runDistance < position.x)
       ^
@@ -11,45 +31,42 @@ d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge
 d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy3.h(278,4): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
       if (a_player.position.x + runDistance < position.x)
       ^
+  In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:11:0:
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/player.h(95,99): warning GD44A65DF: 'player.Player::sprite' is used uninitialized in this function [-Wuninitialized]
+     sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
+                                                                                                     ^
+  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:31:9: note: 'player.Player::sprite' was declared here
+    Player player;//Create the player.
+           ^
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:12:0:
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h(279,4): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
-      if (a_player.position.x + runDistance < position.x)
-      ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h(57,62): warning GEDE312F0: 'enemy1.Enemy::sprite' is used uninitialized in this function [-Wuninitialized]
-     sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[objMem];
-                                                                ^
-  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:28:8: note: 'enemy1.Enemy::sprite' was declared here
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h(57,99): warning GEDE312F0: 'enemy1.Enemy::sprite' is used uninitialized in this function [-Wuninitialized]
+     sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
+                                                                                                     ^
+  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:34:8: note: 'enemy1.Enemy::sprite' was declared here
     Enemy enemy1;//Creates the first enemy.
           ^
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h:21:0,
                    from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:12:
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy2.h(55,62): warning GAF63757B: 'enemy2.Enemy2::sprite' is used uninitialized in this function [-Wuninitialized]
-     sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[objMem];
-                                                                ^
-  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:29:9: note: 'enemy2.Enemy2::sprite' was declared here
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy2.h(55,99): warning GAF63757B: 'enemy2.Enemy2::sprite' is used uninitialized in this function [-Wuninitialized]
+     sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
+                                                                                                     ^
+  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:37:9: note: 'enemy2.Enemy2::sprite' was declared here
     Enemy2 enemy2;//Creates the seconed enemy.
            ^
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h:22:0,
                    from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:12:
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy3.h(54,62): warning GBD8E9289: 'enemy3.Enemy3::sprite' is used uninitialized in this function [-Wuninitialized]
-     sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[objMem];
-                                                                ^
-  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:30:9: note: 'enemy3.Enemy3::sprite' was declared here
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy3.h(54,99): warning GBD8E9289: 'enemy3.Enemy3::sprite' is used uninitialized in this function [-Wuninitialized]
+     sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
+                                                                                                     ^
+  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:40:9: note: 'enemy3.Enemy3::sprite' was declared here
     Enemy3 enemy3;//Creates the third enemy.
-           ^
-  In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:11:0:
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/player.h(95,57): warning GD44A65DF: 'player.Player::sprite' is used uninitialized in this function [-Wuninitialized]
-     sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
-                                                           ^
-  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:26:9: note: 'player.Player::sprite' was declared here
-    Player player;//Create the player.
            ^
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/player.h:17:0,
                    from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:11:
 d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/particleFunctions.h(50,13): warning G826543E3: 'player.Player::emitterJumpEffect.Emitter::y' may be used uninitialized in this function [-Wmaybe-uninitialized]
     if ((a_p.y - a_e.y) < (40 << 8))
                ^
-  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:26:9: note: 'player.Player::emitterJumpEffect.Emitter::y' was declared here
+  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:31:9: note: 'player.Player::emitterJumpEffect.Emitter::y' was declared here
     Player player;//Create the player.
            ^
   linking cartridge

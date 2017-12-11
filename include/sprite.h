@@ -20,6 +20,8 @@ void setupSprites()
 	objectAttributeMemoryInitialize(MEMORY_OBJECT_ATTRIBUTE_MEMORY, NUMBER_SPRITES);
 }
 
+
+
 //* a sprite is a moveable image on the screen */
 class Sprite 
 {

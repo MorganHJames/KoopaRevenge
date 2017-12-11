@@ -100,6 +100,7 @@
     <ClCompile Include="source\sinlut.c" />
     <ClCompile Include="source\smoke.c" />
     <ClCompile Include="source\splash.c" />
+    <ClCompile Include="source\text.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\background1.h" />
@@ -133,6 +134,10 @@
     <ClInclude Include="include\smoke.h" />
     <ClInclude Include="include\splash.h" />
     <ClInclude Include="include\sprite.h" />
+    <ClInclude Include="include\spriteManager.h" />
+    <ClInclude Include="include\text.h" />
+    <ClInclude Include="include\textFunctions.h" />
+    <ClInclude Include="include\textLookUpTable.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Makefile">

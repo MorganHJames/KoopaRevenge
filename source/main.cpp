@@ -14,6 +14,9 @@
 #include "enemy3.h"
 #include "backgroundFunctions.h"
 #include "gameStates.h"
+#include "text.h"
+#include "textFunctions.h"
+#include "spriteManager.h"
 
 int main()
 {
@@ -23,16 +26,21 @@ int main()
 	TIMER_3_CONTROL = TIMER_ENABLE | TIMER_CASCADE;
 	setupSprites();//clear all the sprites on screen now 
 
+	SpriteManager spriteManager;
+
 	Player player;//Create the player.
+	player.playerInitialization(spriteManager);//PLayer Initialization.
 
 	Enemy enemy1;//Creates the first enemy.
-	Enemy2 enemy2;//Creates the seconed enemy.
-	Enemy3 enemy3;//Creates the third enemy.
-	enemy1.enemyInitialization(player, 65);//enemy Initialization.
-	enemy2.enemyInitialization(player, 66);//enemy Initialization.
-	enemy3.enemyInitialization(player, 67);//enemy Initialization.
-	player.playerInitialization();//PLayer Initialization.
+	enemy1.enemyInitialization(spriteManager, player, 1);//enemy Initialization.
 
+	Enemy2 enemy2;//Creates the seconed enemy.
+	enemy2.enemyInitialization(spriteManager, player, 2);//enemy Initialization.
+
+	Enemy3 enemy3;//Creates the third enemy.
+	enemy3.enemyInitialization(spriteManager, player, 3);//enemy Initialization.
+
+	
 	loadGameBackground();
 
 	GameStates currentState = MENU;
@@ -50,6 +58,16 @@ int main()
 	directMemoryAccessWordCopy(paletteSpriteBlockAddress(3), luigiPal, luigiPalLen);//luigi  colours
 	directMemoryAccessWordCopy(spriteTileBlockAddress(64), marioTiles, marioTilesLen);
 
+	//Text mem
+	directMemoryAccessWordCopy(paletteSpriteBlockAddress(4), textPal, textPalLen);//text colours
+	directMemoryAccessWordCopy(paletteSpriteBlockAddress(5), textAlternatePal, textPalLen);//alternate  colours
+	directMemoryAccessWordCopy(spriteTileBlockAddress(96), textTiles, textTilesLen);
+
+	Text lives;
+	lives.textInitialization(5, 8);
+	lives.drawText("LIVES",50,50, spriteManager);
+
+
 	while (1)//Loop forever.
 	{
 		switch (currentState)
@@ -57,16 +75,15 @@ int main()
 
 		case MENU:
 		{
-
 			pollKeys();
 
 			player.playerUpdate();
 
-			
+			enemy1.enemyUpdate(player, enemy2, enemy3);
 			enemy2.enemyUpdate(player);
 			enemy3.enemyUpdate(player);
-			enemy1.enemyUpdate(player, enemy2, enemy3);
-
+			
+			lives.updateText("LIVES", 50, 50, spriteManager);
 			verticalSync();
 
 		}

@@ -17,7 +17,7 @@
 #include "particleFunctions.h"
 #include "smoke.h"
 #include "sinlut.h"
-
+#include "spriteManager.h"
 #include "collisionMap.h"
 
 /* a struct for the koopa's logic and behavior */
@@ -90,9 +90,9 @@ public:
 	int screenRight;
 	int screenLeft;
 
-	void playerInitialization()
+	void playerInitialization(SpriteManager& a_spriteManager)
 	{
-		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[0];
+		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
 		sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
 		sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
 		sprite->Attribute->attribute2 = setAttribute2(0, 0, 0);
@@ -106,7 +106,7 @@ public:
 
 	
 
-	    particleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[1];
+	    particleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[96];
 
 	
 		// --- ---
@@ -198,7 +198,7 @@ public:
 			falling = 1;
 			emitterJumpEffect.x = integerToFixed(position.x + 7);//Move the emiter to the players x pos.
 			emitterJumpEffect.y = integerToFixed(position.y + 31);//Move the emiter to the players y pos.
-			for (int i = 0; i < 64; ++i)
+			for (int i = 0; i < 32; ++i)
 			{
 				EmitParticle(particlesJumpEffect[i], emitterJumpEffect);
 				particleOAMStart[i] = particleOAM;

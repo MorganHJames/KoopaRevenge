@@ -75,6 +75,9 @@
     <ClCompile Include="source\smoke.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\text.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Intellisense.h">
@@ -169,6 +172,18 @@
     </ClInclude>
     <ClInclude Include="include\smoke.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\text.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\textLookUpTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\textFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\spriteManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
