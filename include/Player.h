@@ -76,6 +76,9 @@ public:
 	int frameSkip;
 	int invulnerable;
 	int lives;
+	int scoreUnits;
+	int scoreTens;
+	int scoreHundreds;
 	int score;
 
 	//Particles
@@ -135,7 +138,15 @@ public:
 		animationDelay = 8;
 		xDir = 0;
 		yDir = 0;
+
+
+		scoreUnits = 0;
+		scoreTens = 0 ;
+		scoreHundreds = 0;
 		score = 0;
+
+
+
 		frameSkip = 8;
 		invulnerable = 0;
 		//passed info to enemys
@@ -458,6 +469,23 @@ public:
 
 	}
 
+	void scoreUpdate()
+	{
+		if (scoreUnits == 10)
+		{
+			scoreUnits = 0;
+			scoreTens++;
+		}
+		if (scoreTens == 10)
+		{
+			scoreTens = 0;
+			scoreHundreds++;
+		}
+		if (scoreHundreds > 9)
+		{
+			scoreHundreds = 9;
+		}
+	}
 
 	/* update the koopa */
 	void playerUpdate()
@@ -507,7 +535,7 @@ public:
 		REGISTRY_BACKGROUND_OFF_SET[1].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground2Offset));
 		REGISTRY_BACKGROUND_OFF_SET[2].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground3Offset));
 		
-
+		scoreUpdate();
 	}
 
 

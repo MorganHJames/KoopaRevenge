@@ -151,13 +151,14 @@ public:
 		if (playerFeet.x < enemyHead.x + enemyHead.w &&
 			playerFeet.x + playerFeet.w > enemyHead.x &&
 			playerFeet.y < enemyHead.y + enemyHead.h &&
-			playerFeet.h + playerFeet.y > enemyHead.y  && a_player.yvel > 0)
+			playerFeet.h + playerFeet.y > enemyHead.y  )
 		{
 			alive = 0;
 			// collision detected!
 			a_player.playerBounce();
 			move = 0;
-
+			a_player.score++;
+			a_player.scoreUnits++;
 			frame = 84;
 			falling = 1;
 			yvel = -jumpHeight;

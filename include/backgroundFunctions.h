@@ -101,7 +101,7 @@ void loadGameBackground()
 	//Move the maps the correct starting positions
 	REGISTRY_BACKGROUND_OFF_SET[0].s16Y = 80;
 	REGISTRY_BACKGROUND_OFF_SET[1].s16Y = 80;
-	REGISTRY_BACKGROUND_OFF_SET[2].s16Y = 45;
+	REGISTRY_BACKGROUND_OFF_SET[2].s16Y = 37;
 
 }
 

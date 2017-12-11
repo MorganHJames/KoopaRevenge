@@ -65,16 +65,26 @@ int main()
 
 	Text lives;
 	lives.textInitialization(5, 8);
-	lives.drawText("LIVES", 1, 1, spriteManager);
+	lives.drawText("LIVES", 1, 2, spriteManager);
 	Text livesLeft;
 	livesLeft.textInitialization(1, 8);
-	livesLeft.drawText("3", 45, 1, spriteManager);
-	//Text score;
-	//lives.textInitialization(5, 8);
-	//lives.drawText("SCORE", 100, 1, spriteManager);
-	//Text scoreValue;
-	//livesLeft.textInitialization(3, 8);
-	//livesLeft.drawText("000", 146, 1, spriteManager);
+	livesLeft.drawText("3", 17, 10, spriteManager);
+
+	Text score;
+	score.textInitialization(5, 8);
+	score.drawText("SCORE", 199, 2, spriteManager);
+
+	Text scoreValueUnits;
+	scoreValueUnits.textInitialization(1, 8);
+	scoreValueUnits.drawText("0", 223, 10, spriteManager);
+
+	Text scoreValueTens;
+	scoreValueTens.textInitialization(1, 8);
+	scoreValueTens.drawText("0", 215, 10, spriteManager);
+
+	Text scoreValueHundreds;
+	scoreValueHundreds.textInitialization(1, 8);
+	scoreValueHundreds.drawText("0", 207, 10, spriteManager);
 
 	while (1)//Loop forever.
 	{
@@ -85,21 +95,30 @@ int main()
 		{
 			pollKeys();
 
+
 			player.playerUpdate();
 
 			enemy1.enemyUpdate(player, enemy2, enemy3);
 			enemy2.enemyUpdate(player);
 			enemy3.enemyUpdate(player);
-			
-			lives.updateText("LIVES", 1, 1, spriteManager);
-			lives.updateText("SCORE", 1, 1, spriteManager);
 
 
+
+
+			lives.updateText("LIVES", 1, 2, spriteManager);
 			char livesLeftChar[] = { '0' + player.lives, '\0' };
-			
-			livesLeft.updateText(livesLeftChar, 45, 1, spriteManager);
-			
-			
+			livesLeft.updateText(livesLeftChar, 17, 10, spriteManager);
+
+			score.updateText("SCORE", 199, 2, spriteManager);
+
+			char scoreValueUnitsChar[] = { '0' + player.scoreUnits, '\0' };
+			char scoreValueTensChar[] = { '0' + player.scoreTens, '\0' };
+			char scoreValueHundredsChar[] = { '0' + player.scoreHundreds, '\0' }; 
+
+			scoreValueUnits.updateText(scoreValueUnitsChar, 223, 10, spriteManager);
+			scoreValueTens.updateText(scoreValueTensChar, 215, 10, spriteManager);
+			scoreValueHundreds.updateText(scoreValueHundredsChar, 207, 10, spriteManager);
+
 
 			verticalSync();
 
