@@ -103,6 +103,7 @@
     <ClCompile Include="source\text.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="gameManager.h" />
     <ClInclude Include="include\background1.h" />
     <ClInclude Include="include\background2.h" />
     <ClInclude Include="include\background3.h" />

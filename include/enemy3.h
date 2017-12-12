@@ -151,7 +151,7 @@ public:
 		if (playerFeet.x < enemyHead.x + enemyHead.w &&
 			playerFeet.x + playerFeet.w > enemyHead.x &&
 			playerFeet.y < enemyHead.y + enemyHead.h &&
-			playerFeet.h + playerFeet.y > enemyHead.y  )
+			playerFeet.h + playerFeet.y > enemyHead.y && (a_player.yvel != 0))
 		{
 			alive = 0;
 			// collision detected!

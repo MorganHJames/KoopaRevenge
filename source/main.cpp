@@ -86,6 +86,10 @@ int main()
 	scoreValueHundreds.textInitialization(1, 8);
 	scoreValueHundreds.drawText("0", 207, 10, spriteManager);
 
+	Text time;
+	time.textInitialization(4, 8);
+	time.drawText("TIME", 104, 2, spriteManager);
+
 	while (1)//Loop forever.
 	{
 		switch (currentState)
@@ -103,7 +107,7 @@ int main()
 			enemy3.enemyUpdate(player);
 
 
-
+			time.updateText("TIME", 104, 2, spriteManager);
 
 			lives.updateText("LIVES", 1, 2, spriteManager);
 			char livesLeftChar[] = { '0' + player.lives, '\0' };
