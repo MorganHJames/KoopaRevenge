@@ -328,7 +328,7 @@ public:
 	{
 		////sprite flip didn't work for the enemy for some unannounced reason.
 		sprite->Attribute->attribute1 = setAttribute1(position.x, flip, ATTRIBUTE1_SIZE_1);
-		sprite->spriteSetOffset(frame);
+		
 		enemyAI(a_player);
 		
 
@@ -380,6 +380,7 @@ public:
 			spawnEnemy(a_player);
 			alive = 1;
 		}
+		sprite->spriteSetOffset(frame);
 	}
 
 

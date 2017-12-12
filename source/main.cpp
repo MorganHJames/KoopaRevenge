@@ -42,7 +42,7 @@ int main()
 	
 	loadGameBackground();
 
-	GameStates currentState = MENU;
+	GameStates currentState = GAME;
 
 	//payer mem
 	directMemoryAccessWordCopy(paletteSpriteBlockAddress(0), koopaPal, koopaPalLen);
@@ -64,74 +64,151 @@ int main()
 
 	Text livesText;
 	livesText.textInitialization(5, 8);
-	livesText.drawText("LIVES", 1, 2, spriteManager);
+	livesText.drawText("LIVES", 0, 160, spriteManager, 4);
 	Text livesLeftText;
 	livesLeftText.textInitialization(1, 8);
-	livesLeftText.drawText("3", 17, 10, spriteManager);
+	livesLeftText.drawText("3", 0, 160, spriteManager, 4);
 
 	Text scoreText;
 	scoreText.textInitialization(5, 8);
-	scoreText.drawText("SCORE", 199, 2, spriteManager);
+	scoreText.drawText("SCORE", 0, 160, spriteManager, 4);
 
 	Text scoreValueText;
 	scoreValueText.textInitialization(3, 8);
-	scoreValueText.drawText("000", 207, 10, spriteManager);
+	scoreValueText.drawText("000", 0, 160, spriteManager, 4);
 
 	Text timeText;
 	timeText.textInitialization(4, 8);
-	timeText.drawText("TIME", 104, 2, spriteManager);
+	timeText.drawText("TIME", 0, 160, spriteManager, 4);
 
 	Text timeRemainingText;
 	timeRemainingText.textInitialization(3, 8);
-	timeRemainingText.drawText("300", 108, 10, spriteManager);
+	timeRemainingText.drawText("300", 0, 160, spriteManager, 4);
 
-	int timeLeft = 300;
+	Text startText;
+	startText.textInitialization(5, 8);
+	startText.drawText("START", 0, 160, spriteManager, 4);
+
+	Text highText;
+	highText.textInitialization(4, 8);
+	highText.drawText("HIGH", 0, 160, spriteManager, 4);
+
+	Text score2Text;
+	score2Text.textInitialization(5, 8);
+	score2Text.drawText("SCORE", 0, 160, spriteManager, 4);
+
+	Text highScoreText;
+	highScoreText.textInitialization(3, 8);
+	highScoreText.drawText("000", 0, 160, spriteManager, 4);
 
 	Delay(TIMER_SECONED);
 
-	while (1)//Loop forever.
+	switch (currentState)
 	{
-		switch (currentState)
+	case GAME:
+	{
+		int state = 0;
+		int timeLeft = 300;
+		int highScore = 0;
+		while (1)
 		{
-
-		case MENU:
-		{
-			pollKeys();
-
-			if (TIMER_1_DATA > 1)
+			if (state == 0)
 			{
-				timeLeft--;
-				stopDelay();
-				Delay(TIMER_SECONED);
+				player.sprite->spriteSetPosition(0, 160);
+				enemy1.sprite->spriteSetPosition(0, 160);
+				enemy2.sprite->spriteSetPosition(0, 160);
+				enemy3.sprite->spriteSetPosition(0, 160);
+				
+				
+				highText.updateText("HIGH", 64, 136, spriteManager, 4);
+				score2Text.updateText("SCORE", 104, 136, spriteManager, 4);
+				char highScoreCharArray[3] = { '0' + highScore / 100 % 10, '0' + highScore / 10 % 10, '0' + highScore % 10 };
+				highScoreText.updateText(highScoreCharArray, 152, 136, spriteManager, 4);
+
+				pollKeys();
+
+				if (keyDown(START))
+				{
+					startText.updateText("START", 100, 120, spriteManager, 5);
+				}
+				else
+				{
+					startText.updateText("START", 100, 120, spriteManager, 4);
+				}
+				if (keyReleased(START))
+				{
+					startText.hideText();
+					highText.hideText();
+					score2Text.hideText();
+					highScoreText.hideText();
+					state = 1;
+				}
+
+				verticalSync();
 			}
-			player.playerUpdate();
 
-			enemy1.enemyUpdate(player, enemy2, enemy3);
-			enemy2.enemyUpdate(player);
-			enemy3.enemyUpdate(player);
+			if (state == 1)
+			{
+				pollKeys();
+			
+				
+				if (TIMER_1_DATA > 1)
+				{
+					timeLeft--;
+					stopDelay();
+					Delay(TIMER_SECONED);
+				}
+				player.playerUpdate();
+				
+				enemy1.enemyUpdate(player, enemy2, enemy3);
+				enemy2.enemyUpdate(player);
+				enemy3.enemyUpdate(player);
 
-			timeText.updateText("TIME", 104, 2, spriteManager);
-			char livesLeftCharArray[3] = { '0' + timeLeft / 100 % 10, '0' + timeLeft / 10 % 10, '0' + timeLeft % 10};
-			timeRemainingText.updateText(livesLeftCharArray, 108, 10, spriteManager);
+				timeText.updateText("TIME", 104, 2, spriteManager, 4);
+				char livesLeftCharArray[3] = { '0' + timeLeft / 100 % 10, '0' + timeLeft / 10 % 10, '0' + timeLeft % 10 };
+				timeRemainingText.updateText(livesLeftCharArray, 108, 10, spriteManager, 4);
+				livesText.updateText("LIVES", 1, 2, spriteManager, 4);
+				char livesLeftChar[] = { '0' + player.lives, '\0' };
+				livesLeftText.updateText(livesLeftChar, 17, 10, spriteManager, 4);
+				scoreText.updateText("SCORE", 199, 2, spriteManager, 4);
+				char scoreValueCharArray[3] = { '0' + player.score / 100 % 10, '0' + player.score / 10 % 10, '0' + player.score % 10 };
+				scoreValueText.updateText(scoreValueCharArray, 207, 10, spriteManager, 4);
 
-			livesText.updateText("LIVES", 1, 2, spriteManager);
-			char livesLeftChar[] = { '0' + player.lives, '\0' };
-			livesLeftText.updateText(livesLeftChar, 17, 10, spriteManager);
+				if (player.lives == 0 || timeLeft == 0)
+				{
+					timeText.hideText();
+					timeRemainingText.hideText();
+					scoreValueText.hideText();
+					livesLeftText.hideText();
+					scoreText.hideText();
+					livesText.hideText();
 
-			scoreText.updateText("SCORE", 199, 2, spriteManager);
+					state = 0;
 
-			char scoreValueCharArray[3] = { '0' + player.score / 100 % 10, '0' + player.score / 10 % 10, '0' + player.score % 10 };
-
-			scoreValueText.updateText(scoreValueCharArray, 207, 10, spriteManager);
-
-			verticalSync();
+					if (player.score > highScore)
+					{
+						highScore = player.score;
+					}
+					player.score = 0;
+					player.lives = 3;
+					timeLeft = 300;
+					enemy1.spawnEnemy(player);
+					enemy2.spawnEnemy(player);
+					enemy3.spawnEnemy(player);
+				}
+				delay(300);
+				verticalSync();
+			}
+			
 		}
-
-		default:
-			break;
-		}
-		
-
+		break;
 	}
+	
+	default:
+		break;
+	}
+
+
+
 	return 0;
 }

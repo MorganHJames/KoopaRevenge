@@ -26,7 +26,7 @@ public:
 		textSpacing = a_textSpacing;
 	}
 
-	void drawText(char a_text[], u8 a_xPos, u8 a_yPos , SpriteManager& a_spriteManager)
+	void drawText(char a_text[], u8 a_xPos, u8 a_yPos , SpriteManager& a_spriteManager, u8 a_paletteBank)
 	{
 		u8 characterCode;
 		u8 objectTilesPosition = 96;
@@ -50,13 +50,13 @@ public:
 			tileIndexStart = tileIndexStart - length;
 			objectCharacter->attribute0 = setAttribute0(a_yPos, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
 			objectCharacter->attribute1 = setAttribute1(a_xPos + (textSpacing * i), 0, ATTRIBUTE1_SIZE_0);
-			objectCharacter->attribute2 = setAttribute2(768 + objectTilesPosition, 0, 4);
+			objectCharacter->attribute2 = setAttribute2(768 + objectTilesPosition, 0, a_paletteBank);
 
 			u8 objectTilesPosition = 96;
 		}
 	}
 
-	void updateText(char a_text[], u8 a_xPos, u8 a_yPos, SpriteManager& a_spriteManager)
+	void updateText(char a_text[], u8 a_xPos, u8 a_yPos, SpriteManager& a_spriteManager, u8 a_paletteBank)
 	{
 		u8 characterCode;
 		u8 objectTilesPosition = 96;
@@ -73,11 +73,22 @@ public:
 					break;
 				}
 			}
+
 			ObjectAttribute* objectCharacter;
 			objectCharacter = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[tileIndexStart + i + 1];
+			objectUnhide(objectCharacter, 0);
 			objectCharacter->attribute0 = setAttribute0(a_yPos, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
 			objectCharacter->attribute1 = setAttribute1(a_xPos + (textSpacing * i), 0, ATTRIBUTE1_SIZE_0);
-			objectCharacter->attribute2 = setAttribute2(768 + objectTilesPosition, 0, 4);
+			objectCharacter->attribute2 = setAttribute2(768 + objectTilesPosition, 0, a_paletteBank);
+		}
+	}
+	void hideText()
+	{
+		for (u8 i = 0; i < length; ++i)
+		{
+			ObjectAttribute* objectCharacter;
+			objectCharacter = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[tileIndexStart + i + 1];
+			objectHide(objectCharacter);
 		}
 	}
 };

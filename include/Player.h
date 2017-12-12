@@ -503,7 +503,7 @@ public:
 			UpdateParticleOneShot(particlesJumpEffect[i], emitterJumpEffect, g_frameTime, g_pixels2Meter, g_gravity);//Updates each particle.
 
 			setObjectPosition(&particleOAMStart[i], fixedToInteger(particlesJumpEffect[i].x), fixedToInteger(particlesJumpEffect[i].y));//Move particle
-
+		
 			u32 frameID = (1 << 9) - particlesJumpEffect[i].life;//Set the frame ID based on the particles life.
 			frameID = frameID << 4 >> 9;//Set the frame ID based on the particles life.
 			particleOAMStart[i].attribute2 = setAttribute2(32 + frameID, 0, 1);//Change the particle frame.

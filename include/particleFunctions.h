@@ -47,17 +47,20 @@ void UpdateParticleContinuous(Particle& a_p, Emitter& a_e, fixed g_frameTime,fix
 
 void UpdateParticleOneShot(Particle& a_p, Emitter& a_e, fixed g_frameTime, fixed g_pixels2Meter, fixed g_gravity)
 {
-	if ((a_p.y - a_e.y) < (40 << 8))
+	if ((a_p.y - a_e.y) < (40 << 8) )
 	{
 		a_p.x = fixedAddition(a_p.x, fixedMultiply(fixedMultiply(a_p.vx, g_frameTime), g_pixels2Meter));
 		a_p.y = fixedAddition(a_p.y, fixedMultiply(fixedMultiply(a_p.vy, g_frameTime), g_pixels2Meter));
 		a_p.vy -= fixedMultiply(g_gravity, g_frameTime);
+	
 		a_p.life += 16;
+
 	}
-	if ((a_p.y - a_e.y) > (40 << 8))
+	if ((a_p.y - a_e.y) > (40 << 8) )
 	{
 		a_p.life = 0;
 	}
+
 }
 
 #endif//__PARTICLE_FUNCTIONS_H__

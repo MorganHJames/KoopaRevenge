@@ -369,10 +369,9 @@ public:
 	/* update the koopa */
 	void enemyUpdate(Player& a_player, Enemy2& a_enemy2, Enemy3& a_enemy3)
 	{
-
 		//sprite flip didn't work for the enemy for some unannounced reason.
 		sprite->Attribute->attribute1 = setAttribute1(position.x, flip, ATTRIBUTE1_SIZE_1);
-		sprite->spriteSetOffset(frame);
+		
 		enemyAI(a_player);
 		hurtPlayer(a_player, a_enemy2, a_enemy3);
 		if (move)
@@ -406,22 +405,20 @@ public:
 		{
 			position.x -= a_player.xvel;
 		}
-
-
-		if (position.x > 0 && position.x < 240)
+		if (position.x >= 0 && position.x <= 240)
 		{
 			sprite->spriteSetPosition(position.x, position.y);
-
 		}
 		else
 		{
 			sprite->spriteSetPosition(0, 160);
 		}
-		if (position.y > 160)
+		if (position.y > 150)
 		{
 			spawnEnemy(a_player);
 			alive = 1;
 		}
+		sprite->spriteSetOffset(frame);
 	}
 
 
