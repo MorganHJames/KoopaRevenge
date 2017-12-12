@@ -11,50 +11,56 @@ d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge
       u8 objectTilesPosition = 96;
          ^
   d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp: In function 'int main()':
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(68,45): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-    lives.drawText("LIVES", 1, 2, spriteManager);
-                                               ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(71,47): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-    livesLeft.drawText("3", 17, 10, spriteManager);
-                                                 ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(75,47): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-    score.drawText("SCORE", 199, 2, spriteManager);
-                                                 ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(79,54): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-    scoreValueUnits.drawText("0", 223, 10, spriteManager);
-                                                        ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(83,53): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-    scoreValueTens.drawText("0", 215, 10, spriteManager);
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(67,49): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+    livesText.drawText("LIVES", 1, 2, spriteManager);
+                                                   ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(70,51): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+    livesLeftText.drawText("3", 17, 10, spriteManager);
+                                                     ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(74,51): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+    scoreText.drawText("SCORE", 199, 2, spriteManager);
+                                                     ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(78,55): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+    scoreValueText.drawText("000", 207, 10, spriteManager);
+                                                         ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(82,49): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+    timeText.drawText("TIME", 104, 2, spriteManager);
+                                                   ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(86,58): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+    timeRemainingText.drawText("300", 108, 10, spriteManager);
+                                                            ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(113,53): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+      timeText.updateText("TIME", 104, 2, spriteManager);
                                                        ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(87,57): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-    scoreValueHundreds.drawText("0", 207, 10, spriteManager);
-                                                           ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(91,45): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-    time.drawText("TIME", 104, 2, spriteManager);
-                                               ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(110,49): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-      time.updateText("TIME", 104, 2, spriteManager);
-                                                   ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(112,49): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-      lives.updateText("LIVES", 1, 2, spriteManager);
-                                                   ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(113,33): warning G8668B7F5: narrowing conversion of '(player.Player::lives + 48)' from 'int' to 'char' inside { } is ill-formed in C++11 [-Wnarrowing]
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(114,39): warning G8668B7F5: narrowing conversion of '(((timeLeft / 100) % 10) + 48)' from 'int' to 'char' inside { } is ill-formed in C++11 [-Wnarrowing]
+      char livesLeftCharArray[3] = { '0' + timeLeft / 100 % 10, '0' + timeLeft / 10 % 10, '0' + timeLeft % 10};
+                                         ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(114,66): warning G8668B7F5: narrowing conversion of '(((timeLeft / 10) % 10) + 48)' from 'int' to 'char' inside { } is ill-formed in C++11 [-Wnarrowing]
+      char livesLeftCharArray[3] = { '0' + timeLeft / 100 % 10, '0' + timeLeft / 10 % 10, '0' + timeLeft % 10};
+                                                                    ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(114,92): warning G8668B7F5: narrowing conversion of '((timeLeft % 10) + 48)' from 'int' to 'char' inside { } is ill-formed in C++11 [-Wnarrowing]
+      char livesLeftCharArray[3] = { '0' + timeLeft / 100 % 10, '0' + timeLeft / 10 % 10, '0' + timeLeft % 10};
+                                                                                              ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(117,53): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+      livesText.updateText("LIVES", 1, 2, spriteManager);
+                                                       ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(118,33): warning G8668B7F5: narrowing conversion of '(player.Player::lives + 48)' from 'int' to 'char' inside { } is ill-formed in C++11 [-Wnarrowing]
       char livesLeftChar[] = { '0' + player.lives, '\0' };
                                    ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(116,51): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
-      score.updateText("SCORE", 199, 2, spriteManager);
-                                                     ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(118,39): warning G8668B7F5: narrowing conversion of '(player.Player::scoreUnits + 48)' from 'int' to 'char' inside { } is ill-formed in C++11 [-Wnarrowing]
-      char scoreValueUnitsChar[] = { '0' + player.scoreUnits, '\0' };
-                                         ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(119,38): warning G8668B7F5: narrowing conversion of '(player.Player::scoreTens + 48)' from 'int' to 'char' inside { } is ill-formed in C++11 [-Wnarrowing]
-      char scoreValueTensChar[] = { '0' + player.scoreTens, '\0' };
-                                        ^
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(120,42): warning G8668B7F5: narrowing conversion of '(player.Player::scoreHundreds + 48)' from 'int' to 'char' inside { } is ill-formed in C++11 [-Wnarrowing]
-      char scoreValueHundredsChar[] = { '0' + player.scoreHundreds, '\0' }; 
-                                            ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(121,55): warning G8405C0A5: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+      scoreText.updateText("SCORE", 199, 2, spriteManager);
+                                                         ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(123,40): warning G8668B7F5: narrowing conversion of '(((player.Player::score / 100) % 10) + 48)' from 'int' to 'char' inside { } is ill-formed in C++11 [-Wnarrowing]
+      char scoreValueCharArray[3] = { '0' + player.score / 100 % 10, '0' + player.score / 10 % 10, '0' + player.score % 10 };
+                                          ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(123,71): warning G8668B7F5: narrowing conversion of '(((player.Player::score / 10) % 10) + 48)' from 'int' to 'char' inside { } is ill-formed in C++11 [-Wnarrowing]
+      char scoreValueCharArray[3] = { '0' + player.score / 100 % 10, '0' + player.score / 10 % 10, '0' + player.score % 10 };
+                                                                         ^
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(123,101): warning G8668B7F5: narrowing conversion of '((player.Player::score % 10) + 48)' from 'int' to 'char' inside { } is ill-formed in C++11 [-Wnarrowing]
+      char scoreValueCharArray[3] = { '0' + player.score / 100 % 10, '0' + player.score / 10 % 10, '0' + player.score % 10 };
+                                                                                                       ^
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:12:0:
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h(276,4): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h(275,4): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
       if (a_player.position.x + runDistance < position.x)
       ^
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h:21:0,

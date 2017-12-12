@@ -469,23 +469,6 @@ public:
 
 	}
 
-	void scoreUpdate()
-	{
-		if (scoreUnits == 10)
-		{
-			scoreUnits = 0;
-			scoreTens++;
-		}
-		if (scoreTens == 10)
-		{
-			scoreTens = 0;
-			scoreHundreds++;
-		}
-		if (scoreHundreds > 9)
-		{
-			scoreHundreds = 9;
-		}
-	}
 
 	/* update the koopa */
 	void playerUpdate()
@@ -535,7 +518,6 @@ public:
 		REGISTRY_BACKGROUND_OFF_SET[1].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground2Offset));
 		REGISTRY_BACKGROUND_OFF_SET[2].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground3Offset));
 		
-		scoreUpdate();
 	}
 
 

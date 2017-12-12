@@ -158,7 +158,6 @@ public:
 			a_player.playerBounce();
 			move = 0;
 			a_player.score++;
-			a_player.scoreUnits++;
 			frame = 84;
 			falling = 1;
 			yvel = -jumpHeight;

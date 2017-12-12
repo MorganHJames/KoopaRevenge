@@ -39,7 +39,6 @@ int main()
 
 	Enemy3 enemy3;//Creates the third enemy.
 	enemy3.enemyInitialization(spriteManager, player, 3);//enemy Initialization.
-
 	
 	loadGameBackground();
 
@@ -63,32 +62,32 @@ int main()
 	directMemoryAccessWordCopy(paletteSpriteBlockAddress(5), textAlternatePal, textPalLen);//alternate  colours
 	directMemoryAccessWordCopy(spriteTileBlockAddress(96), textTiles, textTilesLen);
 
-	Text lives;
-	lives.textInitialization(5, 8);
-	lives.drawText("LIVES", 1, 2, spriteManager);
-	Text livesLeft;
-	livesLeft.textInitialization(1, 8);
-	livesLeft.drawText("3", 17, 10, spriteManager);
+	Text livesText;
+	livesText.textInitialization(5, 8);
+	livesText.drawText("LIVES", 1, 2, spriteManager);
+	Text livesLeftText;
+	livesLeftText.textInitialization(1, 8);
+	livesLeftText.drawText("3", 17, 10, spriteManager);
 
-	Text score;
-	score.textInitialization(5, 8);
-	score.drawText("SCORE", 199, 2, spriteManager);
+	Text scoreText;
+	scoreText.textInitialization(5, 8);
+	scoreText.drawText("SCORE", 199, 2, spriteManager);
 
-	Text scoreValueUnits;
-	scoreValueUnits.textInitialization(1, 8);
-	scoreValueUnits.drawText("0", 223, 10, spriteManager);
+	Text scoreValueText;
+	scoreValueText.textInitialization(3, 8);
+	scoreValueText.drawText("000", 207, 10, spriteManager);
 
-	Text scoreValueTens;
-	scoreValueTens.textInitialization(1, 8);
-	scoreValueTens.drawText("0", 215, 10, spriteManager);
+	Text timeText;
+	timeText.textInitialization(4, 8);
+	timeText.drawText("TIME", 104, 2, spriteManager);
 
-	Text scoreValueHundreds;
-	scoreValueHundreds.textInitialization(1, 8);
-	scoreValueHundreds.drawText("0", 207, 10, spriteManager);
+	Text timeRemainingText;
+	timeRemainingText.textInitialization(3, 8);
+	timeRemainingText.drawText("300", 108, 10, spriteManager);
 
-	Text time;
-	time.textInitialization(4, 8);
-	time.drawText("TIME", 104, 2, spriteManager);
+	int timeLeft = 300;
+
+	Delay(TIMER_SECONED);
 
 	while (1)//Loop forever.
 	{
@@ -99,35 +98,34 @@ int main()
 		{
 			pollKeys();
 
-
+			if (TIMER_1_DATA > 1)
+			{
+				timeLeft--;
+				stopDelay();
+				Delay(TIMER_SECONED);
+			}
 			player.playerUpdate();
 
 			enemy1.enemyUpdate(player, enemy2, enemy3);
 			enemy2.enemyUpdate(player);
 			enemy3.enemyUpdate(player);
 
+			timeText.updateText("TIME", 104, 2, spriteManager);
+			char livesLeftCharArray[3] = { '0' + timeLeft / 100 % 10, '0' + timeLeft / 10 % 10, '0' + timeLeft % 10};
+			timeRemainingText.updateText(livesLeftCharArray, 108, 10, spriteManager);
 
-			time.updateText("TIME", 104, 2, spriteManager);
-
-			lives.updateText("LIVES", 1, 2, spriteManager);
+			livesText.updateText("LIVES", 1, 2, spriteManager);
 			char livesLeftChar[] = { '0' + player.lives, '\0' };
-			livesLeft.updateText(livesLeftChar, 17, 10, spriteManager);
+			livesLeftText.updateText(livesLeftChar, 17, 10, spriteManager);
 
-			score.updateText("SCORE", 199, 2, spriteManager);
+			scoreText.updateText("SCORE", 199, 2, spriteManager);
 
-			char scoreValueUnitsChar[] = { '0' + player.scoreUnits, '\0' };
-			char scoreValueTensChar[] = { '0' + player.scoreTens, '\0' };
-			char scoreValueHundredsChar[] = { '0' + player.scoreHundreds, '\0' }; 
+			char scoreValueCharArray[3] = { '0' + player.score / 100 % 10, '0' + player.score / 10 % 10, '0' + player.score % 10 };
 
-			scoreValueUnits.updateText(scoreValueUnitsChar, 223, 10, spriteManager);
-			scoreValueTens.updateText(scoreValueTensChar, 215, 10, spriteManager);
-			scoreValueHundreds.updateText(scoreValueHundredsChar, 207, 10, spriteManager);
-
+			scoreValueText.updateText(scoreValueCharArray, 207, 10, spriteManager);
 
 			verticalSync();
-
 		}
-
 
 		default:
 			break;

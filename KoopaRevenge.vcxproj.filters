@@ -185,7 +185,7 @@
     <ClInclude Include="include\spriteManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gameManager.h">
+    <ClInclude Include="include\gameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
