@@ -70,6 +70,11 @@ void setBackgroundControlRegister(u8 a_u8RegNum, u8 a_u8Priority, u8 a_u8TileBlo
 	REGISTRY_BACKGROUND_CONTROL[a_u8RegNum] = control;//Sets the background control register using the arguments passed in.
 }
 
+u16 setScreenEntry(int ti, u8 flip, u8 palBank)
+{
+	return (ti ) | ((flip & SCREEN_ENTRY_FLIP_MASK) << 10) | ((palBank & SCREEN_ENTRY_PALETTE_BANK_MASK) << 12);
+}
+
 //====================================================================================
 //Sprites & Object Attribute Memory
 //====================================================================================

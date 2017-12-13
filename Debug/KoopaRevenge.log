@@ -92,7 +92,14 @@ d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge
 d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp(185,102): warning G8668B7F5: narrowing conversion of '((player.Player::score % 10) + 48)' from 'int' to 'char' inside { } is ill-formed in C++11 [-Wnarrowing]
        char scoreValueCharArray[3] = { '0' + player.score / 100 % 10, '0' + player.score / 10 % 10, '0' + player.score % 10 };
                                                                                                         ^
+  In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/player.h:16:0,
+                   from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:11:
+  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/backgroundFunctions.h: In function 'void loadGameBackground()':
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/backgroundFunctions.h(120,11): warning GCDCAB7C7: 'i' may be used uninitialized in this function [-Wmaybe-uninitialized]
+    for (int i; i < 350; ++i)
+             ^
   In file included from d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp:12:0:
+  d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h: In function 'int main()':
 d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/enemy.h(275,4): warning G1B6F71D5: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Wstrict-overflow]
       if (a_player.position.x + runDistance < position.x)
       ^

@@ -85,6 +85,8 @@ extern u16* pageFlip();//A function to flip the screen from the back page to the
 //accessing this as REG_BGCNT[2] is controller 2 or memory address REG_BGCNT + (sizeof(vu16) * 2) = 0x0400:000C
 //accessing this as REG_BGCNT[3] is controller 3 or memory address REG_BGCNT + (sizeof(vu16) * 3) = 0x0400:000E
 
+#define SCREEN_ENTRY_MEMORY								((TILEBLOCK*)VIDEO_RANDOM_ACCESS_MEMORY)
+
 typedef struct BackgroundOffsets//Structure to control background offset x & y flags.
 {
 	s16 s16X, s16Y;//The x and y offset for the background.
@@ -116,6 +118,12 @@ extern u16* tileBlockAddress(u32 a_u32BlockNum);//Function to return the memory 
 extern u16* tileMapBlockAddress(u32 a_u32BlockNum);//Function to return a pointer to address space for the tile map blocks location (0-31).
 
 extern void setBackgroundControlRegister(u8 a_u8RegNum, u8 a_u8Priority, u8 a_u8TileBlockID, u8 a_u8Mosaic, u8 a_u8ColorMode, u8 a_u8MapBlockID, u8 a_u8AffineWrap, u8 a_u8BackgroundSize);//Function to set a background control register's values.
+
+extern u16 setScreenEntry(int ti, u8 flip, u8 palBank);
+
+// --- Screen Entry Controls ---
+#define SCREEN_ENTRY_FLIP_MASK					0x3
+#define SCREEN_ENTRY_PALETTE_BANK_MASK          0xF
 
 //\===========================================================================================
 //\ Defines For Palette Locations
