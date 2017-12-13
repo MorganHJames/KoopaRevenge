@@ -5,6 +5,7 @@
 //\ Brief: Contains the start point for the game.
 //\===========================================================================================
 
+
 #include "Intellisense.h"
 #include "gba.h"
 #include <string.h>
@@ -17,6 +18,7 @@
 #include "text.h"
 #include "textFunctions.h"
 #include "spriteManager.h"
+
 
 int main()
 {
@@ -126,13 +128,14 @@ int main()
 				char highScoreCharArray[3] = { '0' + highScore / 100 % 10, '0' + highScore / 10 % 10, '0' + highScore % 10 };
 				highScoreText.updateText(highScoreCharArray, 152, 136, spriteManager, 4);
 
+				
+
 				if (titleScroll > -16)
 				{
 					titleScroll--;
 
 					REGISTRY_BACKGROUND_OFF_SET[3].s16Y = titleScroll;
 				}
-
 
 				pollKeys();
 
@@ -195,6 +198,12 @@ int main()
 					livesText.hideText();
 
 					state = 0;
+
+					for (int i = 0; i < 32; ++i)
+					{
+						setObjectPosition(&player.jumpParticleOAMStart[i],0 , 160);//Move particle
+					}
+					
 
 					if (player.score > highScore)
 					{

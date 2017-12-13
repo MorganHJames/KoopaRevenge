@@ -72,7 +72,7 @@ void setBackgroundControlRegister(u8 a_u8RegNum, u8 a_u8Priority, u8 a_u8TileBlo
 
 u16 setScreenEntry(int ti, u8 flip, u8 palBank)
 {
-	return (ti ) | ((flip & SCREEN_ENTRY_FLIP_MASK) << 10) | ((palBank & SCREEN_ENTRY_PALETTE_BANK_MASK) << 12);
+	return (ti) | ((flip & SCREEN_ENTRY_FLIP_MASK) << 10) | ((palBank & SCREEN_ENTRY_PALETTE_BANK_MASK) << 12);
 }
 
 //====================================================================================

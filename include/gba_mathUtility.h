@@ -26,4 +26,5 @@ extern int quasiRandomRange(s32 a_s32Min, s32 a_s32Max);//Returns a quasi random
 extern s32 sign(s32 a_s32Value);//Returns the sign of a variable.
 extern s32 absolute(s32 a_s32Value);//Returns the absolute value of a variable with regards to having no sign (-3 = 3 && 3 = 3).
 extern void delay(unsigned int a_amount);//A delay for scrolling.
+
 #endif//__GBA_MATHUTILITY_H__
