@@ -101,11 +101,13 @@
     <ClCompile Include="source\smoke.c" />
     <ClCompile Include="source\splash.c" />
     <ClCompile Include="source\text.c" />
+    <ClCompile Include="source\titleSplash.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\background1.h" />
     <ClInclude Include="include\background2.h" />
     <ClInclude Include="include\background3.h" />
+    <ClInclude Include="include\background4.h" />
     <ClInclude Include="include\backgroundFunctions.h" />
     <ClInclude Include="include\backgroundSprites.h" />
     <ClInclude Include="include\collisionMap.h" />
@@ -139,6 +141,7 @@
     <ClInclude Include="include\text.h" />
     <ClInclude Include="include\textFunctions.h" />
     <ClInclude Include="include\textLookUpTable.h" />
+    <ClInclude Include="include\titleSplash.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Makefile">

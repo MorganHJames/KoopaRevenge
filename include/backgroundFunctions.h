@@ -14,6 +14,8 @@
 #include "background1.h"
 #include "background2.h"
 #include "background3.h"
+#include "background4.h"
+#include "titleSplash.h"
 #include "splash.h"
 
 void splash()
@@ -34,7 +36,6 @@ void loadGameBackground()
 	// Load background
 	// Load palette
 	directMemoryAccessWordCopy(PALETTE_BACKGROUND_MEMORY, backgroundSpritesPal, backgroundSpritesPalLen);
-
 	// Load tile memory location
 	// & with 0x3 so that we cannot access outside of layers 0-3
 
@@ -45,7 +46,6 @@ void loadGameBackground()
 	// We only want to use tileblock locations 0, 8, 16 and 24
 	// so we bitshift a_bgLayer up 3
 
-	
 
 	//Background 0 - collision and bushes
 	u16* tileMapMemoryLocation = tileMapBlockAddress(16);
@@ -91,18 +91,37 @@ void loadGameBackground()
 			mapLocation = (u16*)background3 + 32;
 		}
 	}
+
+	directMemoryAccessWordCopy(&PALETTE_BACKGROUND_MEMORY[129], titleSplashPal, titleSplashPalLen);
+	directMemoryAccessWordCopy(tileBlockAddress(129), titleSplashTiles, titleSplashTilesLen);
+
+	//Background 3 - splash title
+	tileMapMemoryLocation = tileMapBlockAddress(22);
+	mapLocation = (u16*)background4;
+
+	for (int i = 0; i < 128; ++i)
+	{
+		directMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
+		tileMapMemoryLocation = tileMapMemoryLocation + 32;
+		mapLocation += 64;
+		if (i == 31)
+		{
+			mapLocation = (u16*)background4 + 32;
+		}
+	}
 	
 
 	// Set up the background control register
 	setBackgroundControlRegister(0, 1, 0, 0, 0, 16, 0, BACKGROUND_REGISTRY_SIZE_64x32);
 	setBackgroundControlRegister(1, 2, 0, 0, 0, 18, 0, BACKGROUND_REGISTRY_SIZE_64x32);
 	setBackgroundControlRegister(2, 3, 0, 0, 0, 20, 0, BACKGROUND_REGISTRY_SIZE_64x32);
+	setBackgroundControlRegister(3, 0, 129, 0, 0, 22, 0, BACKGROUND_REGISTRY_SIZE_64x32);
 
 	//Move the maps the correct starting positions
 	REGISTRY_BACKGROUND_OFF_SET[0].s16Y = 80;
 	REGISTRY_BACKGROUND_OFF_SET[1].s16Y = 80;
 	REGISTRY_BACKGROUND_OFF_SET[2].s16Y = 37;
-
+	REGISTRY_BACKGROUND_OFF_SET[3].s16X = -32;
 }
 
 void unloadGameBackground()

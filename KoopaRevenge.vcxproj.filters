@@ -78,6 +78,9 @@
     <ClCompile Include="source\text.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\titleSplash.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Intellisense.h">
@@ -187,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="include\gameManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\background4.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\titleSplash.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -22,7 +22,7 @@ int main()
 {
 	splash();
 
-	REGISTRY_DISPLAYCONTROL = DISPLAYCONTROL_BACKGROUNDMODE_0 | DISPLAYCONTROL_BACKGROUNDMODE_1 | DISPLAYCONTROL_BACKGROUNDMODE_2 | ENABLE_OBJECTS | DISPLAYCONTROL_VIDEOMODE_0 | MAPPINGMODE_1D;//Set the mode to 0 with background 0.																						   //set up the BG Control Register
+	REGISTRY_DISPLAYCONTROL = DISPLAYCONTROL_BACKGROUNDMODE_0 | DISPLAYCONTROL_BACKGROUNDMODE_1 | DISPLAYCONTROL_BACKGROUNDMODE_2 | DISPLAYCONTROL_BACKGROUNDMODE_3 | ENABLE_OBJECTS | DISPLAYCONTROL_VIDEOMODE_0 | MAPPINGMODE_1D;//Set the mode to 0 with background 0.																						   //set up the BG Control Register
 	TIMER_3_CONTROL = TIMER_ENABLE | TIMER_CASCADE;
 	setupSprites();//clear all the sprites on screen now 
 
@@ -110,6 +110,8 @@ int main()
 		int state = 0;
 		int timeLeft = 300;
 		int highScore = 0;
+		int titleScroll = 90;
+
 		while (1)
 		{
 			if (state == 0)
@@ -119,11 +121,18 @@ int main()
 				enemy2.sprite->spriteSetPosition(0, 160);
 				enemy3.sprite->spriteSetPosition(0, 160);
 				
-				
 				highText.updateText("HIGH", 64, 136, spriteManager, 4);
 				score2Text.updateText("SCORE", 104, 136, spriteManager, 4);
 				char highScoreCharArray[3] = { '0' + highScore / 100 % 10, '0' + highScore / 10 % 10, '0' + highScore % 10 };
 				highScoreText.updateText(highScoreCharArray, 152, 136, spriteManager, 4);
+
+				if (titleScroll > -16)
+				{
+					titleScroll--;
+
+					REGISTRY_BACKGROUND_OFF_SET[3].s16Y = titleScroll;
+				}
+
 
 				pollKeys();
 
@@ -134,6 +143,7 @@ int main()
 				else
 				{
 					startText.updateText("START", 100, 120, spriteManager, 4);
+
 				}
 				if (keyReleased(START))
 				{
@@ -141,6 +151,7 @@ int main()
 					highText.hideText();
 					score2Text.hideText();
 					highScoreText.hideText();
+					REGISTRY_BACKGROUND_OFF_SET[3].s16Y = 90;
 					state = 1;
 				}
 
@@ -192,6 +203,7 @@ int main()
 					player.score = 0;
 					player.lives = 3;
 					timeLeft = 300;
+					titleScroll = 90;
 					enemy1.spawnEnemy(player);
 					enemy2.spawnEnemy(player);
 					enemy3.spawnEnemy(player);
