@@ -19,7 +19,6 @@
 #include "textFunctions.h"
 #include "spriteManager.h"
 
-
 int main()
 {
 	splash();
@@ -113,6 +112,8 @@ int main()
 		int timeLeft = 300;
 		int highScore = 0;
 		int titleScroll = 90;
+		fixed cloudScroll = 0;
+		int i_sinPos;
 
 		while (1)
 		{
@@ -128,7 +129,14 @@ int main()
 				char highScoreCharArray[3] = { '0' + highScore / 100 % 10, '0' + highScore / 10 % 10, '0' + highScore % 10 };
 				highScoreText.updateText(highScoreCharArray, 152, 136, spriteManager, 4);
 
-				
+				i_sinPos++;
+				if (i_sinPos == sin_lut_Size)
+				{
+					i_sinPos = 0;
+				}
+				cloudScroll = sin_lut[i_sinPos];
+				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = fixedToInteger(cloudScroll) + 20;
+
 
 				if (titleScroll > -16)
 				{
@@ -136,6 +144,8 @@ int main()
 
 					REGISTRY_BACKGROUND_OFF_SET[3].s16Y = titleScroll;
 				}
+
+				
 
 				pollKeys();
 
@@ -148,7 +158,7 @@ int main()
 					startText.updateText("START", 100, 120, spriteManager, 4);
 
 				}
-				if (keyReleased(START))
+				if (keyReleased(START) )
 				{
 					startText.hideText();
 					highText.hideText();
@@ -157,6 +167,7 @@ int main()
 					REGISTRY_BACKGROUND_OFF_SET[3].s16Y = 90;
 					state = 1;
 				}
+				
 
 				verticalSync();
 			}
@@ -164,7 +175,14 @@ int main()
 			if (state == 1)
 			{
 				pollKeys();
-			
+
+				i_sinPos++;
+				if (i_sinPos == sin_lut_Size)
+				{
+					i_sinPos = 0;
+				}
+				cloudScroll = sin_lut[i_sinPos];
+				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = fixedToInteger(cloudScroll) + 20;
 				
 				if (TIMER_1_DATA > 1)
 				{

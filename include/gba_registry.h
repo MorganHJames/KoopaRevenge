@@ -19,6 +19,8 @@
 
 #define	SAVE_RANDOM_ACCESS_MEMORY				0x0E000000//Define the Base Address for Cart Save RAM (VRAM). This is 64K (Max) in Size.
 
+
+
 #ifndef	NULL
 #define	NULL									0//Define for null.
 #endif

@@ -25,7 +25,7 @@
 
 typedef enum KEYS//An enumeration for all GBA keys and inputs.
 {
-	A = (1 << 0),				 //Button A.
+	A = (1 << 0),					 //Button A.
 	B = (1 << 1),				 //Button B.
 	SELECT = (1 << 2),			 //Select button.
 	START = (1 << 3),			 //Start button.
