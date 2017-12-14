@@ -17,7 +17,7 @@
 /* setup all sprites */
 void setupSprites()
 {
-	objectAttributeMemoryInitialize(MEMORY_OBJECT_ATTRIBUTE_MEMORY, NUMBER_SPRITES);
+	ObjectAttributeMemoryInitialize(MEMORY_OBJECT_ATTRIBUTE_MEMORY, NUMBER_SPRITES);
 }
 
 //* a sprite is a moveable image on the screen */
@@ -34,17 +34,17 @@ public:
 	/* set a sprite postion */
 	void spriteSetPosition(int x, int y)
 	{
-		setObjectPosition(Attribute, x, y);
+		SetObjectPosition(Attribute, x, y);
 	}
 
 	/* move a sprite in a direction */
 	void spriteMove(int dx, int dy)
 	{
 		/* get the current y coordinate */
-		int y = Attribute->attribute0 & 0xff;
+		int y = Attribute->u16Attribute0 & 0xff;
 
 		/* get the current x coordinate */
-		int x = Attribute->attribute1 & 0x1ff;
+		int x = Attribute->u16Attribute1 & 0x1ff;
 
 		/* move to the new location */
 		spriteSetPosition(x + dx, y + dy);
@@ -56,12 +56,12 @@ public:
 		if (vertical_flip)
 		{
 			/* set the bit */
-			Attribute->attribute1 |= 0x2000;
+			Attribute->u16Attribute1 |= 0x2000;
 		}
 		else
 		{
 			/* clear the bit */
-			Attribute->attribute1 &= 0xdfff;
+			Attribute->u16Attribute1 &= 0xdfff;
 		}
 	}
 
@@ -71,12 +71,12 @@ public:
 		if (horizontal_flip)
 		{
 			/* set the bit */
-			Attribute->attribute1 |= 0x1000;
+			Attribute->u16Attribute1 |= 0x1000;
 		}
 		else
 		{
 			/* clear the bit */
-			Attribute->attribute1 &= 0xefff;
+			Attribute->u16Attribute1 &= 0xefff;
 		}
 	}
 
@@ -84,20 +84,20 @@ public:
 	void spriteSetOffset(int offset)
 	{
 		/* clear the old offset */
-		Attribute->attribute2 &= 0xfc00;
+		Attribute->u16Attribute2 &= 0xfc00;
 
 		/* apply the new one */
-		Attribute->attribute2 |= (offset & 0x03ff);
+		Attribute->u16Attribute2 |= (offset & 0x03ff);
 	}
 
 	void hideSprite()
 	{
-		objectHide(Attribute);
+		ObjectHide(Attribute);
 	}
 
 	void unHideSprite(int a_mode)
 	{
-		objectUnhide(Attribute, a_mode);
+		ObjectUnhide(Attribute, a_mode);
 	}
 };
 

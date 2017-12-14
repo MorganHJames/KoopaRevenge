@@ -5,7 +5,6 @@
 //\ Brief: Contains the start point for the game.
 //\===========================================================================================
 
-
 #include "Intellisense.h"
 #include "gba.h"
 #include <string.h>
@@ -47,22 +46,22 @@ int main()
 	GameStates currentState = GAME;
 
 	//payer mem
-	directMemoryAccessWordCopy(paletteSpriteBlockAddress(0), koopaPal, koopaPalLen);
-	directMemoryAccessWordCopy(spriteTileBlockAddress(0), koopaTiles, koopaTilesLen);
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(0), koopaPal, koopaPalLen);
+	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(0), koopaTiles, koopaTilesLen);
 
 	//jump particle mem
-	directMemoryAccessWordCopy(paletteSpriteBlockAddress(1), smokePal, smokePalLen);
-	directMemoryAccessWordCopy(spriteTileBlockAddress(32), smokeTiles, smokeTilesLen);
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(1), smokePal, smokePalLen);
+	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(32), smokeTiles, smokeTilesLen);
 
 	//enemy mem
-	directMemoryAccessWordCopy(paletteSpriteBlockAddress(2), marioPal, marioPalLen);//mario colours
-	directMemoryAccessWordCopy(paletteSpriteBlockAddress(3), luigiPal, luigiPalLen);//luigi  colours
-	directMemoryAccessWordCopy(spriteTileBlockAddress(64), marioTiles, marioTilesLen);
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(2), marioPal, marioPalLen);//mario colours
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(3), luigiPal, luigiPalLen);//luigi  colours
+	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(64), marioTiles, marioTilesLen);
 
 	//Text mem
-	directMemoryAccessWordCopy(paletteSpriteBlockAddress(4), textPal, textPalLen);//text colours
-	directMemoryAccessWordCopy(paletteSpriteBlockAddress(5), textAlternatePal, textPalLen);//alternate  colours
-	directMemoryAccessWordCopy(spriteTileBlockAddress(96), textTiles, textTilesLen);
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(4), textPal, textPalLen);//text colours
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(5), textAlternatePal, textPalLen);//alternate  colours
+	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(96), textTiles, textTilesLen);
 
 	Text livesText;
 	livesText.textInitialization(5, 8);
@@ -145,7 +144,7 @@ int main()
 					i_sinPos = 0;
 				}
 				cloudScroll = sin_lut[i_sinPos];
-				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = fixedToInteger(cloudScroll) + 20;
+				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = FixedToInteger(cloudScroll) + 20;
 
 
 				if (titleScroll > -16)
@@ -157,9 +156,9 @@ int main()
 
 				
 
-				pollKeys();
+				PollKeys();
 
-				if (keyDown(START))
+				if (KeyDown(START))
 				{
 					startText.updateText(startCharArray, 100, 120, spriteManager, 5);
 				}
@@ -168,7 +167,7 @@ int main()
 					startText.updateText(startCharArray, 100, 120, spriteManager, 4);
 
 				}
-				if (keyReleased(START) )
+				if (KeyReleased(START) )
 				{
 					startText.hideText();
 					highText.hideText();
@@ -179,12 +178,12 @@ int main()
 				}
 				
 
-				verticalSync();
+				VerticalSync();
 			}
 
 			if (state == 1)
 			{
-				pollKeys();
+				PollKeys();
 
 				i_sinPos++;
 				if (i_sinPos == sin_lut_Size)
@@ -192,12 +191,12 @@ int main()
 					i_sinPos = 0;
 				}
 				cloudScroll = sin_lut[i_sinPos];
-				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = fixedToInteger(cloudScroll) + 20;
+				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = FixedToInteger(cloudScroll) + 20;
 				
 				if (TIMER_1_DATA > 1)
 				{
 					timeLeft--;
-					stopDelay();
+					StopDelay();
 					Delay(TIMER_SECONED);
 				}
 				player.playerUpdate();
@@ -229,10 +228,9 @@ int main()
 
 					for (int i = 0; i < 32; ++i)
 					{
-						setObjectPosition(&player.jumpParticleOAMStart[i],0 , 160);//Move particle
+						SetObjectPosition(&player.jumpParticleOAMStart[i],0 , 160);//Move particle
 					}
 					
-
 					if (player.score > highScore)
 					{
 						highScore = player.score;
@@ -245,8 +243,8 @@ int main()
 					enemy2.spawnEnemy(player);
 					enemy3.spawnEnemy(player);
 				}
-				delay(300);
-				verticalSync();
+				DelayNoTimer(300);
+				VerticalSync();
 			}
 			
 		}

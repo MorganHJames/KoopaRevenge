@@ -48,9 +48,9 @@ public:
 			tileIndexStart = a_spriteManager.objectAttributeMemoryFree();
 			objectCharacter = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[tileIndexStart];
 			tileIndexStart = tileIndexStart - length;
-			objectCharacter->attribute0 = setAttribute0(a_yPos, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
-			objectCharacter->attribute1 = setAttribute1(a_xPos + (textSpacing * i), 0, ATTRIBUTE1_SIZE_0);
-			objectCharacter->attribute2 = setAttribute2(768 + objectTilesPosition, 0, a_paletteBank);
+			objectCharacter->u16Attribute0 = SetAttribute0(a_yPos, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
+			objectCharacter->u16Attribute1 = SetAttribute1(a_xPos + (textSpacing * i), 0, ATTRIBUTE1_SIZE_0);
+			objectCharacter->u16Attribute2 = SetAttribute2(768 + objectTilesPosition, 0, a_paletteBank);
 
 			objectTilesPosition = 96;
 		}
@@ -76,10 +76,10 @@ public:
 
 			ObjectAttribute* objectCharacter;
 			objectCharacter = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[tileIndexStart + i + 1];
-			objectUnhide(objectCharacter, 0);
-			objectCharacter->attribute0 = setAttribute0(a_yPos, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
-			objectCharacter->attribute1 = setAttribute1(a_xPos + (textSpacing * i), 0, ATTRIBUTE1_SIZE_0);
-			objectCharacter->attribute2 = setAttribute2(768 + objectTilesPosition, 0, a_paletteBank);
+			ObjectUnhide(objectCharacter, 0);
+			objectCharacter->u16Attribute0 = SetAttribute0(a_yPos, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
+			objectCharacter->u16Attribute1 = SetAttribute1(a_xPos + (textSpacing * i), 0, ATTRIBUTE1_SIZE_0);
+			objectCharacter->u16Attribute2 = SetAttribute2(768 + objectTilesPosition, 0, a_paletteBank);
 		}
 	}
 	void hideText()
@@ -88,7 +88,7 @@ public:
 		{
 			ObjectAttribute* objectCharacter;
 			objectCharacter = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[tileIndexStart + i + 1];
-			objectHide(objectCharacter);
+			ObjectHide(objectCharacter);
 		}
 	}
 };

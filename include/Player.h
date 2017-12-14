@@ -100,16 +100,16 @@ public:
 	void playerInitialization(SpriteManager& a_spriteManager)
 	{
 		sprite.Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
-		sprite.Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
-		sprite.Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
-		sprite.Attribute->attribute2 = setAttribute2(0, 1, 0);
+		sprite.Attribute->u16Attribute0 = SetAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
+		sprite.Attribute->u16Attribute1 = SetAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
+		sprite.Attribute->u16Attribute2 = SetAttribute2(0, 1, 0);
 
 
 		// --- Particles ---
 
 		g_gravity = -0x9CC;
 		g_frameTime = 0x04;
-		g_pixels2Meter = integerToFixed(5);
+		g_pixels2Meter = IntegerToFixed(5);
 
 		emitterJumpEffect.y = 0;
 		emitterJumpEffect.x = 0;
@@ -117,8 +117,8 @@ public:
 		jumpParticleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[96];
 	
 		// --- ---
-		position.x = 120;
-		position.y = 100;
+		position.fX = 120;
+		position.fY = 100;
 		xvel = 0;
 		yvel = 0;
 		jumpHeight = 11;
@@ -127,8 +127,8 @@ public:
 		lives = 3;
 		iXScroll = 0;
 		iYScroll = 80;
-		iXSrollBackground2Offset = fixedDivide(integerToFixed(75), integerToFixed(100));
-		iXSrollBackground3Offset = fixedDivide(integerToFixed(5), integerToFixed(10));
+		iXSrollBackground2Offset = FixedDivide(IntegerToFixed(75), IntegerToFixed(100));
+		iXSrollBackground3Offset = FixedDivide(IntegerToFixed(5), IntegerToFixed(10));
 		walkAnimationDelay = 8;
 		runAnimationDelay = 4;
 		gravity = 1;
@@ -167,14 +167,14 @@ public:
 		move = 1;
 
 		/* if we are at the left end, just scroll the screen */
-		if (position.x < border)
+		if (position.fX < border)
 		{
 			return 1;
 		}
 		else
 		{
 			/* else move left */
-			position.x -= xvel;
+			position.fX -= xvel;
 			return 0;
 		}
 	}
@@ -186,14 +186,14 @@ public:
 		move = 1;
 
 		/* if we are at the right end, just scroll the screen */
-		if (position.x > (240 - 16 - border))
+		if (position.fX > (240 - 16 - border))
 		{
 			return 1;
 		}
 		else
 		{
 			/* else move right */
-			position.x += xvel;
+			position.fX += xvel;
 			return 0;
 		}
 	}
@@ -215,8 +215,8 @@ public:
 			yvel = -jumpHeight;
 			falling = 1;
 
-			emitterJumpEffect.x = integerToFixed(position.x + 7);//Move the emiter to the players x pos.
-			emitterJumpEffect.y = integerToFixed(position.y + 31);//Move the emiter to the players y pos.
+			emitterJumpEffect.x = IntegerToFixed(position.fX + 7);//Move the emiter to the players x pos.
+			emitterJumpEffect.y = IntegerToFixed(position.fY + 31);//Move the emiter to the players y pos.
 			for (int i = 0; i < 32; ++i)
 			{
 				EmitParticle(particlesJumpEffect[i], emitterJumpEffect);
@@ -234,8 +234,8 @@ public:
 
 	void playerCollision()
 	{
-		s32 pX = ((position.x + xvel) >> 3) + (iXScroll >> 3);
-		s32 pY = ((position.y + yvel) >> 3) + (iYScroll >> 3);
+		s32 pX = ((position.fX + xvel) >> 3) + (iXScroll >> 3);
+		s32 pY = ((position.fY + yvel) >> 3) + (iYScroll >> 3);
 
 
 		/* account for wraparound */
@@ -282,7 +282,7 @@ public:
 		{
 			yvel = 0;
 			falling = 0;
-			//position.y--;
+			//position.fY--;
 		}
 		else
 		{
@@ -298,7 +298,7 @@ public:
 		}
 
 
-		if (keyDown(A))
+		if (KeyDown(A))
 		{
 			playerJump();
 			
@@ -306,7 +306,7 @@ public:
 			
 		}
 
-		s32 xDir = getAxis(HORIZONTAL);
+		s32 xDir = GetAxis(HORIZONTAL);
 
 
 		screenRight = 0;
@@ -319,12 +319,12 @@ public:
 		case 1:
 		{
 
-			if (keyDown(B))
+			if (KeyDown(B))
 			{
 				//Right collision
 				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0 || collisionMap[IITR] > 0 || collisionMap[IIBR] > 0)
 				{
-					--position.x;
+					--position.fX;
 				}
 				else
 				{
@@ -339,8 +339,8 @@ public:
 						for (int i = 0; i < 32; ++i)
 						{
 
-							particlesJumpEffect[i].x -= integerToFixed(xvel);
-							setObjectPosition(&jumpParticleOAMStart[i], fixedToInteger(particlesJumpEffect[i].x), fixedToInteger(particlesJumpEffect[i].y));//Move particle
+							particlesJumpEffect[i].x -= IntegerToFixed(xvel);
+							SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].x), FixedToInteger(particlesJumpEffect[i].y));//Move particle
 
 						}
 
@@ -352,7 +352,7 @@ public:
 				//Right collision
 				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0 || collisionMap[IITR] > 0 || collisionMap[IIBR] > 0)
 				{
-					--position.x;
+					--position.fX;
 				}
 				else
 				{
@@ -364,10 +364,8 @@ public:
 					//Keep the particles in the same spot
 					for (int i = 0; i < 32; ++i)
 					{
-
-						particlesJumpEffect[i].x -= integerToFixed(xvel);
-						setObjectPosition(&jumpParticleOAMStart[i], fixedToInteger(particlesJumpEffect[i].x), fixedToInteger(particlesJumpEffect[i].y));//Move particle
-
+						particlesJumpEffect[i].x -= IntegerToFixed(xvel);
+						SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].x), FixedToInteger(particlesJumpEffect[i].y));//Move particle
 					}
 				}
 			}
@@ -375,7 +373,7 @@ public:
 			{
 				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0 || collisionMap[IITR] > 0 || collisionMap[IIBR] > 0)
 				{
-					--position.x;
+					--position.fX;
 				}
 				else
 				{
@@ -389,12 +387,12 @@ public:
 		// Moving left
 		case -1:
 		{
-			if (keyDown(B))
+			if (KeyDown(B))
 			{
 				//Left collision
 				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0 || collisionMap[IITL] > 0 || collisionMap[IIBL] > 0)
 				{
-					++position.x;
+					++position.fX;
 				}
 				else
 				{
@@ -408,8 +406,8 @@ public:
 						for (int i = 0; i < 32; ++i)
 						{
 
-							particlesJumpEffect[i].x += integerToFixed(xvel);
-							setObjectPosition(&jumpParticleOAMStart[i], fixedToInteger(particlesJumpEffect[i].x), fixedToInteger(particlesJumpEffect[i].y));//Move particle
+							particlesJumpEffect[i].x += IntegerToFixed(xvel);
+							SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].x), FixedToInteger(particlesJumpEffect[i].y));//Move particle
 
 						}
 					}
@@ -420,7 +418,7 @@ public:
 				//Left collision
 				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0 || collisionMap[IITL] > 0 || collisionMap[IIBL] > 0)
 				{
-					++position.x;
+					++position.fX;
 				}
 				else
 				{
@@ -432,10 +430,8 @@ public:
 					//Keep the particles in the same spot
 					for (int i = 0; i < 32; ++i)
 					{
-
-						particlesJumpEffect[i].x += integerToFixed(xvel);
-						setObjectPosition(&jumpParticleOAMStart[i], fixedToInteger(particlesJumpEffect[i].x), fixedToInteger(particlesJumpEffect[i].y));//Move particle
-
+						particlesJumpEffect[i].x += IntegerToFixed(xvel);
+						SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].x), FixedToInteger(particlesJumpEffect[i].y));//Move particle
 					}
 				}
 			}
@@ -444,7 +440,7 @@ public:
 				//Left collision
 				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0 || collisionMap[IITL] > 0 || collisionMap[IIBL] > 0)
 				{
-					++position.x;
+					++position.fX;
 				}
 				else
 				{
@@ -481,7 +477,7 @@ public:
 		/* update y position and speed if falling */
 		if (falling)
 		{
-			position.y += yvel;
+			position.fY += yvel;
 			yvel += gravity;
 		}
 
@@ -506,11 +502,11 @@ public:
 		{
 			UpdateParticleOneShot(particlesJumpEffect[i], emitterJumpEffect, g_frameTime, g_pixels2Meter, g_gravity);//Updates each particle.
 		
-			setObjectPosition(&jumpParticleOAMStart[i], fixedToInteger(particlesJumpEffect[i].x), fixedToInteger(particlesJumpEffect[i].y));//Move particle
+			SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].x), FixedToInteger(particlesJumpEffect[i].y));//Move particle
 		
 			u32 jumpFrameID = (1 << 9) - particlesJumpEffect[i].life;//Set the frame ID based on the particles life.
 			jumpFrameID = jumpFrameID << 4 >> 9;//Set the frame ID based on the particles life.
-			jumpParticleOAMStart[i].attribute2 = setAttribute2(32 + jumpFrameID, 0, 1);//Change the particle frame.
+			jumpParticleOAMStart[i].u16Attribute2 = SetAttribute2(32 + jumpFrameID, 0, 1);//Change the particle frame.
 
 			if (particlesJumpEffect[i].y < 160)//Stops the particles appearing at the top of the screen.
 			{
@@ -522,12 +518,12 @@ public:
 
 
 		playerCollision();
-		sprite.spriteSetPosition(position.x, position.y);
+		sprite.spriteSetPosition(position.fX, position.fY);
 
 		REGISTRY_BACKGROUND_OFF_SET[0].s16X = iXScroll;
 		REGISTRY_BACKGROUND_OFF_SET[0].s16Y = iYScroll;
-		REGISTRY_BACKGROUND_OFF_SET[1].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground2Offset));
-		REGISTRY_BACKGROUND_OFF_SET[2].s16X = fixedToInteger(fixedMultiply(integerToFixed(iXScroll), iXSrollBackground3Offset));
+		REGISTRY_BACKGROUND_OFF_SET[1].s16X = FixedToInteger(FixedMultiply(IntegerToFixed(iXScroll), iXSrollBackground2Offset));
+		REGISTRY_BACKGROUND_OFF_SET[2].s16X = FixedToInteger(FixedMultiply(IntegerToFixed(iXScroll), iXSrollBackground3Offset));
 		
 	}
 

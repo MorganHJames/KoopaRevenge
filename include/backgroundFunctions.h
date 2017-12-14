@@ -26,21 +26,21 @@ void splash()
 
 	REGISTRY_DISPLAYCONTROL = DISPLAYCONTROL_VIDEOMODE_4 | DISPLAYCONTROL_BACKGROUNDMODE_2;
 
-	directMemoryAccessWordCopy(VIDEO_RANDOM_ACCESS_MEMORY_PAGE, splashBitmap, splashBitmapLen);
-	directMemoryAccessWordCopy(PALETTE_BACKGROUND_MEMORY, splashPal, splashPalLen);
-	sleep(3, TIMER_SECONED);
+	DirectMemoryAccessWordCopy(VIDEO_RANDOM_ACCESS_MEMORY_PAGE, splashBitmap, splashBitmapLen);
+	DirectMemoryAccessWordCopy(PALETTE_BACKGROUND_MEMORY, splashPal, splashPalLen);
+	Sleep(3, TIMER_SECONED);
 }
 
 void loadGameBackground()
 {
 	// Load background
 	// Load palette
-	directMemoryAccessWordCopy(PALETTE_BACKGROUND_MEMORY, backgroundSpritesPal, backgroundSpritesPalLen);
+	DirectMemoryAccessWordCopy(PALETTE_BACKGROUND_MEMORY, backgroundSpritesPal, backgroundSpritesPalLen);
 	// Load tile memory location
 	// & with 0x3 so that we cannot access outside of layers 0-3
 
 	// Copy the background data into our tile memory location
-	directMemoryAccessWordCopy(tileBlockAddress(0), backgroundSpritesTiles, backgroundSpritesTilesLen);
+	DirectMemoryAccessWordCopy(TileBlockAddress(0), backgroundSpritesTiles, backgroundSpritesTilesLen);
 
 	// Get the tilemap memory location and copy the map data into it
 	// We only want to use tileblock locations 0, 8, 16 and 24
@@ -48,12 +48,12 @@ void loadGameBackground()
 
 
 	//Background 0 - collision and bushes
-	u16* tileMapMemoryLocation = tileMapBlockAddress(16);
+	u16* tileMapMemoryLocation = TileMapBlockAddress(16);
 	u16* mapLocation = (u16*)background1;
 
 	for (int i = 0; i < 128; ++i)
 	{
-		directMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
+		DirectMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
 		tileMapMemoryLocation = tileMapMemoryLocation + 32;
 		mapLocation += 64;
 		if (i == 31)
@@ -63,12 +63,12 @@ void loadGameBackground()
 	}
 
 	//Background 1 - hills
-	tileMapMemoryLocation = tileMapBlockAddress(18);
+	tileMapMemoryLocation = TileMapBlockAddress(18);
 	mapLocation = (u16*)background2;
 	
 	for (int i = 0; i < 128; ++i)
 	{
-		directMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
+		DirectMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
 		tileMapMemoryLocation = tileMapMemoryLocation + 32;
 		mapLocation += 64;
 		if (i == 31)
@@ -78,12 +78,12 @@ void loadGameBackground()
 	}
 	
 	//Background 2 - clouds and sky
-	tileMapMemoryLocation = tileMapBlockAddress(20);
+	tileMapMemoryLocation = TileMapBlockAddress(20);
 	mapLocation = (u16*)background3;
 	
 	for (int i = 0; i < 128; ++i)
 	{
-		directMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
+		DirectMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
 		tileMapMemoryLocation = tileMapMemoryLocation + 32;
 		mapLocation += 64;
 		if (i == 31)
@@ -92,16 +92,16 @@ void loadGameBackground()
 		}
 	}
 
-	directMemoryAccessWordCopy(&PALETTE_BACKGROUND_MEMORY[129], titleSplashPal, titleSplashPalLen);
-	directMemoryAccessWordCopy(tileBlockAddress(129), titleSplashTiles, titleSplashTilesLen);
+	DirectMemoryAccessWordCopy(&PALETTE_BACKGROUND_MEMORY[129], titleSplashPal, titleSplashPalLen);
+	DirectMemoryAccessWordCopy(TileBlockAddress(129), titleSplashTiles, titleSplashTilesLen);
 
 	//Background 3 - splash title
-	tileMapMemoryLocation = tileMapBlockAddress(22);
+	tileMapMemoryLocation = TileMapBlockAddress(22);
 	mapLocation = (u16*)background4;
 
 	for (int i = 0; i < 128; ++i)
 	{
-		directMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
+		DirectMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
 		tileMapMemoryLocation = tileMapMemoryLocation + 32;
 		mapLocation += 64;
 		if (i == 31)
@@ -111,15 +111,15 @@ void loadGameBackground()
 	}
 
 	// Set up the background control register
-	setBackgroundControlRegister(0, 1, 0, 0, 0, 16, 0, BACKGROUND_REGISTRY_SIZE_64x32);
-	setBackgroundControlRegister(1, 2, 0, 0, 0, 18, 0, BACKGROUND_REGISTRY_SIZE_64x32);
-	setBackgroundControlRegister(2, 3, 0, 0, 0, 20, 0, BACKGROUND_REGISTRY_SIZE_64x32);
-	setBackgroundControlRegister(3, 0, 129, 0, 0, 22, 0, BACKGROUND_REGISTRY_SIZE_64x32);
+	SetBackgroundControlRegister(0, 1, 0, 0, 0, 16, 0, BACKGROUND_REGISTRY_SIZE_64x32);
+	SetBackgroundControlRegister(1, 2, 0, 0, 0, 18, 0, BACKGROUND_REGISTRY_SIZE_64x32);
+	SetBackgroundControlRegister(2, 3, 0, 0, 0, 20, 0, BACKGROUND_REGISTRY_SIZE_64x32);
+	SetBackgroundControlRegister(3, 0, 129, 0, 0, 22, 0, BACKGROUND_REGISTRY_SIZE_64x32);
 
 	///Chnages palette of background 3
 	for (int i = 0; i < 350; ++i)
 	{
-		*(u16*)(VIDEO_RANDOM_ACCESS_MEMORY + ((22 * TILE_MAP_BLOCK_SIZE) + (i * 2))) = setScreenEntry(i , 0, 8);
+		*(u16*)(VIDEO_RANDOM_ACCESS_MEMORY + ((22 * TILE_MAP_BLOCK_SIZE) + (i * 2))) = SetScreenEntry(i , 0, 8);
 	}
 
 	//Move the maps the correct starting positions
@@ -131,12 +131,12 @@ void loadGameBackground()
 
 void unloadGameBackground()
 {
-	u16* tileMapMemoryLocation = tileMapBlockAddress(16);
-	directMemoryAccessWordCopy(tileMapMemoryLocation, 0, 64);
-	tileMapMemoryLocation = tileMapBlockAddress(18);
-	directMemoryAccessWordCopy(tileMapMemoryLocation, 0, 64);
-	tileMapMemoryLocation = tileMapBlockAddress(20);
-	directMemoryAccessWordCopy(tileMapMemoryLocation, 0, 64);
+	u16* tileMapMemoryLocation = TileMapBlockAddress(16);
+	DirectMemoryAccessWordCopy(tileMapMemoryLocation, 0, 64);
+	tileMapMemoryLocation = TileMapBlockAddress(18);
+	DirectMemoryAccessWordCopy(tileMapMemoryLocation, 0, 64);
+	tileMapMemoryLocation = TileMapBlockAddress(20);
+	DirectMemoryAccessWordCopy(tileMapMemoryLocation, 0, 64);
 }
 
 #endif//#define __BACKGROUND_FUNCTIONS_H__

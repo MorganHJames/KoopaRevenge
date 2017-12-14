@@ -16,15 +16,15 @@ extern "C" {
 //\ Includes
 //\===========================================================================================
 
-#include "gba_types.h"			//Includes the gba_types header file.
-#include "gba_registry.h"		//Includes the gba_registry header file.
-#include "gba_input.h"			//Includes the gba_input header file.
-#include "gba_math.h"           //Includes the gba_math header file.
-#include "gba_mathUtility.h"	//Includes the gba_mathUtility header file.
-#include "gba_graphics.h"		//Includes the gba_graphics header file.
-#include "gba_drawing.h"		//Includes the gba_drawing header file.
-#include "gba_directMemoryAccesss.h"//Includes the gba_directMemoryAccess header file.
-#include "gba_timers.h"         //Includes the gba_timers header file.
+#include "gba_types.h"					//Includes the gba_types header file.
+#include "gba_registry.h"				//Includes the gba_registry header file.
+#include "gba_input.h"					//Includes the gba_input header file.
+#include "gba_math.h"					//Includes the gba_math header file.
+#include "gba_mathUtility.h"			//Includes the gba_mathUtility header file.
+#include "gba_graphics.h"				//Includes the gba_graphics header file.
+#include "gba_drawing.h"				//Includes the gba_drawing header file.
+#include "gba_directMemoryAccesss.h"	//Includes the gba_directMemoryAccess header file.
+#include "gba_timers.h"					//Includes the gba_timers header file.
 
 #ifdef __cplusplus
 };

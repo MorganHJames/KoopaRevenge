@@ -25,7 +25,7 @@
 
 typedef enum KEYS//An enumeration for all GBA keys and inputs.
 {
-	A = (1 << 0),					 //Button A.
+	A = (1 << 0),				 //Button A.
 	B = (1 << 1),				 //Button B.
 	SELECT = (1 << 2),			 //Select button.
 	START = (1 << 3),			 //Start button.
@@ -52,18 +52,18 @@ typedef enum KEYS//An enumeration for all GBA keys and inputs.
 
 #define KEY_MASK 0x03FF//Define for the key mask.
 
-extern u16 __currentKeys, __previousKeys;//Variables to hold the current and previous state of the hardware keys.
+extern u16 u16CurrentKeys, u16PreviousKeys;//Variables to hold the current and previous state of the hardware keys.
 
-extern void pollKeys();//Function to test for Hardware Key Depress.
+extern void PollKeys();//Function to test for Hardware Key Depress.
 
-extern u16	currentKeyState();				//Get current key state.
-extern u16	prevKeyState();					//Get previous key state.
-extern u32	keyDown(u32 a_u32Key);			//Gives the keys of \a key that are currently down. 
-extern u32	keyUp(u32 a_u32Key);			//Gives the keys of \a key that are currently up. 
-extern u32	keyHeld(u32 a_u32Key);			//Gives the keys of \a key that are pressed. 
-extern u32	keyReleased(u32 a_u32Key);		//Gives the keys of \a key that are released.  
-extern u32	keyHit(u32 a_u32Key);			//Gives the keys of \a key that are hit. 
-extern u32	keyStateChange(u32 a_u32Key);	//Gives the keys of \a key that are changed. 
+extern u16	CurrentKeyState();				//Get current key state.
+extern u16	PreviousKeyState();				//Get previous key state.
+extern u32	KeyDown(u32 a_u32Key);			//Gives the keys of \a key that are currently down. 
+extern u32	KeyUp(u32 a_u32Key);			//Gives the keys of \a key that are currently up. 
+extern u32	KeyHeld(u32 a_u32Key);			//Gives the keys of \a key that are pressed. 
+extern u32	KeyReleased(u32 a_u32Key);		//Gives the keys of \a key that are released.  
+extern u32	KeyHit(u32 a_u32Key);			//Gives the keys of \a key that are hit. 
+extern u32	KeyStateChange(u32 a_u32Key);	//Gives the keys of \a key that are changed. 
 
 typedef enum AXIS//An enumeration for the axis'.
 {
@@ -71,6 +71,6 @@ typedef enum AXIS//An enumeration for the axis'.
 	VERTICAL,//The vertical axis.
 }AXIS;
 
-extern s32 getAxis(AXIS a_AVal);//A function to get the axis.
+extern s32 GetAxis(AXIS a_u32Val);//A function to get the axis.
 
 #endif//__GBA_INPUT_H__

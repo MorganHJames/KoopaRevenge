@@ -29,32 +29,32 @@ typedef s32 fixed;//Using a signed 32 bit value for fixed point 24.8 fixed. The 
 //\ Functions To Convert From Non-fixed Point Representation To Fixed Point Representation
 //\===========================================================================================
 
-extern fixed	integerToFixed(s32 a_i);//Convert and integer to a fixed point representation.
-extern fixed	floatToFixed(float a_f);//Convert a float to a fixed point representation.
+extern fixed IntegerToFixed(s32 a_s32Value);//Convert and integer to a fixed point representation.
+extern fixed FloatToFixed(float a_fValue);//Convert a float to a fixed point representation.
 
 //\===========================================================================================
 //\ Functions To Convert From Fixed Point Representation To Non-fixed Point Representation
 //\===========================================================================================
 
-extern u32		fixedToUnsignedInteger(fixed a_f);//Convert a fixed point value into an integer value.
-extern u32		fixedToUnsignedFractionalComponent(fixed a_f);//Get only the fractional component of a fixed point value as an integer.
-extern s32		fixedToInteger(fixed a_f);//Convert a fixed point number into a signed integer.
-extern float	fixedToFloat(fixed a_f);//Convert a fixed point number into a float.
+extern u32 FixedToUnsignedInteger(fixed a_fValue);//Convert a fixed point value into an integer value.
+extern u32 FixedToUnsignedFractionalComponent(fixed a_fValue);//Get only the fractional component of a fixed point value as an integer.
+extern s32 FixedToInteger(fixed a_fValue);//Convert a fixed point number into a signed integer.
+extern float FixedToFloat(fixed a_fValue);//Convert a fixed point number into a float.
 
 //\===========================================================================================
 //\ Functions To Undertake Fixed Point Addition, Subtraction, Multiplication & Division
 //\===========================================================================================
 
-extern fixed	fixedAddition(fixed a_fa, fixed a_fb);//Adding two fixed point values together.
-extern fixed	fixedSubtraction(fixed a_fa, fixed a_fb);//Subtract two fixed point values.
-extern fixed	fixedMultiply(fixed a_fa, fixed a_fb);//Multiply two fixed point values together.
-extern fixed	fixedDivide(fixed a_fa, fixed a_fb);//Divide one fixed point values by another.
+extern fixed FixedAddition(fixed a_fA, fixed a_fB);//Adding two fixed point values together.
+extern fixed FixedSubtraction(fixed a_fA, fixed a_fB);//Subtract two fixed point values.
+extern fixed FixedMultiply(fixed a_fA, fixed a_fB);//Multiply two fixed point values together.
+extern fixed FixedDivide(fixed a_fA, fixed a_fB);//Divide one fixed point values by another.
 
 //\===========================================================================================
 //\ Look Up Tables
 //\===========================================================================================
 
-extern s32 lookUpSin(u32 theta);//Sin lookup table.
-extern s32 lookUpCos(u32 theta);//Cos lookup table.
+extern s32 LookUpSin(u32 a_u32Value);//Sin lookup table.
+extern s32 LookUpCos(u32 a_u32Value);//Cos lookup table.
 
-#endif //__GBA_MATH_H__
+#endif//__GBA_MATH_H__

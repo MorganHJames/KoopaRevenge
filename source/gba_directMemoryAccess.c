@@ -7,28 +7,28 @@
 
 #include "gba_directMemoryAccesss.h"
 
-void directMemoryAccessCopy(void* dst, const void* src, u32 count, u32 mode)
+void DirectMemoryAccessCopy(void* a_pDestination, const void* a_c_pSource, u32 a_u32Count, u32 a_u32Mode)
 {
-	REG_DIRECT_MEMORY_ACCESS[3].cnt = 0;
-	REG_DIRECT_MEMORY_ACCESS[3].src = src;
-	REG_DIRECT_MEMORY_ACCESS[3].dst = dst;
-	REG_DIRECT_MEMORY_ACCESS[3].cnt = count | mode;
+	REG_DIRECT_MEMORY_ACCESS[3].u32Count = 0;
+	REG_DIRECT_MEMORY_ACCESS[3].pSource = a_c_pSource;
+	REG_DIRECT_MEMORY_ACCESS[3].pDestination = a_pDestination;
+	REG_DIRECT_MEMORY_ACCESS[3].u32Count = a_u32Count | a_u32Mode;
 }
 
-void directMemoryAccessFill(void* dst, volatile u32 src, u32 count, u32 mode)
+void DirectMemoryAccessFill(void* a_pDestination, vu32 a_vu32Source, u32 a_u32Count, u32 a_u32Mode)
 {
-	REG_DIRECT_MEMORY_ACCESS[3].cnt = 0;
-	REG_DIRECT_MEMORY_ACCESS[3].src = (const void*)&src;
-	REG_DIRECT_MEMORY_ACCESS[3].dst = dst;
-	REG_DIRECT_MEMORY_ACCESS[3].cnt = count | mode | DIRECT_MEMORY_ACCESS_SRC_FIXED;
+	REG_DIRECT_MEMORY_ACCESS[3].u32Count = 0;
+	REG_DIRECT_MEMORY_ACCESS[3].pSource = (const void*)&a_vu32Source;
+	REG_DIRECT_MEMORY_ACCESS[3].pDestination = a_pDestination;
+	REG_DIRECT_MEMORY_ACCESS[3].u32Count = a_u32Count | a_u32Mode | DIRECT_MEMORY_ACCESS_SRC_FIXED;
 }
 
-void directMemoryAccessWordCopy(void* dst, const void* src, u32 size)
+void DirectMemoryAccessWordCopy(void* a_pDestination, const void* a_c_pSource, u32 a_u32Size)
 {
-	directMemoryAccessCopy(dst, src, size >> 2, DIRECT_MEMORY_ACCESS_CPY32);
+	DirectMemoryAccessCopy(a_pDestination, a_c_pSource, a_u32Size >> 2, DIRECT_MEMORY_ACCESS_CPY32);
 }
 
-void directMemoryAccessWordFill(void* dst, volatile u32 src, u32 size)
+void DirectMemoryAccessWordFill(void* a_pDestination, vu32 a_vu32Source, u32 a_u32Size)
 {
-	directMemoryAccessFill(dst, src, size >> 2, DIRECT_MEMORY_ACCESS_FILL32);
+	DirectMemoryAccessFill(a_pDestination, a_vu32Source, a_u32Size >> 2, DIRECT_MEMORY_ACCESS_FILL32);
 }

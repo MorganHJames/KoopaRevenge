@@ -10,7 +10,7 @@
 
 #include "gba_types.h"
 
-	//Timer data address pointers.
+//Timer data address pointers.
 #define TIMER_0_DATA	*((vu16*)(0x04000100))
 #define TIMER_1_DATA	*((vu16*)(0x04000104))
 #define TIMER_2_DATA	*((vu16*)(0x04000108))
@@ -38,16 +38,16 @@
 #define TIMER_IRQ            0x0040
 
 //Timing defines.
-#define TIMER_SECONED (u16)-0x2025//About one second.
-#define TIMER_MILLISECOND (u16)-0x0008//About one eighth of a millisecond.
+#define TIMER_SECONED		(u16)-0x2025//About one second.
+#define TIMER_MILLISECOND	(u16)-0x0008//About one eighth of a millisecond.
 
 //Timer functions.
-extern void timerEnable(u16 a_timerControl);
-extern void timerDisable(u16 a_timerControl);
-extern void timerPause(u16 a_timerControl);
-extern void timerUnpause(u16 a_timerControl);
-extern void Delay(u16 a_timeScale);
-extern void stopDelay();
-extern void sleep(u32 a_amount, u16 a_timeScale);
+extern void TimerEnable(u16 a_u16TimerControl);
+extern void TimerDisable(u16 a_u16TimerControl);
+extern void TimerPause(u16 a_u16TimerControl);
+extern void TimerUnpause(u16 a_u16TimerControl);
+extern void Delay(u16 a_u16TimeScale);
+extern void StopDelay();
+extern void Sleep(u32 a_u32Amount, u16 a_u16TimeScale);
 
-#endif // _GBA_TIMERS_H_
+#endif//_GBA_TIMERS_H_

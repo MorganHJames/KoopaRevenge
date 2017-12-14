@@ -46,14 +46,14 @@
 #define COLOR_CYAN			0x7FE0//The hexadecimal code for cyan.
 #define COLOR_WHITE			0x7FFF//The hexadecimal code for white.
 
-extern COLOR setColor(u8 a_u8Red, u8 a_u8Green, u8 a_u8Blue);//A function to return a color with RGB inputs.
+extern COLOR SetColor(u8 a_u8Red, u8 a_u8Green, u8 a_u8Blue);//A function to return a color with RGB inputs.
 
 //\===========================================================================================
-//\ Primitive Functions.
+//\ Primitive Functions
 //\===========================================================================================
 
-extern void drawRectangle(u32 a_u32Left, u32 a_u32Top, u32 a_u32Width, u32 a_u32Height, COLOR a_cColor);//A function to draw the primitive shape of a rectangle.
+extern void DrawRectangle(u32 a_u32Left, u32 a_u32Top, u32 a_u32Width, u32 a_u32Height, COLOR a_u16Color);//A function to draw the primitive shape of a rectangle.
 
-extern void drawLine(s32 a_s32X, s32 a_s32Y, s32 a_s32X2, s32 a_s32Y2, COLOR a_cColor);//A function to draw the primitive shape of a line.
+extern void DrawLine(s32 a_s32X, s32 a_s32Y, s32 a_s32X2, s32 a_s32Y2, COLOR a_u16Color);//A function to draw the primitive shape of a line.
 
 #endif//__GBA_DRAWING_H__

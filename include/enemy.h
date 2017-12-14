@@ -56,8 +56,8 @@ public:
 	void enemyInitialization(SpriteManager& a_spriteManager, Player a_player, int objMem)
 	{
 		sprite.Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
-		sprite.Attribute->attribute0 = setAttribute0(0, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
-		sprite.Attribute->attribute1 = setAttribute1(0, 0, ATTRIBUTE1_SIZE_1);
+		sprite.Attribute->u16Attribute0 = SetAttribute0(0, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
+		sprite.Attribute->u16Attribute1 = SetAttribute1(0, 0, ATTRIBUTE1_SIZE_1);
 		
 		spawnEnemy(a_player);
 		falling = 0;
@@ -82,17 +82,17 @@ public:
 	{
 
 		int pallete = 0;
-		position.y = 0;//Sets the enemy's y to be 0 so its at the top of the screen and wont spawn in any terrain.
+		position.fY = 0;//Sets the enemy's y to be 0 so its at the top of the screen and wont spawn in any terrain.
 
-		int side = quasiRandomRange(0, 1000);//Picks a side for the player to spawn on.
+		int side = QuasiRandomRange(0, 1000);//Picks a side for the player to spawn on.
 
 		if (side > 500)//Left side chosen.
 		{
-			side = quasiRandomRange(-1000, -300);
+			side = QuasiRandomRange(-1000, -300);
 		}
 		else//Right side chosen.
 		{
-			side = quasiRandomRange(300, 1000);
+			side = QuasiRandomRange(300, 1000);
 		}
 		if (side % 2 == 0)
 		{
@@ -104,8 +104,8 @@ public:
 		}
 
 
-		sprite.Attribute->attribute2 = setAttribute2(64, 1, pallete);
-		position.x = side;
+		sprite.Attribute->u16Attribute2 = SetAttribute2(64, 1, pallete);
+		position.fX = side;
 	}
 
 	void enemyMoveLeft()
@@ -113,7 +113,7 @@ public:
 		/* face left */
 		flip = 1;
 		//move = 1;
-		position.x -= xvel;
+		position.fX -= xvel;
 	}
 
 	void enemyMoveRight()
@@ -121,7 +121,7 @@ public:
 		/* face right */
 		flip = 0;
 		//move = 1;
-		position.x += xvel;
+		position.fX += xvel;
 	}
 
 	void enemyJump()
@@ -146,8 +146,8 @@ public:
 
 	void gotHit(Player& a_player)
 	{
-		Vector4 playerFeet = { a_player.position.x, a_player.position.y + 32, 16 , 8 };
-		Vector4 enemyHead = { position.x, position.y, 16 , 8 };
+		Vector4 playerFeet = { a_player.position.fX, a_player.position.fY + 32, 16 , 8 };
+		Vector4 enemyHead = { position.fX, position.fY, 16 , 8 };
 		//Hurt by player
 		if (playerFeet.x < enemyHead.x + enemyHead.w &&
 			playerFeet.x + playerFeet.w > enemyHead.x &&
@@ -169,8 +169,8 @@ public:
 	}
 	void enemyAI(Player& a_player)
 	{
-		s32 pX = ((position.x + xvel) >> 3) + (a_player.iXScroll >> 3);
-		s32 pY = ((position.y + yvel) >> 3) + (a_player.iYScroll >> 3);
+		s32 pX = ((position.fX + xvel) >> 3) + (a_player.iXScroll >> 3);
+		s32 pY = ((position.fY + yvel) >> 3) + (a_player.iYScroll >> 3);
 
 		/* account for wraparound */
 		while (pX >= collisionMapWidth)
@@ -218,7 +218,7 @@ public:
 				yvel = 0;
 				falling = 0;
 				move = 1;
-				//position.y--;
+				//position.fY--;
 			}
 			else
 			{
@@ -234,12 +234,12 @@ public:
 			}
 
 			//Running right
-			if (a_player.position.x - runDistance > position.x)
+			if (a_player.position.fX - runDistance > position.fX)
 			{
 				//Right collision
 				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0)
 				{
-					--position.x;
+					--position.fX;
 					enemyJump();
 
 				}
@@ -252,12 +252,12 @@ public:
 				}
 			}
 			//Walk right
-			else if (a_player.position.x > position.x)
+			else if (a_player.position.fX > position.fX)
 			{
 				//Right collision
 				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0)
 				{
-					--position.x;
+					--position.fX;
 					enemyJump();
 				}
 				else
@@ -269,18 +269,18 @@ public:
 				}
 			}
 			//Stop
-			else if (a_player.position.x == position.x)
+			else if (a_player.position.fX == position.fX)
 			{
 				enemyStop();
 			}
 
 			//Running left
-			if (fixedToInteger(a_player.position.x) + runDistance < fixedToInteger(position.x))
+			if (FixedToInteger(a_player.position.fX) + runDistance < FixedToInteger(position.fX))
 			{
 				//left collision
 				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0)
 				{
-					++position.x;
+					++position.fX;
 					enemyJump();
 				}
 				else
@@ -292,12 +292,12 @@ public:
 				}
 			}
 			//Walk left
-			else if (a_player.position.x < position.x)
+			else if (a_player.position.fX < position.fX)
 			{
 				//left collision
 				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0)
 				{
-					++position.x;
+					++position.fX;
 					enemyJump();
 				}
 				else
@@ -309,7 +309,7 @@ public:
 				}
 			}
 			//Stop
-			else if (a_player.position.x == position.x)
+			else if (a_player.position.fX == position.fX)
 			{
 				enemyStop();
 			}
@@ -321,10 +321,10 @@ public:
 
 	void hurtPlayer(Player& a_player, Enemy2& a_enemy2, Enemy3& a_enemy3 )
 	{
-		Vector4 player = { a_player.position.x, a_player.position.y, 16 , 32 };
-		Vector4 enemy = { this->position.x, this->position.y, 16 , 16 };
-		Vector4 enemy2 = { a_enemy2.position.x, a_enemy2.position.y, 16 , 16 };
-		Vector4 enemy3 = { a_enemy3.position.x, a_enemy3.position.y, 16 , 16 };
+		Vector4 player = { a_player.position.fX, a_player.position.fY, 16 , 32 };
+		Vector4 enemy = { this->position.fX, this->position.fY, 16 , 16 };
+		Vector4 enemy2 = { a_enemy2.position.fX, a_enemy2.position.fY, 16 , 16 };
+		Vector4 enemy3 = { a_enemy3.position.fX, a_enemy3.position.fY, 16 , 16 };
 		//Hurt by player
 		if (
 			(player.x < enemy.x + enemy.w &&
@@ -370,7 +370,7 @@ public:
 	void enemyUpdate(Player& a_player, Enemy2& a_enemy2, Enemy3& a_enemy3)
 	{
 		//sprite flip didn't work for the enemy for some unannounced reason.
-		sprite.Attribute->attribute1 = setAttribute1(position.x, flip, ATTRIBUTE1_SIZE_1);
+		sprite.Attribute->u16Attribute1 = SetAttribute1(position.fX, flip, ATTRIBUTE1_SIZE_1);
 		
 		enemyAI(a_player);
 		hurtPlayer(a_player, a_enemy2, a_enemy3);
@@ -392,28 +392,28 @@ public:
 		/* update y position and speed if falling */
 		if (falling)
 		{
-			position.y += yvel;
+			position.fY += yvel;
 			yvel += gravity;
 		}
 
 
 		if (a_player.screenLeft)
 		{
-			position.x += a_player.xvel;
+			position.fX += a_player.xvel;
 		}
 		if (a_player.screenRight)
 		{
-			position.x -= a_player.xvel;
+			position.fX -= a_player.xvel;
 		}
-		if (position.x >= 0 && position.x <= 240)
+		if (position.fX >= 0 && position.fX <= 240)
 		{
-			sprite.spriteSetPosition(position.x, position.y);
+			sprite.spriteSetPosition(position.fX, position.fY);
 		}
 		else
 		{
 			sprite.spriteSetPosition(0, 160);
 		}
-		if (position.y > 150)
+		if (position.fY > 150)
 		{
 			spawnEnemy(a_player);
 			alive = 1;
