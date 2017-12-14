@@ -42,10 +42,10 @@
 #define TIMER_MILLISECOND (u16)-0x0008//About one eighth of a millisecond.
 
 //Timer functions.
-extern void timerEnable(u16* a_timerControl);
-extern void timerDisable(u16* a_timerControl);
-extern void timerPause(u16* a_timerControl);
-extern void timerUnpause(u16* a_timerControl);
+extern void timerEnable(u16 a_timerControl);
+extern void timerDisable(u16 a_timerControl);
+extern void timerPause(u16 a_timerControl);
+extern void timerUnpause(u16 a_timerControl);
 extern void Delay(u16 a_timeScale);
 extern void stopDelay();
 extern void sleep(u32 a_amount, u16 a_timeScale);

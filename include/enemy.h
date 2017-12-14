@@ -30,7 +30,7 @@ private:
 public:
 
 	/* the actual sprite attribute info */
-	Sprite* sprite;
+	Sprite sprite;
 
 	/* the x and y postion */
 	Vector2 position;
@@ -55,9 +55,9 @@ public:
 
 	void enemyInitialization(SpriteManager& a_spriteManager, Player a_player, int objMem)
 	{
-		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
-		sprite->Attribute->attribute0 = setAttribute0(0, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
-		sprite->Attribute->attribute1 = setAttribute1(0, 0, ATTRIBUTE1_SIZE_1);
+		sprite.Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
+		sprite.Attribute->attribute0 = setAttribute0(0, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
+		sprite.Attribute->attribute1 = setAttribute1(0, 0, ATTRIBUTE1_SIZE_1);
 		
 		spawnEnemy(a_player);
 		falling = 0;
@@ -104,7 +104,7 @@ public:
 		}
 
 
-		sprite->Attribute->attribute2 = setAttribute2(64, 1, pallete);
+		sprite.Attribute->attribute2 = setAttribute2(64, 1, pallete);
 		position.x = side;
 	}
 
@@ -141,7 +141,7 @@ public:
 		frame = 64;
 		counter = 7;
 		xvel = 0;
-		sprite->spriteSetOffset(frame);
+		sprite.spriteSetOffset(frame);
 	}
 
 	void gotHit(Player& a_player)
@@ -275,7 +275,7 @@ public:
 			}
 
 			//Running left
-			if (a_player.position.x + runDistance < position.x)
+			if (fixedToInteger(a_player.position.x) + runDistance < fixedToInteger(position.x))
 			{
 				//left collision
 				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0)
@@ -308,9 +308,6 @@ public:
 
 				}
 			}
-
-
-
 			//Stop
 			else if (a_player.position.x == position.x)
 			{
@@ -373,7 +370,7 @@ public:
 	void enemyUpdate(Player& a_player, Enemy2& a_enemy2, Enemy3& a_enemy3)
 	{
 		//sprite flip didn't work for the enemy for some unannounced reason.
-		sprite->Attribute->attribute1 = setAttribute1(position.x, flip, ATTRIBUTE1_SIZE_1);
+		sprite.Attribute->attribute1 = setAttribute1(position.x, flip, ATTRIBUTE1_SIZE_1);
 		
 		enemyAI(a_player);
 		hurtPlayer(a_player, a_enemy2, a_enemy3);
@@ -410,18 +407,18 @@ public:
 		}
 		if (position.x >= 0 && position.x <= 240)
 		{
-			sprite->spriteSetPosition(position.x, position.y);
+			sprite.spriteSetPosition(position.x, position.y);
 		}
 		else
 		{
-			sprite->spriteSetPosition(0, 160);
+			sprite.spriteSetPosition(0, 160);
 		}
 		if (position.y > 150)
 		{
 			spawnEnemy(a_player);
 			alive = 1;
 		}
-		sprite->spriteSetOffset(frame);
+		sprite.spriteSetOffset(frame);
 	}
 
 

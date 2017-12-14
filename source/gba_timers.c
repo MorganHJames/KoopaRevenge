@@ -7,24 +7,24 @@
 
 #include "gba_timers.h"
 
-void timerEnable(u16* a_timerControl)
+void timerEnable(u16 a_timerControl)
 {
-	*a_timerControl |= TIMER_ENABLE;
+	a_timerControl |= TIMER_ENABLE;
 }
 
-void timerDisable(u16* a_timerControl)
+void timerDisable(u16 a_timerControl)
 {
-	*a_timerControl ^= TIMER_ENABLE;
+	a_timerControl ^= TIMER_ENABLE;
 }
 
-void timerPause(u16* a_timerControl)
+void timerPause(u16 a_timerControl)
 {
-	*a_timerControl |= TIMER_CASCADE;
+	a_timerControl |= TIMER_CASCADE;
 }
 
-void timerUnpause(u16* a_timerControl)
+void timerUnpause(u16 a_timerControl)
 {
-	*a_timerControl ^= TIMER_CASCADE;
+	a_timerControl ^= TIMER_CASCADE;
 }
 
 void Delay(u16 a_timeScale)

@@ -27,7 +27,7 @@ private:
 public:
 
 	/* the actual sprite attribute info */
-	Sprite* sprite;
+	Sprite sprite;
 
 	/* the x and y postion */
 	Vector2 position;
@@ -99,10 +99,10 @@ public:
 
 	void playerInitialization(SpriteManager& a_spriteManager)
 	{
-		sprite->Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
-		sprite->Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
-		sprite->Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
-		sprite->Attribute->attribute2 = setAttribute2(0, 1, 0);
+		sprite.Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
+		sprite.Attribute->attribute0 = setAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
+		sprite.Attribute->attribute1 = setAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
+		sprite.Attribute->attribute2 = setAttribute2(0, 1, 0);
 
 
 		// --- Particles ---
@@ -111,7 +111,8 @@ public:
 		g_frameTime = 0x04;
 		g_pixels2Meter = integerToFixed(5);
 
-	
+		emitterJumpEffect.y = 0;
+		emitterJumpEffect.x = 0;
 
 		jumpParticleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[96];
 	
@@ -162,7 +163,7 @@ public:
 	int playerMoveLeft()
 	{
 		/* face left */
-		sprite->spriteSetHorizontalFlip(1);
+		sprite.spriteSetHorizontalFlip(1);
 		move = 1;
 
 		/* if we are at the left end, just scroll the screen */
@@ -181,7 +182,7 @@ public:
 	int playerMoveRight()
 	{
 		/* face right */
-		sprite->spriteSetHorizontalFlip(0);
+		sprite.spriteSetHorizontalFlip(0);
 		move = 1;
 
 		/* if we are at the right end, just scroll the screen */
@@ -203,7 +204,7 @@ public:
 		frame = 0;
 		counter = 7;
 		xvel = 0;
-		sprite->spriteSetOffset(frame);
+		sprite.spriteSetOffset(frame);
 	}
 
 	/* start the koopa jumping, unless already fgalling */
@@ -494,7 +495,7 @@ public:
 				{
 					frame = 0;
 				}
-				sprite->spriteSetOffset(frame);
+				sprite.spriteSetOffset(frame);
 				counter = 0;
 			}
 		}
@@ -521,7 +522,7 @@ public:
 
 
 		playerCollision();
-		sprite->spriteSetPosition(position.x, position.y);
+		sprite.spriteSetPosition(position.x, position.y);
 
 		REGISTRY_BACKGROUND_OFF_SET[0].s16X = iXScroll;
 		REGISTRY_BACKGROUND_OFF_SET[0].s16Y = iYScroll;

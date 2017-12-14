@@ -129,10 +129,10 @@ int main()
 		{
 			if (state == 0)
 			{
-				player.sprite->spriteSetPosition(0, 160);
-				enemy1.sprite->spriteSetPosition(0, 160);
-				enemy2.sprite->spriteSetPosition(0, 160);
-				enemy3.sprite->spriteSetPosition(0, 160);
+				player.sprite.spriteSetPosition(0, 160);
+				enemy1.sprite.spriteSetPosition(0, 160);
+				enemy2.sprite.spriteSetPosition(0, 160);
+				enemy3.sprite.spriteSetPosition(0, 160);
 				
 				highText.updateText(highTCharArray, 64, 136, spriteManager, 4);
 				score2Text.updateText(scoreCharArray, 104, 136, spriteManager, 4);
