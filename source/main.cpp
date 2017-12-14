@@ -28,6 +28,7 @@ int main()
 	setupSprites();//clear all the sprites on screen now 
 
 	SpriteManager spriteManager;
+	spriteManager.SpriteManagerInitialization();
 
 	Player player;//Create the player.
 	player.playerInitialization(spriteManager);//PLayer Initialization.
@@ -65,42 +66,51 @@ int main()
 
 	Text livesText;
 	livesText.textInitialization(5, 8);
-	livesText.drawText("LIVES", 0, 160, spriteManager, 4);
+	char livesCharArray[5] = { 'L' , 'I' , 'V', 'E', 'S' };
+	livesText.drawText(livesCharArray, 0, 160, spriteManager, 4);
+
 	Text livesLeftText;
 	livesLeftText.textInitialization(1, 8);
-	livesLeftText.drawText("3", 0, 160, spriteManager, 4);
+	char livesLeftCharArray[1] = { '3' };
+	livesLeftText.drawText(livesLeftCharArray, 0, 160, spriteManager, 4);
 
 	Text scoreText;
 	scoreText.textInitialization(5, 8);
-	scoreText.drawText("SCORE", 0, 160, spriteManager, 4);
+	char scoreCharArray[5] = { 'S' , 'C' , 'O', 'R', 'E' };
+	scoreText.drawText(scoreCharArray, 0, 160, spriteManager, 4);
 
 	Text scoreValueText;
 	scoreValueText.textInitialization(3, 8);
-	scoreValueText.drawText("000", 0, 160, spriteManager, 4);
+	char scoreValueCharArray[3] = { '0', '0', '0' };
+	scoreValueText.drawText(scoreValueCharArray, 0, 160, spriteManager, 4);
 
 	Text timeText;
 	timeText.textInitialization(4, 8);
-	timeText.drawText("TIME", 0, 160, spriteManager, 4);
+	char timeCharArray[4] = { 'T', 'I', 'M', 'E' };
+	timeText.drawText(timeCharArray, 0, 160, spriteManager, 4);
 
 	Text timeRemainingText;
 	timeRemainingText.textInitialization(3, 8);
-	timeRemainingText.drawText("300", 0, 160, spriteManager, 4);
+	char timeRemainingCharArray[3] = { '3', '0', '0' };
+	timeRemainingText.drawText(timeRemainingCharArray, 0, 160, spriteManager, 4);
 
 	Text startText;
 	startText.textInitialization(5, 8);
-	startText.drawText("START", 0, 160, spriteManager, 4);
+	char startCharArray[5] = { 'S', 'T', 'A', 'R', 'T' };
+	startText.drawText(startCharArray, 0, 160, spriteManager, 4);
 
 	Text highText;
 	highText.textInitialization(4, 8);
-	highText.drawText("HIGH", 0, 160, spriteManager, 4);
+	char highTCharArray[4] = { 'H', 'I', 'G', 'H' };
+	highText.drawText(highTCharArray, 0, 160, spriteManager, 4);
 
 	Text score2Text;
 	score2Text.textInitialization(5, 8);
-	score2Text.drawText("SCORE", 0, 160, spriteManager, 4);
+	score2Text.drawText(scoreCharArray, 0, 160, spriteManager, 4);
 
 	Text highScoreText;
 	highScoreText.textInitialization(3, 8);
-	highScoreText.drawText("000", 0, 160, spriteManager, 4);
+	highScoreText.drawText(scoreValueCharArray, 0, 160, spriteManager, 4);
 
 	Delay(TIMER_SECONED);
 
@@ -113,7 +123,7 @@ int main()
 		int highScore = 0;
 		int titleScroll = 90;
 		fixed cloudScroll = 0;
-		int i_sinPos;
+		int i_sinPos = 0;
 
 		while (1)
 		{
@@ -124,9 +134,9 @@ int main()
 				enemy2.sprite->spriteSetPosition(0, 160);
 				enemy3.sprite->spriteSetPosition(0, 160);
 				
-				highText.updateText("HIGH", 64, 136, spriteManager, 4);
-				score2Text.updateText("SCORE", 104, 136, spriteManager, 4);
-				char highScoreCharArray[3] = { '0' + highScore / 100 % 10, '0' + highScore / 10 % 10, '0' + highScore % 10 };
+				highText.updateText(highTCharArray, 64, 136, spriteManager, 4);
+				score2Text.updateText(scoreCharArray, 104, 136, spriteManager, 4);
+				char highScoreCharArray[3] = { (char)('0' + highScore / 100 % 10), (char)('0' + highScore / 10 % 10), (char)('0' + highScore % 10) };
 				highScoreText.updateText(highScoreCharArray, 152, 136, spriteManager, 4);
 
 				i_sinPos++;
@@ -151,11 +161,11 @@ int main()
 
 				if (keyDown(START))
 				{
-					startText.updateText("START", 100, 120, spriteManager, 5);
+					startText.updateText(startCharArray, 100, 120, spriteManager, 5);
 				}
 				else
 				{
-					startText.updateText("START", 100, 120, spriteManager, 4);
+					startText.updateText(startCharArray, 100, 120, spriteManager, 4);
 
 				}
 				if (keyReleased(START) )
@@ -196,14 +206,14 @@ int main()
 				enemy2.enemyUpdate(player);
 				enemy3.enemyUpdate(player);
 
-				timeText.updateText("TIME", 104, 2, spriteManager, 4);
-				char livesLeftCharArray[3] = { '0' + timeLeft / 100 % 10, '0' + timeLeft / 10 % 10, '0' + timeLeft % 10 };
+				timeText.updateText(timeCharArray, 104, 2, spriteManager, 4);
+				char livesLeftCharArray[3] = { (char)('0' + timeLeft / 100 % 10), (char)('0' + timeLeft / 10 % 10),  (char)('0' + timeLeft % 10) };
 				timeRemainingText.updateText(livesLeftCharArray, 108, 10, spriteManager, 4);
-				livesText.updateText("LIVES", 1, 2, spriteManager, 4);
-				char livesLeftChar[] = { '0' + player.lives, '\0' };
+				livesText.updateText(livesCharArray, 1, 2, spriteManager, 4);
+				char livesLeftChar[] = { (char)('0' + player.lives), '\0' };
 				livesLeftText.updateText(livesLeftChar, 17, 10, spriteManager, 4);
-				scoreText.updateText("SCORE", 199, 2, spriteManager, 4);
-				char scoreValueCharArray[3] = { '0' + player.score / 100 % 10, '0' + player.score / 10 % 10, '0' + player.score % 10 };
+				scoreText.updateText(scoreCharArray, 199, 2, spriteManager, 4);
+				char scoreValueCharArray[3] = { (char)('0' + (player.score / 100 % 10)),  (char)('0' + (player.score / 10 % 10)),  (char)('0' + (player.score % 10)) };
 				scoreValueText.updateText(scoreValueCharArray, 207, 10, spriteManager, 4);
 
 				if (player.lives == 0 || timeLeft == 0)

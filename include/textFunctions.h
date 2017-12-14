@@ -52,7 +52,7 @@ public:
 			objectCharacter->attribute1 = setAttribute1(a_xPos + (textSpacing * i), 0, ATTRIBUTE1_SIZE_0);
 			objectCharacter->attribute2 = setAttribute2(768 + objectTilesPosition, 0, a_paletteBank);
 
-			u8 objectTilesPosition = 96;
+			objectTilesPosition = 96;
 		}
 	}
 

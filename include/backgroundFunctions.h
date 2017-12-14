@@ -117,7 +117,7 @@ void loadGameBackground()
 	setBackgroundControlRegister(3, 0, 129, 0, 0, 22, 0, BACKGROUND_REGISTRY_SIZE_64x32);
 
 	///Chnages palette of background 3
-	for (int i; i < 350; ++i)
+	for (int i = 0; i < 350; ++i)
 	{
 		*(u16*)(VIDEO_RANDOM_ACCESS_MEMORY + ((22 * TILE_MAP_BLOCK_SIZE) + (i * 2))) = setScreenEntry(i , 0, 8);
 	}

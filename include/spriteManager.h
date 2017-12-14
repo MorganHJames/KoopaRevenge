@@ -14,7 +14,12 @@ class SpriteManager
 {
 private:
 public:
-	int activatedSpriteAttributes = -1;
+	int activatedSpriteAttributes;
+
+	void SpriteManagerInitialization()
+	{
+		activatedSpriteAttributes = -1;
+	}
 
 	//Check oam pos for usage
 	int objectAttributeMemoryFree()
