@@ -18,52 +18,61 @@
 
 int main()
 {
-	SplashScreenLoad();
+	SplashScreenLoad();//Loads the splash screen.
 
-	REGISTRY_DISPLAYCONTROL = DISPLAYCONTROL_BACKGROUNDMODE_0 | DISPLAYCONTROL_BACKGROUNDMODE_1 | DISPLAYCONTROL_BACKGROUNDMODE_2 | DISPLAYCONTROL_BACKGROUNDMODE_3 | ENABLE_OBJECTS | DISPLAYCONTROL_VIDEOMODE_0 | MAPPINGMODE_1D;//Set the mode to 0 with background 0.																						   //set up the BG Control Register
-	TIMER_3_CONTROL = TIMER_ENABLE | TIMER_CASCADE;
+	REGISTRY_DISPLAYCONTROL = 
+		DISPLAYCONTROL_BACKGROUNDMODE_0 | 
+		DISPLAYCONTROL_BACKGROUNDMODE_1 | 
+		DISPLAYCONTROL_BACKGROUNDMODE_2 | 
+		DISPLAYCONTROL_BACKGROUNDMODE_3 | 
+		ENABLE_OBJECTS | 
+		DISPLAYCONTROL_VIDEOMODE_0
+		| MAPPINGMODE_1D;//Set up the BG Control Register.
+
+	TIMER_3_CONTROL = TIMER_ENABLE | TIMER_CASCADE;//Set up timer 3 control.
+
 	SetupSprites();//clear all the sprites on screen now 
 
-	SpriteManager oSpriteManager;
-	oSpriteManager.SpriteManagerInitialization();
+	SpriteManager oSpriteManager;//Creates a sprite manager.
+	oSpriteManager.SpriteManagerInitialization();//Initialize the sprite manager.
 
-	GameManager oGameManager;
+	GameManager oGameManager;//Create a game manager.
 
 	Player oPlayer;//Create the player.
 	oPlayer.PlayerInitialization(oSpriteManager);//PLayer Initialization.
 
 	Enemy oEnemy1, oEnemy2, oEnemy3;//Creates the enemies.
-	oEnemy1.EnemyInitialization(oSpriteManager, oPlayer);//enemy Initialization.
+	oEnemy1.EnemyInitialization(oSpriteManager, oPlayer);//enemy1 Initialization.
 
-	oEnemy2.EnemyInitialization(oSpriteManager, oPlayer);//enemy Initialization.
+	oEnemy2.EnemyInitialization(oSpriteManager, oPlayer);//enemy2 Initialization.
 
-	oEnemy3.EnemyInitialization(oSpriteManager, oPlayer);//enemy Initialization.
+	oEnemy3.EnemyInitialization(oSpriteManager, oPlayer);//enemy3 Initialization.
 	
-	LoadGameBackground();
+	LoadGameBackground();//Loads the backgrounds.
 
-	GameStates oGameState = GAME;
+	GameStates oGameState = GAME;//Sets the game state to GAME.
 
-	//payer mem
-	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(0), koopaPal, koopaPalLen);
-	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(0), koopaTiles, koopaTilesLen);
+	// --- Player Memory ---
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(0), koopaPal, koopaPalLen);//Loads the player palette into memory.
+	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(0), koopaTiles, koopaTilesLen);//Loads the player tiles into memory.
 
-	//jump particle mem
-	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(1), smokePal, smokePalLen);
-	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(32), smokeTiles, smokeTilesLen);
+	// --- Jump Particle Memory ---
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(1), smokePal, smokePalLen);//Loads the jump particle palette into memory.
+	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(32), smokeTiles, smokeTilesLen);//Loads the jump particle tiles into memory.
 
-	//enemy mem
-	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(2), marioPal, marioPalLen);//mario colours
-	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(3), luigiPal, luigiPalLen);//luigi  colours
-	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(64), marioTiles, marioTilesLen);
+	// --- Enemy Memory ---
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(2), marioPal, marioPalLen);//Loads the Mario palette into memory.
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(3), luigiPal, luigiPalLen);//Loads the Luigi palette into memory.
+	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(64), marioTiles, marioTilesLen);//Loads the enemy tiles into memory.
 
-	//Text mem
-	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(4), textPal, textPalLen);//text colours
-	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(5), textAlternatePal, textPalLen);//alternate  colours
-	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(96), textTiles, textTilesLen);
+	// --- Text Memory ---
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(4), textPal, textPalLen);//Loads the default text palette into memory.
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(5), textAlternatePal, textPalLen);//Loads the alternate text palette into memory.
+	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(96), textTiles, textTilesLen);//Loads the text tiles into memory.
 
-	//Coin mem
-	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(6), coinPal, coinPalLen);//text colours
-    DirectMemoryAccessWordCopy(SpriteTileBlockAddress(160), coinTiles, coinTilesLen);
+	// --- Coin Particle Memory ---
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(6), coinPal, coinPalLen);//Loads the coin particle palette into memory.
+    DirectMemoryAccessWordCopy(SpriteTileBlockAddress(160), coinTiles, coinTilesLen);//Loads the coin particle tiles into memory.
 
 	Text oLivesText;
 	oLivesText.TextInitialization(5, 8);

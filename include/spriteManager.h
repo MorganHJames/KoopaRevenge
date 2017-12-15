@@ -10,22 +10,21 @@
 
 #include "gba_graphics.h"
 
-class SpriteManager
+class SpriteManager//A class that controls the active sprites in OAM.
 {
 private:
 public:
-	s32 s32ActivatedSpriteAttributes;
+	s32 s32ActivatedSpriteAttributes;//How many active sprites in OAM.
 
-	void SpriteManagerInitialization()
+	void SpriteManagerInitialization()//Initializes the active sprites variable.
 	{
-		s32ActivatedSpriteAttributes = -1;
+		s32ActivatedSpriteAttributes = -1;//Sets the active sprites to -1 as when you first call the function it will increase it to 0.
 	}
 
-	//Check oam pos for usage
-	s32 ObjectAttributeMemoryFree()
+	s32 ObjectAttributeMemoryFree()//Returns the OAM position of the first free address.
 	{
-		s32ActivatedSpriteAttributes = s32ActivatedSpriteAttributes + 1;
-		return s32ActivatedSpriteAttributes;
+		s32ActivatedSpriteAttributes++;//Increases the amount of active sprites.
+		return s32ActivatedSpriteAttributes;//Returns the OAM position of the first free address. 
 	}
 };
 
