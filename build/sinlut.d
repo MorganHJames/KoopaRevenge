@@ -1,1 +1,2 @@
-sinlut.o: c:/Users/s1602293/Desktop/KoopaRevenge/source/sinlut.c
+sinlut.o: \
+ d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/source/sinlut.c

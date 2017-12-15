@@ -1,2 +1,1 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.props(31,3): warning MSB4011: "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Makefile.props" cannot be imported again. It was already imported at "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.cpp.props (31,3)". This is most likely a build authoring error. This subsequent import will be ignored. [C:\Users\s1602293\Desktop\KoopaRevenge\KoopaRevenge.vcxproj]
-  make[1]: `/c/Users/s1602293/Desktop/KoopaRevenge/KoopaRevenge.gba' is up to date.
+﻿  make[1]: `/d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge.gba' is up to date.

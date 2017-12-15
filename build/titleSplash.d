@@ -1,2 +1,2 @@
 titleSplash.o: \
- c:/Users/s1602293/Desktop/KoopaRevenge/source/titleSplash.c
+ d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/source/titleSplash.c

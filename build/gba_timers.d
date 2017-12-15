@@ -1,7 +1,8 @@
-gba_timers.o: c:/Users/s1602293/Desktop/KoopaRevenge/source/gba_timers.c \
- c:/Users/s1602293/Desktop/KoopaRevenge/include/gba_timers.h \
- c:/Users/s1602293/Desktop/KoopaRevenge/include/gba_types.h
+gba_timers.o: \
+ d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/source/gba_timers.c \
+ d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/include/gba_timers.h \
+ d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/include/gba_types.h
 
-c:/Users/s1602293/Desktop/KoopaRevenge/include/gba_timers.h:
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/include/gba_timers.h:
 
-c:/Users/s1602293/Desktop/KoopaRevenge/include/gba_types.h:
+d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/include/gba_types.h:
