@@ -119,11 +119,11 @@ extern u16* TileMapBlockAddress(u32 a_u32BlockNumber);//Function to return a poi
 
 extern void SetBackgroundControlRegister(u8 a_u8RegistryNumber, u8 a_u8Priority, u8 a_u8TileBlockID, u8 a_u8Mosaic, u8 a_u8ColorMode, u8 a_u8MapBlockID, u8 a_u8AffineWrap, u8 a_u8BackgroundSize);//Function to set a background control register's values.
 
-extern u16 SetScreenEntry(u16 a_u16TileIndex, u8 a_u8Flip, u8 a_u8PaletteBank);
+extern u16 SetScreenEntry(u16 a_u16TileIndex, u8 a_u8Flip, u8 a_u8PaletteBank);//Allows for the changing of background tiles flip or palette bank.
 
 // --- Screen Entry Controls ---
-#define SCREEN_ENTRY_FLIP_MASK					0x3
-#define SCREEN_ENTRY_PALETTE_BANK_MASK          0xF
+#define SCREEN_ENTRY_FLIP_MASK					0x3//Indicates whether or not to flip a tile and on what axis.
+#define SCREEN_ENTRY_PALETTE_BANK_MASK          0xF//Indicates what palette bank the tile should use.
 
 //\===========================================================================================
 //\ Defines For Palette Locations

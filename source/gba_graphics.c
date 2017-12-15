@@ -67,9 +67,9 @@ void SetBackgroundControlRegister(u8 a_u8RegistryNumber, u8 a_u8Priority, u8 a_u
 	REGISTRY_BACKGROUND_CONTROL[a_u8RegistryNumber] = vu16Control;//Sets the background control register using the arguments passed in.
 }
 
-u16 SetScreenEntry(u16 a_u16TileIndex, u8 a_u8Flip, u8 a_u8PaletteBank)
+u16 SetScreenEntry(u16 a_u16TileIndex, u8 a_u8Flip, u8 a_u8PaletteBank)//Allows for the changing of background tiles flip or palette bank.
 {
-	return (a_u16TileIndex) | ((a_u8Flip & SCREEN_ENTRY_FLIP_MASK) << 10) | ((a_u8PaletteBank & SCREEN_ENTRY_PALETTE_BANK_MASK) << 12);
+	return (a_u16TileIndex) | ((a_u8Flip & SCREEN_ENTRY_FLIP_MASK) << 10) | ((a_u8PaletteBank & SCREEN_ENTRY_PALETTE_BANK_MASK) << 12);//Returns the a u16 that will indicate the changes to be made.
 }
 
 //====================================================================================
