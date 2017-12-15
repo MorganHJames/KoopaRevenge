@@ -51,6 +51,16 @@ public:
 	u8 u8WalkAnimationDelay;
 	u8 u8RunAnimationDelay;
 
+	//Particles
+	fixed fParticleGravity;
+	fixed fParticleFrameTime;
+	fixed fParticelMeterToPixel;
+
+	Emitter oEmitterCoinEffect;
+	Particle oParticlesJumpEffect[32];
+	ObjectAttribute oJumpParticleOAM;
+	ObjectAttribute* poCoinParticleOAMStart;
+
 	void EnemyInitialization(SpriteManager& a_rSpriteManager, Player a_player)
 	{
 		oSprite.poAttribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_rSpriteManager.ObjectAttributeMemoryFree()];
@@ -78,6 +88,15 @@ public:
 		u8AnimationDelay = 8;
 		u8WalkAnimationDelay = 8;
 		u8RunAnimationDelay = 4;
+
+		// --- Particles ---
+		fParticleGravity = -0x9CC;
+		fParticleFrameTime = 0x04;
+		fParticelMeterToPixel = IntegerToFixed(5);
+
+		oEmitterCoinEffect.fY = 0;
+		oEmitterCoinEffect.fX = 0;
+		poCoinParticleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[80];
 	}
 
 	void SpawnEnemy(Player a_player)
@@ -162,6 +181,14 @@ public:
 			u8Frame = 84;
 			bFalling = 1;
 			fYVelocity = -s32JumpHeight;
+
+			oEmitterCoinEffect.fX = IntegerToFixed(v2Position.fX + 7);//Move the emiter to the players x pos.
+			oEmitterCoinEffect.fY = IntegerToFixed(v2Position.fY + 31);//Move the emiter to the players y pos.
+			for (u32 u32I = 0; u32I < 3; ++u32I)
+			{
+				ParticleEmit(oParticlesJumpEffect[u32I], oEmitterCoinEffect);
+				poCoinParticleOAMStart[u32I] = oJumpParticleOAM;
+			}
 		}
 	}
 
@@ -316,6 +343,25 @@ public:
 	/* update the koopa */
 	void EnemyUpdate(Player& a_rPlayer)
 	{
+		//Jump particle update.
+		for (u32 u32I = 0; u32I < 3; ++u32I)
+		{
+			UpdateParticleOneShot(oParticlesJumpEffect[u32I], oEmitterCoinEffect, fParticleFrameTime, fParticelMeterToPixel, fParticleGravity);//Updates each particle.
+
+			SetObjectPosition(&poCoinParticleOAMStart[u32I], FixedToInteger(oParticlesJumpEffect[u32I].fX), FixedToInteger(oParticlesJumpEffect[u32I].fY));//Move particle
+
+			u32 u32JumpFrameID = (1 << 9) - oParticlesJumpEffect[u32I].u32Lifespan;//Set the frame ID based on the particles life.
+			u32JumpFrameID = u32JumpFrameID << 4 >> 9;//Set the frame ID based on the particles life.
+			poCoinParticleOAMStart[u32I].u16Attribute2 = SetAttribute2(32 + u32JumpFrameID, 0, 1);//Change the particle frame.
+
+			if (oParticlesJumpEffect[u32I].fY < 160)//Stops the particles appearing at the top of the screen.
+			{
+				oParticlesJumpEffect[u32I].fY = 160;
+				oParticlesJumpEffect[u32I].fX = 0;
+			}
+
+		}
+
 		//sprite flip didn't work for the enemy for some unannounced reason.
 		oSprite.poAttribute->u16Attribute1 = SetAttribute1(v2Position.fX, bFlip, ATTRIBUTE1_SIZE_1);
 		

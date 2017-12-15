@@ -77,9 +77,10 @@ public:
 		oSprite.poAttribute->u16Attribute1 = SetAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
 		oSprite.poAttribute->u16Attribute2 = SetAttribute2(0, 1, 0);
 
-	
 		v2Position.fX = 120;
 		v2Position.fY = 100;
+
+		oSprite.SpriteSetPosition(0, 160);
 
 		fXVelocity = 0;
 		fYVelocity = 0;
@@ -118,7 +119,6 @@ public:
 		oEmitterJumpEffect.fY = 0;
 		oEmitterJumpEffect.fX = 0;
 		poJumpParticleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[96];
-
 	}
 
 	/* move the Player left or right returns if it is at edge of the screen */
