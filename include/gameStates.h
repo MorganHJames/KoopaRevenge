@@ -10,7 +10,7 @@
 
 typedef enum GameStates
 {
-	GAME
+	GAME//The game state at which the game will be played.
 }GameState;
 
 #endif

@@ -84,9 +84,6 @@
     <ClCompile Include="source\coin.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Intellisense.h">
