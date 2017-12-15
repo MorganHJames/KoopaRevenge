@@ -187,7 +187,7 @@ public:
 			bFalling = 1;
 			fYVelocity = -s32JumpHeight;
 
-			oEmitterCoinEffect.fX = IntegerToFixed(v2Position.fX + 7);//Move the emiter to the players x pos.
+			oEmitterCoinEffect.fX = IntegerToFixed(v2Position.fX + 4);//Move the emiter to the players x pos.
 			oEmitterCoinEffect.fY = IntegerToFixed(v2Position.fY - 63);//Move the emiter to the players y pos.
 			for (u32 u32I = 0; u32I < 1; ++u32I)
 			{
@@ -361,10 +361,15 @@ public:
 				u32 u32CoinFrameID = (1 << 9) - oParticlesCoinEffect[u32I].u32Lifespan;//Set the frame ID based on the particles life.
 				u32CoinFrameID = u32CoinFrameID << 4 >> 9;//Set the frame ID based on the particles life.
 				poCoinParticleOAMStart[u32I].u16Attribute2 = SetAttribute2(160 + u32CoinFrameID, 0, 6);//Change the particle frame.
-				if (oParticlesCoinEffect[u32I].fY < 160)//Stops the particles appearing at the top of the screen.
+				if (a_rPlayer.bScreenLeft)
 				{
-					oParticlesCoinEffect[u32I].fY = 160;
-					oParticlesCoinEffect[u32I].fX = 0;
+					oParticlesCoinEffect[u32I].fX += a_rPlayer.fXVelocity;
+					SetObjectPosition(&poCoinParticleOAMStart[u32I], FixedToInteger(oParticlesCoinEffect[u32I].fX), FixedToInteger(oParticlesCoinEffect[u32I].fY));//Move particle
+				}
+				if (a_rPlayer.bScreenRight)
+				{
+					oParticlesCoinEffect[u32I].fX -= a_rPlayer.fXVelocity;
+					SetObjectPosition(&poCoinParticleOAMStart[u32I], FixedToInteger(oParticlesCoinEffect[u32I].fX), FixedToInteger(oParticlesCoinEffect[u32I].fY));//Move particle
 				}
 			}
 		}

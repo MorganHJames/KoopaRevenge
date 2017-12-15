@@ -294,7 +294,7 @@ public:
 						//Keep the particles in the same spot
 						for (u32 u32I = 0; u32I < 32; ++u32I)
 						{
-							oParticlesJumpEffect[u32I].fX -= IntegerToFixed(fXVelocity);
+							oParticlesJumpEffect[u32I].fX -= fXVelocity;
 							SetObjectPosition(&poJumpParticleOAMStart[u32I], FixedToInteger(oParticlesJumpEffect[u32I].fX), FixedToInteger(oParticlesJumpEffect[u32I].fY));//Move particle
 						}
 					}
@@ -320,7 +320,7 @@ public:
 					//Keep the particles in the same spot
 					for (u32 u32I = 0; u32I < 32; ++u32I)
 					{
-						oParticlesJumpEffect[u32I].fX -= IntegerToFixed(fXVelocity);
+						oParticlesJumpEffect[u32I].fX -= fXVelocity;
 						SetObjectPosition(&poJumpParticleOAMStart[u32I], FixedToInteger(oParticlesJumpEffect[u32I].fX), FixedToInteger(oParticlesJumpEffect[u32I].fY));//Move particle
 					}
 				}
@@ -366,7 +366,7 @@ public:
 						//Keep the particles in the same spot
 						for (u32 u32I = 0; u32I < 32; ++u32I)
 						{
-							oParticlesJumpEffect[u32I].fX += IntegerToFixed(fXVelocity);
+							oParticlesJumpEffect[u32I].fX += fXVelocity;
 							SetObjectPosition(&poJumpParticleOAMStart[u32I], FixedToInteger(oParticlesJumpEffect[u32I].fX), FixedToInteger(oParticlesJumpEffect[u32I].fY));//Move particle
 						}
 					}
@@ -392,7 +392,7 @@ public:
 					//Keep the particles in the same spot
 					for (u32 u32I = 0; u32I < 32; ++u32I)
 					{
-						oParticlesJumpEffect[u32I].fX += IntegerToFixed(fXVelocity);
+						oParticlesJumpEffect[u32I].fX += fXVelocity;
 						SetObjectPosition(&poJumpParticleOAMStart[u32I], FixedToInteger(oParticlesJumpEffect[u32I].fX), FixedToInteger(oParticlesJumpEffect[u32I].fY));//Move particle
 					}
 				}
