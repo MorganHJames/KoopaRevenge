@@ -12,7 +12,7 @@
 
 typedef struct Vector4//A structure to hold four variables. 
 {
-	int x, y , w, h;//A variable for x, y , w and  h.
+	fixed fX, fY , fW, fH;//A variable for x, y , w and  h.
 }Vector4;
 
 #endif//__GBA_VECTOR4_H__

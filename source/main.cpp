@@ -33,13 +33,13 @@ int main()
 	player.playerInitialization(spriteManager);//PLayer Initialization.
 
 	Enemy enemy1;//Creates the first enemy.
-	enemy1.enemyInitialization(spriteManager, player, 1);//enemy Initialization.
+	enemy1.EnemyInitialization(spriteManager, player);//enemy Initialization.
 
 	Enemy2 enemy2;//Creates the seconed enemy.
-	enemy2.enemyInitialization(spriteManager, player, 2);//enemy Initialization.
+	enemy2.enemyInitialization(spriteManager, player);//enemy Initialization.
 
 	Enemy3 enemy3;//Creates the third enemy.
-	enemy3.enemyInitialization(spriteManager, player, 3);//enemy Initialization.
+	enemy3.enemyInitialization(spriteManager, player);//enemy Initialization.
 	
 	LoadGameBackground();
 
@@ -201,7 +201,7 @@ int main()
 				}
 				player.playerUpdate();
 				
-				enemy1.enemyUpdate(player, enemy2, enemy3);
+				enemy1.EnemyUpdate(player, enemy2, enemy3);
 				enemy2.enemyUpdate(player);
 				enemy3.enemyUpdate(player);
 
@@ -239,7 +239,7 @@ int main()
 					player.lives = 3;
 					timeLeft = 300;
 					titleScroll = 90;
-					enemy1.spawnEnemy(player);
+					enemy1.SpawnEnemy(player);
 					enemy2.spawnEnemy(player);
 					enemy3.spawnEnemy(player);
 				}

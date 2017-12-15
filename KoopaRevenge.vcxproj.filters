@@ -197,5 +197,8 @@
     <ClInclude Include="include\titleSplash.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\gba_vector4.h">
+      <Filter>gba_library\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -49,7 +49,7 @@ public:
 	int runAnimationDelay;
 	u32 time;
 
-	void enemyInitialization(SpriteManager& a_spriteManager, Player a_player, int objMem)
+	void enemyInitialization(SpriteManager& a_spriteManager, Player a_player)
 	{
 		sprite.Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
 		sprite.Attribute->u16Attribute0 = SetAttribute0(0, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
@@ -148,10 +148,10 @@ public:
 		Vector4 playerFeet = { a_player.position.fX, a_player.position.fY + 32, 16 , 8 };
 		Vector4 enemyHead = { position.fX, position.fY, 16 , 8 };
 		//Hurt by player
-		if (playerFeet.x < enemyHead.x + enemyHead.w &&
-			playerFeet.x + playerFeet.w > enemyHead.x &&
-			playerFeet.y < enemyHead.y + enemyHead.h &&
-			playerFeet.h + playerFeet.y > enemyHead.y && (a_player.yvel != 0))
+		if (playerFeet.fX < enemyHead.fX + enemyHead.fW &&
+			playerFeet.fX + playerFeet.fW > enemyHead.fX &&
+			playerFeet.fY < enemyHead.fY + enemyHead.fH &&
+			playerFeet.fH + playerFeet.fY > enemyHead.fY && (a_player.yvel != 0))
 		{
 			alive = 0;
 			// collision detected!
