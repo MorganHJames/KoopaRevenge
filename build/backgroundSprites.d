@@ -1,2 +1,2 @@
 backgroundSprites.o: \
- d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/backgroundSprites.c
+ c:/Users/s1602293/Desktop/KoopaRevenge/source/backgroundSprites.c

@@ -70,9 +70,9 @@ public:
 	ObjectAttribute oJumpParticleOAM;
 	ObjectAttribute* poJumpParticleOAMStart;
 
-	void playerInitialization(SpriteManager& a_spriteManager)
+	void PlayerInitialization(SpriteManager& a_rSpriteManager)
 	{
-		oSprite.poAttribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.ObjectAttributeMemoryFree()];
+		oSprite.poAttribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_rSpriteManager.ObjectAttributeMemoryFree()];
 		oSprite.poAttribute->u16Attribute0 = SetAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
 		oSprite.poAttribute->u16Attribute1 = SetAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
 		oSprite.poAttribute->u16Attribute2 = SetAttribute2(0, 1, 0);
@@ -181,7 +181,7 @@ public:
 			oEmitterJumpEffect.fY = IntegerToFixed(v2Position.fY + 31);//Move the emiter to the players y pos.
 			for (u32 u32I = 0; u32I < 32; ++u32I)
 			{
-				ParticleEmit(oParticlesJumpEffect[u32I], oEmitterJumpEffect);
+				JumpParticleEmit(oParticlesJumpEffect[u32I], oEmitterJumpEffect);
 				poJumpParticleOAMStart[u32I] = oJumpParticleOAM;
 			}
 		}
@@ -459,7 +459,7 @@ public:
 		//Jump particle update.
 		for (u32 u32I = 0; u32I < 32; ++u32I)
 		{
-			UpdateParticleOneShot(oParticlesJumpEffect[u32I], oEmitterJumpEffect, fParticleFrameTime, fParticelMeterToPixel, fParticleGravity);//Updates each particle.
+			UpdateJumpParticleOneShot(oParticlesJumpEffect[u32I], oEmitterJumpEffect, fParticleFrameTime, fParticelMeterToPixel, fParticleGravity);//Updates each particle.
 		
 			SetObjectPosition(&poJumpParticleOAMStart[u32I], FixedToInteger(oParticlesJumpEffect[u32I].fX), FixedToInteger(oParticlesJumpEffect[u32I].fY));//Move particle
 		

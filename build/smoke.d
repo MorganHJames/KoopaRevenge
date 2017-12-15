@@ -1,2 +1,1 @@
-smoke.o: \
- d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/smoke.c
+smoke.o: c:/Users/s1602293/Desktop/KoopaRevenge/source/smoke.c

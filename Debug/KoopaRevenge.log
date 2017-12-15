@@ -1,5 +1,2 @@
-﻿  main.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/build/main.d -g -Wall -O3 -mcpu=arm7tdmi -mtune=arm7tdmi -fomit-frame-pointer -ffast-math -mthumb -mthumb-interwork -iquote /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include -I/c/devkitPro/libgba/include -I/d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/build -fno-rtti -fno-exceptions -c /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/main.cpp -o main.o 
-  linking cartridge
-  built ... KoopaRevenge.gba
-  ROM fixed!
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.props(31,3): warning MSB4011: "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Makefile.props" cannot be imported again. It was already imported at "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.cpp.props (31,3)". This is most likely a build authoring error. This subsequent import will be ignored. [C:\Users\s1602293\Desktop\KoopaRevenge\KoopaRevenge.vcxproj]
+  make[1]: `/c/Users/s1602293/Desktop/KoopaRevenge/KoopaRevenge.gba' is up to date.

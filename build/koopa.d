@@ -1,2 +1,1 @@
-koopa.o: \
- d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/koopa.c
+koopa.o: c:/Users/s1602293/Desktop/KoopaRevenge/source/koopa.c

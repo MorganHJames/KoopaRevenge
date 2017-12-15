@@ -44,6 +44,7 @@ public:
 	BOOL bFalling;
 	BOOL bFlip;
 	BOOL bAlive;
+	BOOL bGotHit;
 	
 	u8 u8Counter;
 	u8 u8Frame;
@@ -57,8 +58,8 @@ public:
 	fixed fParticelMeterToPixel;
 
 	Emitter oEmitterCoinEffect;
-	Particle oParticlesJumpEffect[32];
-	ObjectAttribute oJumpParticleOAM;
+	Particle oParticlesCoinEffect[1];
+	ObjectAttribute oCoinParticleOAM;
 	ObjectAttribute* poCoinParticleOAMStart;
 
 	void EnemyInitialization(SpriteManager& a_rSpriteManager, Player a_player)
@@ -82,6 +83,7 @@ public:
 		bMove = 0;
 		bFlip = 0;
 		bAlive = 1;
+		bGotHit = 0;
 
 		u8Counter = 0;
 		u8Frame = 64;
@@ -94,9 +96,12 @@ public:
 		fParticleFrameTime = 0x04;
 		fParticelMeterToPixel = IntegerToFixed(5);
 
-		oEmitterCoinEffect.fY = 0;
+		oEmitterCoinEffect.fY = 160;
 		oEmitterCoinEffect.fX = 0;
-		poCoinParticleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[80];
+		poCoinParticleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_rSpriteManager.ObjectAttributeMemoryFree()];
+		ObjectHide(&MEMORY_OBJECT_ATTRIBUTE_MEMORY[2]);
+		ObjectHide(&MEMORY_OBJECT_ATTRIBUTE_MEMORY[4]);
+		ObjectHide(&MEMORY_OBJECT_ATTRIBUTE_MEMORY[6]);
 	}
 
 	void SpawnEnemy(Player a_player)
@@ -183,12 +188,13 @@ public:
 			fYVelocity = -s32JumpHeight;
 
 			oEmitterCoinEffect.fX = IntegerToFixed(v2Position.fX + 7);//Move the emiter to the players x pos.
-			oEmitterCoinEffect.fY = IntegerToFixed(v2Position.fY + 31);//Move the emiter to the players y pos.
-			for (u32 u32I = 0; u32I < 3; ++u32I)
+			oEmitterCoinEffect.fY = IntegerToFixed(v2Position.fY - 63);//Move the emiter to the players y pos.
+			for (u32 u32I = 0; u32I < 1; ++u32I)
 			{
-				ParticleEmit(oParticlesJumpEffect[u32I], oEmitterCoinEffect);
-				poCoinParticleOAMStart[u32I] = oJumpParticleOAM;
+				CoinParticleEmit(oParticlesCoinEffect[u32I], oEmitterCoinEffect);
+				poCoinParticleOAMStart[u32I] = oCoinParticleOAM;
 			}
+			bGotHit = 1;
 		}
 	}
 
@@ -343,23 +349,24 @@ public:
 	/* update the koopa */
 	void EnemyUpdate(Player& a_rPlayer)
 	{
-		//Jump particle update.
-		for (u32 u32I = 0; u32I < 3; ++u32I)
+		//Coin particle update.
+		if (bGotHit)
 		{
-			UpdateParticleOneShot(oParticlesJumpEffect[u32I], oEmitterCoinEffect, fParticleFrameTime, fParticelMeterToPixel, fParticleGravity);//Updates each particle.
-
-			SetObjectPosition(&poCoinParticleOAMStart[u32I], FixedToInteger(oParticlesJumpEffect[u32I].fX), FixedToInteger(oParticlesJumpEffect[u32I].fY));//Move particle
-
-			u32 u32JumpFrameID = (1 << 9) - oParticlesJumpEffect[u32I].u32Lifespan;//Set the frame ID based on the particles life.
-			u32JumpFrameID = u32JumpFrameID << 4 >> 9;//Set the frame ID based on the particles life.
-			poCoinParticleOAMStart[u32I].u16Attribute2 = SetAttribute2(32 + u32JumpFrameID, 0, 1);//Change the particle frame.
-
-			if (oParticlesJumpEffect[u32I].fY < 160)//Stops the particles appearing at the top of the screen.
+			for (u32 u32I = 0; u32I < 1; ++u32I)
 			{
-				oParticlesJumpEffect[u32I].fY = 160;
-				oParticlesJumpEffect[u32I].fX = 0;
-			}
+				UpdateCoinParticleOneShot(oParticlesCoinEffect[u32I], oEmitterCoinEffect, fParticleFrameTime, fParticelMeterToPixel, fParticleGravity);//Updates each particle.
+				poCoinParticleOAMStart[u32I].u16Attribute1 = SetAttribute1(FixedToInteger(oParticlesCoinEffect[u32I].fX), 0, ATTRIBUTE1_SIZE_1);
+				poCoinParticleOAMStart[u32I].u16Attribute0 = SetAttribute0(FixedToInteger(oParticlesCoinEffect[u32I].fY), 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
 
+				u32 u32CoinFrameID = (1 << 9) - oParticlesCoinEffect[u32I].u32Lifespan;//Set the frame ID based on the particles life.
+				u32CoinFrameID = u32CoinFrameID << 4 >> 9;//Set the frame ID based on the particles life.
+				poCoinParticleOAMStart[u32I].u16Attribute2 = SetAttribute2(160 + u32CoinFrameID, 0, 6);//Change the particle frame.
+				if (oParticlesCoinEffect[u32I].fY < 160)//Stops the particles appearing at the top of the screen.
+				{
+					oParticlesCoinEffect[u32I].fY = 160;
+					oParticlesCoinEffect[u32I].fX = 0;
+				}
+			}
 		}
 
 		//sprite flip didn't work for the enemy for some unannounced reason.

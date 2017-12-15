@@ -1,2 +1,1 @@
-splash.o: \
- d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/splash.c
+splash.o: c:/Users/s1602293/Desktop/KoopaRevenge/source/splash.c

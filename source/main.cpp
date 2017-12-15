@@ -14,6 +14,7 @@
 #include "text.h"
 #include "textFunctions.h"
 #include "gameManager.h"
+#include "coin.h"
 
 int main()
 {
@@ -29,7 +30,7 @@ int main()
 	GameManager oGameManager;
 
 	Player oPlayer;//Create the player.
-	oPlayer.playerInitialization(oSpriteManager);//PLayer Initialization.
+	oPlayer.PlayerInitialization(oSpriteManager);//PLayer Initialization.
 
 	Enemy oEnemy1, oEnemy2, oEnemy3;//Creates the enemies.
 	oEnemy1.EnemyInitialization(oSpriteManager, oPlayer);//enemy Initialization.
@@ -59,6 +60,10 @@ int main()
 	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(4), textPal, textPalLen);//text colours
 	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(5), textAlternatePal, textPalLen);//alternate  colours
 	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(96), textTiles, textTilesLen);
+
+	//Coin mem
+	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(6), coinPal, coinPalLen);//text colours
+    DirectMemoryAccessWordCopy(SpriteTileBlockAddress(160), coinTiles, coinTilesLen);
 
 	Text oLivesText;
 	oLivesText.TextInitialization(5, 8);

@@ -1,5 +1,4 @@
-particles.o: \
- d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/source/particles.c \
- d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/Intellisense.h
+particles.o: c:/Users/s1602293/Desktop/KoopaRevenge/source/particles.c \
+ c:/Users/s1602293/Desktop/KoopaRevenge/include/Intellisense.h
 
-d:/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/KoopaRevenge/include/Intellisense.h:
+c:/Users/s1602293/Desktop/KoopaRevenge/include/Intellisense.h:
