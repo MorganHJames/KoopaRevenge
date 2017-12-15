@@ -135,9 +135,9 @@ Linker script and memory map
  .text          0x08000220       0xd4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/5.3.0/thumb/crtbegin.o
  .text          0x080002f4      0x3cc main.o
                 0x080002f4                setupSprites()
-                0x08000308                splash()
-                0x0800034c                loadGameBackground()
-                0x0800051c                unloadGameBackground()
+                0x08000308                SplashScreenLoad()
+                0x0800034c                LoadGameBackground()
+                0x0800051c                UnloadGameBackground()
                 0x08000550                InitParticle(Particle&, Emitter&)
                 0x08000564                EmitParticle(Particle&, Emitter&)
                 0x0800059c                UpdateParticleContinuous(Particle&, Emitter&, long, long, long)
@@ -601,25 +601,25 @@ Linker script and memory map
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x7a51
+.debug_info     0x00000000     0x7a5b
  *(.debug_info)
- .debug_info    0x00000000     0x5f5c main.o
- .debug_info    0x00005f5c       0x76 backgroundSprites.o
- .debug_info    0x00005fd2      0x29f gba_directMemoryAccess.o
- .debug_info    0x00006271      0x338 gba_drawing.o
- .debug_info    0x000065a9      0x849 gba_graphics.o
- .debug_info    0x00006df2      0x270 gba_input.o
- .debug_info    0x00007062      0x306 gba_math.o
- .debug_info    0x00007368      0x1d5 gba_mathUtility.o
- .debug_info    0x0000753d      0x167 gba_timers.o
- .debug_info    0x000076a4       0x74 koopa.o
- .debug_info    0x00007718       0x8b mario.o
- .debug_info    0x000077a3       0x74 particles.o
- .debug_info    0x00007817       0x4f sinlut.o
- .debug_info    0x00007866       0x74 smoke.o
- .debug_info    0x000078da       0x76 splash.o
- .debug_info    0x00007950       0x8b text.o
- .debug_info    0x000079db       0x76 titleSplash.o
+ .debug_info    0x00000000     0x5f66 main.o
+ .debug_info    0x00005f66       0x76 backgroundSprites.o
+ .debug_info    0x00005fdc      0x29f gba_directMemoryAccess.o
+ .debug_info    0x0000627b      0x338 gba_drawing.o
+ .debug_info    0x000065b3      0x849 gba_graphics.o
+ .debug_info    0x00006dfc      0x270 gba_input.o
+ .debug_info    0x0000706c      0x306 gba_math.o
+ .debug_info    0x00007372      0x1d5 gba_mathUtility.o
+ .debug_info    0x00007547      0x167 gba_timers.o
+ .debug_info    0x000076ae       0x74 koopa.o
+ .debug_info    0x00007722       0x8b mario.o
+ .debug_info    0x000077ad       0x74 particles.o
+ .debug_info    0x00007821       0x4f sinlut.o
+ .debug_info    0x00007870       0x74 smoke.o
+ .debug_info    0x000078e4       0x76 splash.o
+ .debug_info    0x0000795a       0x8b text.o
+ .debug_info    0x000079e5       0x76 titleSplash.o
 
 .debug_abbrev   0x00000000      0xe93
  *(.debug_abbrev)
@@ -672,41 +672,41 @@ Linker script and memory map
  .debug_frame   0x00000554       0x78 gba_mathUtility.o
  .debug_frame   0x000005cc       0x94 gba_timers.o
 
-.debug_str      0x00000000     0x2119
+.debug_str      0x00000000     0x2161
  *(.debug_str)
- .debug_str     0x00000000     0x13aa main.o
-                               0x14d7 (size before relaxing)
- .debug_str     0x000013aa       0xe8 backgroundSprites.o
+ .debug_str     0x00000000     0x13f2 main.o
+                               0x150c (size before relaxing)
+ .debug_str     0x000013f2       0xe8 backgroundSprites.o
                                 0x130 (size before relaxing)
- .debug_str     0x00001492      0x116 gba_directMemoryAccess.o
+ .debug_str     0x000014da      0x116 gba_directMemoryAccess.o
                                 0x25b (size before relaxing)
- .debug_str     0x000015a8      0x172 gba_drawing.o
+ .debug_str     0x000015f0      0x172 gba_drawing.o
                                 0x2b6 (size before relaxing)
- .debug_str     0x0000171a      0x314 gba_graphics.o
+ .debug_str     0x00001762      0x314 gba_graphics.o
                                 0x62b (size before relaxing)
- .debug_str     0x00001a2e       0xd7 gba_input.o
+ .debug_str     0x00001a76       0xd7 gba_input.o
                                 0x247 (size before relaxing)
- .debug_str     0x00001b05      0x104 gba_math.o
+ .debug_str     0x00001b4d      0x104 gba_math.o
                                 0x28e (size before relaxing)
- .debug_str     0x00001c09       0xd4 gba_mathUtility.o
+ .debug_str     0x00001c51       0xd4 gba_mathUtility.o
                                 0x22b (size before relaxing)
- .debug_str     0x00001cdd       0xad gba_timers.o
+ .debug_str     0x00001d25       0xad gba_timers.o
                                 0x1ef (size before relaxing)
- .debug_str     0x00001d8a       0x6d koopa.o
+ .debug_str     0x00001dd2       0x6d koopa.o
                                 0x10c (size before relaxing)
- .debug_str     0x00001df7       0x6d mario.o
+ .debug_str     0x00001e3f       0x6d mario.o
                                 0x115 (size before relaxing)
- .debug_str     0x00001e64       0x8d particles.o
+ .debug_str     0x00001eac       0x8d particles.o
                                 0x118 (size before relaxing)
- .debug_str     0x00001ef1       0x6e sinlut.o
+ .debug_str     0x00001f39       0x6e sinlut.o
                                  0xf8 (size before relaxing)
- .debug_str     0x00001f5f       0x6d smoke.o
+ .debug_str     0x00001fa7       0x6d smoke.o
                                 0x10c (size before relaxing)
- .debug_str     0x00001fcc       0x6e splash.o
+ .debug_str     0x00002014       0x6e splash.o
                                 0x110 (size before relaxing)
- .debug_str     0x0000203a       0x6c text.o
+ .debug_str     0x00002082       0x6c text.o
                                 0x11a (size before relaxing)
- .debug_str     0x000020a6       0x73 titleSplash.o
+ .debug_str     0x000020ee       0x73 titleSplash.o
                                 0x11e (size before relaxing)
 
 .debug_loc      0x00000000     0xa206

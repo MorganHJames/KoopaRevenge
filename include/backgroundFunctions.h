@@ -18,7 +18,7 @@
 #include "titleSplash.h"
 #include "splash.h"
 
-void splash()
+void SplashScreenLoad()
 {
 	//\===========================================================================================
 	//\ SPLASH Setup 
@@ -31,7 +31,7 @@ void splash()
 	Sleep(3, TIMER_SECONED);
 }
 
-void loadGameBackground()
+void LoadGameBackground()
 {
 	// Load background
 	// Load palette
@@ -48,47 +48,48 @@ void loadGameBackground()
 
 
 	//Background 0 - collision and bushes
-	u16* tileMapMemoryLocation = TileMapBlockAddress(16);
-	u16* mapLocation = (u16*)background1;
+	u16* pu16TileMapMemoryLocation = TileMapBlockAddress(16);
+	u16* pu16MapLocation = (u16*)background1;
 
-	for (int i = 0; i < 128; ++i)
+	for (u32 u32I = 0; u32I < 128; ++u32I)
 	{
-		DirectMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
-		tileMapMemoryLocation = tileMapMemoryLocation + 32;
-		mapLocation += 64;
-		if (i == 31)
+		DirectMemoryAccessWordCopy(pu16TileMapMemoryLocation, pu16MapLocation, 64);
+		pu16TileMapMemoryLocation = pu16TileMapMemoryLocation + 32;
+		pu16MapLocation += 64;
+		if (u32I == 31)
 		{
-			mapLocation = (u16*)background1 + 32;
+			pu16MapLocation = (u16*)background1 + 32;
 		}
 	}
 
+
 	//Background 1 - hills
-	tileMapMemoryLocation = TileMapBlockAddress(18);
-	mapLocation = (u16*)background2;
-	
-	for (int i = 0; i < 128; ++i)
+	pu16TileMapMemoryLocation = TileMapBlockAddress(18);
+	pu16MapLocation = (u16*)background2;
+
+	for (u32 u32I = 0; u32I < 128; ++u32I)
 	{
-		DirectMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
-		tileMapMemoryLocation = tileMapMemoryLocation + 32;
-		mapLocation += 64;
-		if (i == 31)
+		DirectMemoryAccessWordCopy(pu16TileMapMemoryLocation, pu16MapLocation, 64);
+		pu16TileMapMemoryLocation = pu16TileMapMemoryLocation + 32;
+		pu16MapLocation += 64;
+		if (u32I == 31)
 		{
-			mapLocation = (u16*)background2 + 32;
-		}	
+			pu16MapLocation = (u16*)background2 + 32;
+		}
 	}
-	
+
 	//Background 2 - clouds and sky
-	tileMapMemoryLocation = TileMapBlockAddress(20);
-	mapLocation = (u16*)background3;
-	
-	for (int i = 0; i < 128; ++i)
+	pu16TileMapMemoryLocation = TileMapBlockAddress(20);
+	pu16MapLocation = (u16*)background3;
+
+	for (u32 u32I = 0; u32I < 128; ++u32I)
 	{
-		DirectMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
-		tileMapMemoryLocation = tileMapMemoryLocation + 32;
-		mapLocation += 64;
-		if (i == 31)
+		DirectMemoryAccessWordCopy(pu16TileMapMemoryLocation, pu16MapLocation, 64);
+		pu16TileMapMemoryLocation = pu16TileMapMemoryLocation + 32;
+		pu16MapLocation += 64;
+		if (u32I == 31)
 		{
-			mapLocation = (u16*)background3 + 32;
+			pu16MapLocation = (u16*)background3 + 32;
 		}
 	}
 
@@ -96,17 +97,17 @@ void loadGameBackground()
 	DirectMemoryAccessWordCopy(TileBlockAddress(129), titleSplashTiles, titleSplashTilesLen);
 
 	//Background 3 - splash title
-	tileMapMemoryLocation = TileMapBlockAddress(22);
-	mapLocation = (u16*)background4;
+	pu16TileMapMemoryLocation = TileMapBlockAddress(22);
+	pu16MapLocation = (u16*)background4;
 
-	for (int i = 0; i < 128; ++i)
+	for (u32 u32I = 0; u32I < 128; ++u32I)
 	{
-		DirectMemoryAccessWordCopy(tileMapMemoryLocation, mapLocation, 64);
-		tileMapMemoryLocation = tileMapMemoryLocation + 32;
-		mapLocation += 64;
-		if (i == 31)
+		DirectMemoryAccessWordCopy(pu16TileMapMemoryLocation, pu16MapLocation, 64);
+		pu16TileMapMemoryLocation = pu16TileMapMemoryLocation + 32;
+		pu16MapLocation += 64;
+		if (u32I == 31)
 		{
-			mapLocation = (u16*)background4 + 32;
+			pu16MapLocation = (u16*)background4 + 32;
 		}
 	}
 
@@ -117,9 +118,9 @@ void loadGameBackground()
 	SetBackgroundControlRegister(3, 0, 129, 0, 0, 22, 0, BACKGROUND_REGISTRY_SIZE_64x32);
 
 	///Chnages palette of background 3
-	for (int i = 0; i < 350; ++i)
+	for (u32 u32I = 0; u32I < 350; ++u32I)
 	{
-		*(u16*)(VIDEO_RANDOM_ACCESS_MEMORY + ((22 * TILE_MAP_BLOCK_SIZE) + (i * 2))) = SetScreenEntry(i , 0, 8);
+		*(u16*)(VIDEO_RANDOM_ACCESS_MEMORY + ((22 * TILE_MAP_BLOCK_SIZE) + (u32I * 2))) = SetScreenEntry(u32I, 0, 8);
 	}
 
 	//Move the maps the correct starting positions
@@ -129,14 +130,14 @@ void loadGameBackground()
 	REGISTRY_BACKGROUND_OFF_SET[3].s16X = -32;
 }
 
-void unloadGameBackground()
+void UnloadGameBackground()
 {
-	u16* tileMapMemoryLocation = TileMapBlockAddress(16);
-	DirectMemoryAccessWordCopy(tileMapMemoryLocation, 0, 64);
-	tileMapMemoryLocation = TileMapBlockAddress(18);
-	DirectMemoryAccessWordCopy(tileMapMemoryLocation, 0, 64);
-	tileMapMemoryLocation = TileMapBlockAddress(20);
-	DirectMemoryAccessWordCopy(tileMapMemoryLocation, 0, 64);
+	u16* pu16TileMapMemoryLocation = TileMapBlockAddress(16);
+	DirectMemoryAccessWordCopy(pu16TileMapMemoryLocation, 0, 64);
+	pu16TileMapMemoryLocation = TileMapBlockAddress(18);
+	DirectMemoryAccessWordCopy(pu16TileMapMemoryLocation, 0, 64);
+	pu16TileMapMemoryLocation = TileMapBlockAddress(20);
+	DirectMemoryAccessWordCopy(pu16TileMapMemoryLocation, 0, 64);
 }
 
 #endif//#define __BACKGROUND_FUNCTIONS_H__

@@ -20,7 +20,7 @@
 
 int main()
 {
-	splash();
+	SplashScreenLoad();
 
 	REGISTRY_DISPLAYCONTROL = DISPLAYCONTROL_BACKGROUNDMODE_0 | DISPLAYCONTROL_BACKGROUNDMODE_1 | DISPLAYCONTROL_BACKGROUNDMODE_2 | DISPLAYCONTROL_BACKGROUNDMODE_3 | ENABLE_OBJECTS | DISPLAYCONTROL_VIDEOMODE_0 | MAPPINGMODE_1D;//Set the mode to 0 with background 0.																						   //set up the BG Control Register
 	TIMER_3_CONTROL = TIMER_ENABLE | TIMER_CASCADE;
@@ -41,7 +41,7 @@ int main()
 	Enemy3 enemy3;//Creates the third enemy.
 	enemy3.enemyInitialization(spriteManager, player, 3);//enemy Initialization.
 	
-	loadGameBackground();
+	LoadGameBackground();
 
 	GameStates currentState = GAME;
 
@@ -129,7 +129,7 @@ int main()
 			if (state == 0)
 			{
 				player.sprite.spriteSetPosition(0, 160);
-				enemy1.sprite.spriteSetPosition(0, 160);
+				enemy1.oSprite.spriteSetPosition(0, 160);
 				enemy2.sprite.spriteSetPosition(0, 160);
 				enemy3.sprite.spriteSetPosition(0, 160);
 				
