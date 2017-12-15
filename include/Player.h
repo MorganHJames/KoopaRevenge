@@ -17,8 +17,8 @@
 #include "particleFunctions.h"
 #include "smoke.h"
 #include "sinlut.h"
-#include "spriteManager.h"
 #include "collisionMap.h"
+#include "spriteManager.h"
 
 /* a struct for the koopa's logic and behavior */
 class Player
@@ -463,11 +463,11 @@ public:
 
 	}
 
+	
 
 	/* update the koopa */
 	void playerUpdate()
 	{
-
 		/* update y position and speed if falling */
 		if (falling)
 		{
@@ -509,7 +509,6 @@ public:
 			}
 		
 		}
-
 
 		playerCollision();
 		sprite.spriteSetPosition(position.fX, position.fY);

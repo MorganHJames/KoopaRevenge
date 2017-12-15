@@ -112,8 +112,6 @@
     <ClInclude Include="include\backgroundSprites.h" />
     <ClInclude Include="include\collisionMap.h" />
     <ClInclude Include="include\enemy.h" />
-    <ClInclude Include="include\enemy2.h" />
-    <ClInclude Include="include\enemy3.h" />
     <ClInclude Include="include\gameManager.h" />
     <ClInclude Include="include\gameStates.h" />
     <ClInclude Include="include\gba.h" />

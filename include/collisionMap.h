@@ -1,3 +1,5 @@
+#ifndef __COLLISION_MAP_H__
+#define __COLLISION_MAP_H__
 
 #define collisionMapWidth 64
 #define collisionMapHeight 32
@@ -234,3 +236,5 @@ const unsigned short collisionMap[] = {
 	0x0001, 0x0001, 0x0001, 0x0001, 0x0001,
 };
 
+
+#endif//__COLLISION_MAP_H__

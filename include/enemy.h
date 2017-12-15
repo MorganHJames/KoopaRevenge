@@ -18,9 +18,7 @@
 #include "particles.h"
 #include "gba_vector4.h"
 #include "gba_timers.h"
-#include "enemy2.h"
-#include "enemy3.h"
-
+#include "collisionMap.h"
 
 /* a struct for the koopa's logic and behavior */
 class Enemy
@@ -309,57 +307,14 @@ public:
 		}
 	}
 
-	void HurtPlayer(Player& a_rPlayer, Enemy2& a_rEnemy2, Enemy3& a_rEnemy3 )
-	{
-		Vector4 v4Player = { a_rPlayer.position.fX, a_rPlayer.position.fY, 16 , 32 };
-		Vector4 v4Enemy = { v2Position.fX, v2Position.fY, 16 , 16 };
-		Vector4 v4Enemy2 = { a_rEnemy2.v2Position.fX, a_rEnemy2.v2Position.fY, 16 , 16 };
-		Vector4 v4Enemy3 = { a_rEnemy3.v2Position.fX, a_rEnemy3.v2Position.fY, 16 , 16 };
-		//Hurt by player
-		if (
-			(v4Player.fX < v4Enemy.fX + v4Enemy.fW &&
-			v4Player.fX + v4Player.fW > v4Enemy.fX &&
-			v4Player.fY < v4Enemy.fY + v4Enemy.fH &&
-			v4Player.fH + v4Player.fY > v4Enemy.fY && bAlive == 1 )
-			
-			||
-
-			(v4Player.fX < v4Enemy2.fX + v4Enemy2.fW &&
-			v4Player.fX + v4Player.fW > v4Enemy2.fX &&
-			v4Player.fY < v4Enemy2.fY + v4Enemy2.fH &&
-			v4Player.fH + v4Player.fY > v4Enemy2.fY && a_rEnemy2.bAlive == 1 )
-			
-			||
-
-			(v4Player.fX < v4Enemy3.fX + v4Enemy3.fW &&
-			v4Player.fX + v4Player.fW > v4Enemy3.fX &&
-			v4Player.fY < v4Enemy3.fY + v4Enemy3.fH &&
-			v4Player.fH + v4Player.fY > v4Enemy3.fY && a_rEnemy3.bAlive == 1)
-			
-			)
-		{
-			if (a_rPlayer.invulnerable == 0)
-			{
-				a_rPlayer.lives--;
-				a_rPlayer.frameSkip = 16;
-				a_rPlayer.invulnerable = 1;
-			}
-		}
-		else
-		{
-			a_rPlayer.frameSkip = 8;
-			a_rPlayer.invulnerable = 0;
-		}
-	}
-		
 	/* update the koopa */
-	void EnemyUpdate(Player& a_rPlayer, Enemy2& a_rEnemy2, Enemy3& a_rEnemy3)
+	void EnemyUpdate(Player& a_rPlayer)
 	{
 		//sprite flip didn't work for the enemy for some unannounced reason.
 		oSprite.Attribute->u16Attribute1 = SetAttribute1(v2Position.fX, bFlip, ATTRIBUTE1_SIZE_1);
 		
 		EnemyAI(a_rPlayer);
-		HurtPlayer(a_rPlayer, a_rEnemy2, a_rEnemy3);
+		
 		if (bMove)
 		{
 			u8Counter++;

@@ -10,13 +10,12 @@
 #include <string.h>
 #include "player.h"
 #include "enemy.h"
-#include "enemy2.h"
-#include "enemy3.h"
 #include "backgroundFunctions.h"
 #include "gameStates.h"
 #include "text.h"
 #include "textFunctions.h"
 #include "spriteManager.h"
+#include "gameManager.h"
 
 int main()
 {
@@ -29,16 +28,18 @@ int main()
 	SpriteManager spriteManager;
 	spriteManager.SpriteManagerInitialization();
 
+	GameManager gameManager;
+
 	Player player;//Create the player.
 	player.playerInitialization(spriteManager);//PLayer Initialization.
 
 	Enemy enemy1;//Creates the first enemy.
 	enemy1.EnemyInitialization(spriteManager, player);//enemy Initialization.
 
-	Enemy2 enemy2;//Creates the seconed enemy.
+	Enemy enemy2;//Creates the seconed enemy.
 	enemy2.EnemyInitialization(spriteManager, player);//enemy Initialization.
 
-	Enemy3 enemy3;//Creates the third enemy.
+	Enemy enemy3;//Creates the third enemy.
 	enemy3.EnemyInitialization(spriteManager, player);//enemy Initialization.
 	
 	LoadGameBackground();
@@ -153,9 +154,6 @@ int main()
 
 					REGISTRY_BACKGROUND_OFF_SET[3].s16Y = titleScroll;
 				}
-
-				
-
 				PollKeys();
 
 				if (KeyDown(START))
@@ -201,10 +199,10 @@ int main()
 				}
 				player.playerUpdate();
 				
-				enemy1.EnemyUpdate(player, enemy2, enemy3);
+				enemy1.EnemyUpdate(player);
 				enemy2.EnemyUpdate(player);
 				enemy3.EnemyUpdate(player);
-
+				gameManager.HurtPlayer(player,enemy1,enemy2,enemy3);
 				timeText.updateText(timeCharArray, 104, 2, spriteManager, 4);
 				char livesLeftCharArray[3] = { (char)('0' + timeLeft / 100 % 10), (char)('0' + timeLeft / 10 % 10),  (char)('0' + timeLeft % 10) };
 				timeRemainingText.updateText(livesLeftCharArray, 108, 10, spriteManager, 4);
