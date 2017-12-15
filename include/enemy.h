@@ -25,10 +25,8 @@
 /* a struct for the koopa's logic and behavior */
 class Enemy
 {
-
 private:
 public:
-
 	/* the actual sprite attribute info */
 	Sprite oSprite;
 
@@ -315,8 +313,8 @@ public:
 	{
 		Vector4 v4Player = { a_rPlayer.position.fX, a_rPlayer.position.fY, 16 , 32 };
 		Vector4 v4Enemy = { v2Position.fX, v2Position.fY, 16 , 16 };
-		Vector4 v4Enemy2 = { a_rEnemy2.position.fX, a_rEnemy2.position.fY, 16 , 16 };
-		Vector4 v4Enemy3 = { a_rEnemy3.position.fX, a_rEnemy3.position.fY, 16 , 16 };
+		Vector4 v4Enemy2 = { a_rEnemy2.v2Position.fX, a_rEnemy2.v2Position.fY, 16 , 16 };
+		Vector4 v4Enemy3 = { a_rEnemy3.v2Position.fX, a_rEnemy3.v2Position.fY, 16 , 16 };
 		//Hurt by player
 		if (
 			(v4Player.fX < v4Enemy.fX + v4Enemy.fW &&
@@ -329,14 +327,14 @@ public:
 			(v4Player.fX < v4Enemy2.fX + v4Enemy2.fW &&
 			v4Player.fX + v4Player.fW > v4Enemy2.fX &&
 			v4Player.fY < v4Enemy2.fY + v4Enemy2.fH &&
-			v4Player.fH + v4Player.fY > v4Enemy2.fY && a_rEnemy2.alive == 1 )
+			v4Player.fH + v4Player.fY > v4Enemy2.fY && a_rEnemy2.bAlive == 1 )
 			
 			||
 
 			(v4Player.fX < v4Enemy3.fX + v4Enemy3.fW &&
 			v4Player.fX + v4Player.fW > v4Enemy3.fX &&
 			v4Player.fY < v4Enemy3.fY + v4Enemy3.fH &&
-			v4Player.fH + v4Player.fY > v4Enemy3.fY && a_rEnemy3.alive == 1)
+			v4Player.fH + v4Player.fY > v4Enemy3.fY && a_rEnemy3.bAlive == 1)
 			
 			)
 		{

@@ -24,367 +24,340 @@ class Enemy3
 {
 private:
 public:
-
 	/* the actual sprite attribute info */
-	Sprite sprite;
+	Sprite oSprite;
 
 	/* the x and y postion */
-	Vector2 position;
+	Vector2 v2Position;
 
-	int xvel;
-	int walkSpeed;
-	int runSpeed;
-	int runDistance;
-	int move;
-	int falling;
-	int yvel;
-	int jumpHeight;
-	int gravity;
-	int counter;
-	int frame;
-	int flip;
-	int animationDelay;
-	int walkAnimationDelay;
-	int alive;
-	int runAnimationDelay;
-	u32 time;
+	fixed fXVelocity;
+	fixed fYVelocity;
+	fixed fGravity;
+	fixed fWalkSpeed;
+	fixed fRunSpeed;
 
-	void enemyInitialization(SpriteManager& a_spriteManager, Player a_player)
+	s32 s32RunDistance;
+	s32 s32JumpHeight;
+
+	BOOL bMove;
+	BOOL bFalling;
+	BOOL bFlip;
+	BOOL bAlive;
+
+	u8 u8Counter;
+	u8 u8Frame;
+	u8 u8AnimationDelay;
+	u8 u8WalkAnimationDelay;
+	u8 u8RunAnimationDelay;
+
+	void EnemyInitialization(SpriteManager& a_rSpriteManager, Player a_player)
 	{
-		sprite.Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
-		sprite.Attribute->u16Attribute0 = SetAttribute0(0, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
-		sprite.Attribute->u16Attribute1 = SetAttribute1(0, 0, ATTRIBUTE1_SIZE_1);
+		oSprite.Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_rSpriteManager.objectAttributeMemoryFree()];
+		oSprite.Attribute->u16Attribute0 = SetAttribute0(0, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
+		oSprite.Attribute->u16Attribute1 = SetAttribute1(0, 0, ATTRIBUTE1_SIZE_1);
 
+		SpawnEnemy(a_player);
 
-		spawnEnemy(a_player);
+		fXVelocity = 0;
+		fYVelocity = 0;
+		fGravity = 1;
+		fWalkSpeed = 1;
+		fRunSpeed = 2;
 
-		falling = 0;
-		runDistance = 100;
-		move = 0;
-		time = 0;
-		xvel = 0;
-		yvel = 0;
-		flip = 0;
-		alive = 1;
-		gravity = 1;
-		frame = 64;
-		jumpHeight = 11;
-		counter = 0;
-		walkSpeed = 1;
-		runSpeed = 2;
-		animationDelay = 8;
-		walkAnimationDelay = 8;
-		runAnimationDelay = 4;
+		s32JumpHeight = 11;
+		s32RunDistance = 100;
+
+		bFalling = 0;
+		bMove = 0;
+		bFlip = 0;
+		bAlive = 1;
+
+		u8Counter = 0;
+		u8Frame = 64;
+		u8AnimationDelay = 8;
+		u8WalkAnimationDelay = 8;
+		u8RunAnimationDelay = 4;
 	}
 
-	void spawnEnemy(Player a_player)
+	void SpawnEnemy(Player a_player)
 	{
+		u8 u8Palette = 0;
+		v2Position.fY = 0;//Sets the enemy's y to be 0 so its at the top of the screen and wont spawn in any terrain.
 
-		int pallete = 0;
-		position.fY = 0;//Sets the enemy's y to be 0 so its at the top of the screen and wont spawn in any terrain.
+		s32 s32Side = QuasiRandomRange(0, 1000);//Picks a side for the player to spawn on.
 
-		int side = QuasiRandomRange(0, 1000);//Picks a side for the player to spawn on.
-
-		if (side > 500)//Left side chosen.
+		if (s32Side > 500)//Left side chosen.
 		{
-			side = QuasiRandomRange(-1000, -300);
+			s32Side = QuasiRandomRange(-1000, -300);
 		}
 		else//Right side chosen.
 		{
-			side = QuasiRandomRange(300, 1000);
+			s32Side = QuasiRandomRange(300, 1000);
 		}
-		if (side % 2 == 0)
+		if (s32Side % 2 == 0)
 		{
-			pallete = 2;
+			u8Palette = 2;
 		}
 		else
 		{
-			pallete = 3;
+			u8Palette = 3;
 		}
 
-
-		sprite.Attribute->u16Attribute2 = SetAttribute2(64, 1, pallete);
-		position.fX = side;
+		oSprite.Attribute->u16Attribute2 = SetAttribute2(64, 1, u8Palette);
+		v2Position.fX = s32Side;
 	}
 
-	void enemyMoveLeft()
+	void EnemyMoveLeft()
 	{
 		/* face left */
-		flip = 1;
+		bFlip = 1;
 		//move = 1;
-		position.fX -= xvel;
+		v2Position.fX -= fXVelocity;
 	}
 
-	void enemyMoveRight()
+	void EnemyMoveRight()
 	{
 		/* face right */
-		flip = 0;
+		bFlip = 0;
 		//move = 1;
-		position.fX += xvel;
+		v2Position.fX += fXVelocity;
 	}
 
-	void enemyJump()
+	void EnemyJump()
 	{
-		if (!falling)
+		if (!bFalling)
 		{
-			move = 0;
-			frame = 80;
-			yvel = -jumpHeight;
-			falling = 1;
+			bMove = 0;
+			u8Frame = 80;
+			fYVelocity = -s32JumpHeight;
+			bFalling = 1;
 		}
 	}
 
-	void enemyStop()
+	void EnemyStop()
 	{
-		move = 0;
-		frame = 64;
-		counter = 7;
-		xvel = 0;
-		sprite.spriteSetOffset(frame);
+		bMove = 0;
+		u8Frame = 64;
+		u8Counter = 7;
+		fXVelocity = 0;
+		oSprite.spriteSetOffset(u8Frame);
 	}
 
-	void gotHit(Player& a_player)
+	void GotHit(Player& a_rPlayer)
 	{
-		Vector4 playerFeet = { a_player.position.fX, a_player.position.fY + 32, 16 , 8 };
-		Vector4 enemyHead = { position.fX, position.fY, 16 , 8 };
+		Vector4 v4PlayerFeet = { a_rPlayer.position.fX, a_rPlayer.position.fY + 32, 16 , 8 };
+		Vector4 v4EnemyHead = { v2Position.fX, v2Position.fY, 16 , 8 };
 		//Hurt by player
-		if (playerFeet.fX < enemyHead.fX + enemyHead.fW &&
-			playerFeet.fX + playerFeet.fW > enemyHead.fX &&
-			playerFeet.fY < enemyHead.fY + enemyHead.fH &&
-			playerFeet.fH + playerFeet.fY > enemyHead.fY && (a_player.yvel != 0))
+		if (v4PlayerFeet.fX < v4EnemyHead.fX + v4EnemyHead.fW &&
+			v4PlayerFeet.fX + v4PlayerFeet.fW > v4EnemyHead.fX &&
+			v4PlayerFeet.fY < v4EnemyHead.fY + v4EnemyHead.fH &&
+			v4PlayerFeet.fH + v4PlayerFeet.fY > v4EnemyHead.fY && (a_rPlayer.yvel != 0))
 		{
-			alive = 0;
+			bAlive = 0;
 			// collision detected!
-			a_player.playerBounce();
-			move = 0;
-			a_player.score++;
-			a_player.scoreUnits++;
-			frame = 84;
-			falling = 1;
-			yvel = -jumpHeight;
-
+			a_rPlayer.playerBounce();
+			bMove = 0;
+			a_rPlayer.score++;
+			u8Frame = 84;
+			bFalling = 1;
+			fYVelocity = -s32JumpHeight;
 		}
 	}
 
-
-
-	void enemyAI(Player& a_player)
+	void EnemyAI(Player& a_rPlayer)
 	{
-		s32 pX = ((position.fX + xvel) >> 3) + (a_player.iXScroll >> 3);
-		s32 pY = ((position.fY + yvel) >> 3) + (a_player.iYScroll >> 3);
+		fixed fPX = ((v2Position.fX + fXVelocity) >> 3) + (a_rPlayer.iXScroll >> 3);
+		fixed fPY = ((v2Position.fY + fYVelocity) >> 3) + (a_rPlayer.iYScroll >> 3);
 
 		/* account for wraparound */
-		while (pX >= collisionMapWidth)
+		while (fPX >= collisionMapWidth)
 		{
-			pX -= collisionMapWidth;
+			fPX -= collisionMapWidth;
 		}
-		while (pY >= collisionMapHeight)
+		while (fPY >= collisionMapHeight)
 		{
-			pY -= collisionMapHeight;
+			fPY -= collisionMapHeight;
 		}
-		while (pX < 0)
+		while (fPX < 0)
 		{
-			pX += collisionMapWidth;
+			fPX += collisionMapWidth;
 		}
-		while (pY < 0)
+		while (fPY < 0)
 		{
-			pY += collisionMapHeight;
-		}
-
-		pY *= collisionMapWidth;
-
-		s32 TL = pX + pY;
-		s32 TR = (pX + pY) + 2;
-
-		s32 BL = pX + pY + (collisionMapWidth << 1);
-		s32 BR = pX + pY + (collisionMapWidth << 1) + 2;
-
-		s32 ITL = pX + pY;
-		s32 IBL = pX + pY + collisionMapWidth;
-
-		s32 ITR = pX + pY + 2;
-		s32 IBR = pX + pY + collisionMapWidth + 2;
-
-		if (alive)
-		{
-			gotHit(a_player);
+			fPY += collisionMapHeight;
 		}
 
-		if (alive)
+		fPY *= collisionMapWidth;
+
+		fixed fTopLeft = fPX + fPY;
+		fixed fTopRight = (fPX + fPY) + 2;
+
+		fixed fBottomLeft = fPX + fPY + (collisionMapWidth << 1);
+		fixed fBottomRight = fPX + fPY + (collisionMapWidth << 1) + 2;
+
+		fixed fInnerTopLeft = fPX + fPY;
+		fixed fInnerBottomLeft = fPX + fPY + collisionMapWidth;
+
+		fixed fInnerTopRight = fPX + fPY + 2;
+		fixed fInnerBottomRight = fPX + fPY + collisionMapWidth + 2;
+
+		if (bAlive)
 		{
-			gotHit(a_player);
+			GotHit(a_rPlayer);
+		}
+		if (bAlive)
+		{
+			GotHit(a_rPlayer);
 			//Down collision
-			if (collisionMap[BL] > 0 || collisionMap[BR] > 0)
+			if (collisionMap[fBottomLeft] > 0 || collisionMap[fBottomRight] > 0)
 			{
-				yvel = 0;
-				falling = 0;
-				move = 1;
+				fYVelocity = 0;
+				bFalling = 0;
+				bMove = 1;
 				//position.fY--;
 			}
 			else
 			{
 				/* he is falling now */
-				falling = 1;
+				bFalling = 1;
 			}
 
 			////Up collision
-			if (collisionMap[TL] > 0 || collisionMap[TR] > 0)
+			if (collisionMap[fTopLeft] > 0 || collisionMap[fTopRight] > 0)
 			{
-				yvel = 0;
-
+				fYVelocity = 0;
 			}
 
 			//Running right
-			if (a_player.position.fX - runDistance > position.fX)
+			if (a_rPlayer.position.fX - s32RunDistance > v2Position.fX)
 			{
 				//Right collision
-				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0)
+				if (collisionMap[fInnerTopRight] > 0 || collisionMap[fInnerBottomRight] > 0)
 				{
-					--position.fX;
-					enemyJump();
-
+					--v2Position.fX;
+					EnemyJump();
 				}
 				else
 				{
-					xvel = runSpeed;
-					animationDelay = runAnimationDelay;
-					enemyMoveRight();
-
+					fXVelocity = fRunSpeed;
+					u8AnimationDelay = u8RunAnimationDelay;
+					EnemyMoveRight();
 				}
 			}
 			//Walk right
-			else if (a_player.position.fX > position.fX)
+			else if (a_rPlayer.position.fX > v2Position.fX)
 			{
 				//Right collision
-				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0)
+				if (collisionMap[fInnerTopRight] > 0 || collisionMap[fInnerBottomRight] > 0)
 				{
-					--position.fX;
-					enemyJump();
+					--v2Position.fX;
+					EnemyJump();
 				}
 				else
 				{
-					xvel = walkSpeed;
-					animationDelay = runAnimationDelay;
-					enemyMoveRight();
-
+					fXVelocity = fWalkSpeed;
+					u8AnimationDelay = u8RunAnimationDelay;
+					EnemyMoveRight();
 				}
 			}
 			//Stop
-			else if (a_player.position.fX == position.fX)
+			else if (a_rPlayer.position.fX == v2Position.fX)
 			{
-				enemyStop();
+				EnemyStop();
 			}
 
 			//Running left
-			if (FixedToInteger(a_player.position.fX) + runDistance < FixedToInteger(position.fX))
+			if (FixedToInteger(a_rPlayer.position.fX) + s32RunDistance < FixedToInteger(v2Position.fX))
 			{
 				//left collision
-				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0)
+				if (collisionMap[fInnerTopLeft] > 0 || collisionMap[fInnerBottomLeft] > 0)
 				{
-					++position.fX;
-					enemyJump();
+					++v2Position.fX;
+					EnemyJump();
 				}
 				else
 				{
-					xvel = runSpeed;
-					animationDelay = runAnimationDelay;
-					enemyMoveLeft();
-
+					fXVelocity = fRunSpeed;
+					u8AnimationDelay = u8RunAnimationDelay;
+					EnemyMoveLeft();
 				}
 			}
 			//Walk left
-			else if (a_player.position.fX < position.fX)
+			else if (a_rPlayer.position.fX < v2Position.fX)
 			{
 				//left collision
-				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0)
+				if (collisionMap[fInnerTopLeft] > 0 || collisionMap[fInnerBottomLeft] > 0)
 				{
-					++position.fX;
-					enemyJump();
+					++v2Position.fX;
+					EnemyJump();
 				}
 				else
 				{
-					xvel = walkSpeed;
-					animationDelay = runAnimationDelay;
-					enemyMoveLeft();
-
+					fXVelocity = fWalkSpeed;
+					u8AnimationDelay = u8RunAnimationDelay;
+					EnemyMoveLeft();
 				}
 			}
-
-
-
 			//Stop
-			else if (a_player.position.fX == position.fX)
+			else if (a_rPlayer.position.fX == v2Position.fX)
 			{
-				enemyStop();
+				EnemyStop();
 			}
-
 		}
-
-
 	}
 
 	/* update the koopa */
-	void enemyUpdate(Player& a_player)
+	void EnemyUpdate(Player& a_rPlayer)
 	{
-		////sprite flip didn't work for the enemy for some unannounced reason.
-		sprite.Attribute->u16Attribute1 = SetAttribute1(position.fX, flip, ATTRIBUTE1_SIZE_1);
-		
-		enemyAI(a_player);
-		
+		//sprite flip didn't work for the enemy for some unannounced reason.
+		oSprite.Attribute->u16Attribute1 = SetAttribute1(v2Position.fX, bFlip, ATTRIBUTE1_SIZE_1);
 
-		
-		if (move)
+		EnemyAI(a_rPlayer);
+		if (bMove)
 		{
-			counter++;
-			if (counter >= animationDelay)
+			u8Counter++;
+			if (u8Counter >= u8AnimationDelay)
 			{
-				frame += 4;
+				u8Frame += 4;
 
-				if (frame > 76)
+				if (u8Frame > 76)
 				{
-					frame = 68;
+					u8Frame = 68;
 				}
-				counter = 0;
+				u8Counter = 0;
 			}
 		}
 
 		/* update y position and speed if falling */
-		if (falling)
+		if (bFalling)
 		{
-			position.fY += yvel;
-			yvel += gravity;
+			v2Position.fY += fYVelocity;
+			fYVelocity += fGravity;
 		}
 
-
-		if (a_player.screenLeft)
+		if (a_rPlayer.screenLeft)
 		{
-			position.fX += a_player.xvel;
+			v2Position.fX += a_rPlayer.xvel;
 		}
-		if (a_player.screenRight)
+		if (a_rPlayer.screenRight)
 		{
-			position.fX -= a_player.xvel;
+			v2Position.fX -= a_rPlayer.xvel;
 		}
-
-
-		if (position.fX > 0 && position.fX < 240)
+		if (v2Position.fX >= 0 && v2Position.fX <= 240)
 		{
-			sprite.spriteSetPosition(position.fX, position.fY);
-
+			oSprite.spriteSetPosition(v2Position.fX, v2Position.fY);
 		}
 		else
 		{
-			sprite.spriteSetPosition(0, 160);
+			oSprite.spriteSetPosition(0, 160);
 		}
-		if (position.fY > 160)
+		if (v2Position.fY > 150)
 		{
-			spawnEnemy(a_player);
-			alive = 1;
+			SpawnEnemy(a_rPlayer);
+			bAlive = 1;
 		}
-		sprite.spriteSetOffset(frame);
+		oSprite.spriteSetOffset(u8Frame);
 	}
-
-
-
 };
 
 #endif//__ENEMY3_H__

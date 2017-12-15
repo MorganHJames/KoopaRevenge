@@ -76,9 +76,6 @@ public:
 	int frameSkip;
 	int invulnerable;
 	int lives;
-	int scoreUnits;
-	int scoreTens;
-	int scoreHundreds;
 	int score;
 	int emitCoin;
 
@@ -142,9 +139,6 @@ public:
 		yDir = 0;
 
 
-		scoreUnits = 0;
-		scoreTens = 0 ;
-		scoreHundreds = 0;
 		score = 0;
 
 

@@ -36,10 +36,10 @@ int main()
 	enemy1.EnemyInitialization(spriteManager, player);//enemy Initialization.
 
 	Enemy2 enemy2;//Creates the seconed enemy.
-	enemy2.enemyInitialization(spriteManager, player);//enemy Initialization.
+	enemy2.EnemyInitialization(spriteManager, player);//enemy Initialization.
 
 	Enemy3 enemy3;//Creates the third enemy.
-	enemy3.enemyInitialization(spriteManager, player);//enemy Initialization.
+	enemy3.EnemyInitialization(spriteManager, player);//enemy Initialization.
 	
 	LoadGameBackground();
 
@@ -130,8 +130,8 @@ int main()
 			{
 				player.sprite.spriteSetPosition(0, 160);
 				enemy1.oSprite.spriteSetPosition(0, 160);
-				enemy2.sprite.spriteSetPosition(0, 160);
-				enemy3.sprite.spriteSetPosition(0, 160);
+				enemy2.oSprite.spriteSetPosition(0, 160);
+				enemy3.oSprite.spriteSetPosition(0, 160);
 				
 				highText.updateText(highTCharArray, 64, 136, spriteManager, 4);
 				score2Text.updateText(scoreCharArray, 104, 136, spriteManager, 4);
@@ -202,8 +202,8 @@ int main()
 				player.playerUpdate();
 				
 				enemy1.EnemyUpdate(player, enemy2, enemy3);
-				enemy2.enemyUpdate(player);
-				enemy3.enemyUpdate(player);
+				enemy2.EnemyUpdate(player);
+				enemy3.EnemyUpdate(player);
 
 				timeText.updateText(timeCharArray, 104, 2, spriteManager, 4);
 				char livesLeftCharArray[3] = { (char)('0' + timeLeft / 100 % 10), (char)('0' + timeLeft / 10 % 10),  (char)('0' + timeLeft % 10) };
@@ -240,8 +240,8 @@ int main()
 					timeLeft = 300;
 					titleScroll = 90;
 					enemy1.SpawnEnemy(player);
-					enemy2.spawnEnemy(player);
-					enemy3.spawnEnemy(player);
+					enemy2.SpawnEnemy(player);
+					enemy3.SpawnEnemy(player);
 				}
 				DelayNoTimer(300);
 				VerticalSync();
