@@ -173,9 +173,6 @@
     <ClInclude Include="include\text.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\textLookUpTable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\textFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -193,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="include\gba_vector4.h">
       <Filter>gba_library\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\textLookUpTable.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 //\ File: player.h
 //\ Author: Morgan James
 //\ Date Created: 27/11/2017
-//\ Brief:
+//\ Brief: A header that contains the class declaration and prototypes for the player.
 //\===========================================================================================
 
 #ifndef __PLAYER_H__
@@ -25,357 +25,321 @@ class Player
 {
 private:
 public:
-
 	/* the actual sprite attribute info */
-	Sprite sprite;
+	Sprite oSprite;
 
 	/* the x and y postion */
-	Vector2 position;
+	Vector2 v2Position;
 
-	s32 iXScroll;
-	s32 iYScroll;
-	fixed iXSrollBackground2Offset;
-	fixed iXSrollBackground3Offset;
+	s32 s32XScroll;
+	s32 s32YScroll;
+	s32 s32Border;
+	u16 u16Score;
+	s32 s32JumpHeight;
 
-	int walkSpeed;
+	fixed fXSrollBackground2Offset;
+	fixed fXSrollBackground3Offset;
+	fixed fWalkSpeed;
+	fixed fRunSpeed;
+	fixed fXVelocity;
+	fixed fYVelocity;
+	fixed fGravity;
 
-	int runSpeed;
-
-	int walkAnimationDelay;
-
-	int runAnimationDelay;
-
-	int xvel;
-
-	/* the koopa's y velocity in 1/256 pixels/second */
-	int yvel;
-
-	int jumpHeight;
-
-	/* the koopa's y acceleration in 1/256 pixels/second^2 */
-	int gravity;
-
-	/* which frame of the animation he is on */
-	int frame;
-
-	/* the number of frames to wait before flipping */
-	int animationDelay;
-
-	/* the animation counter counts how many frames until we flip */
-	int counter;
+	u8 u8Frame;//which frame of the animation he is on 
+	u8 u8AnimationDelay;//the number of frames to wait before flipping
+	u8 u8FrameSkip;
+	u8 u8Lives;
+	u8 u8Counter;/* the animation counter counts how many frames until we flip */
+	u8 u8WalkAnimationDelay;
+	u8 u8RunAnimationDelay;
 
 	/* whether the koopa is moving right now or not */
-	int move;
-
-	/* the number of pixels away from the edge of the screen the koopa stays */
-	int border;
-	/* if the koopa is currently falling */
-	int falling;
-	int xDir;
-	int yDir;
-	int frameSkip;
-	int invulnerable;
-	int lives;
-	int score;
-	int emitCoin;
+	BOOL bMove;
+	BOOL bScreenRight;
+	BOOL bScreenLeft;
+	BOOL bFalling;
+	BOOL bInvulnerable;
 
 	//Particles
+	fixed fParticleGravity;
+	fixed fParticleFrameTime;
+	fixed fParticelMeterToPixel;
 
-	fixed g_gravity;
-	fixed g_frameTime;
-	fixed g_pixels2Meter;
-
-	Emitter emitterJumpEffect;
-	Particle particlesJumpEffect[32];
-	ObjectAttribute jumpParticleOAM;
-	ObjectAttribute* jumpParticleOAMStart;
-
-	//passed infor to enemy
-	int screenRight;
-	int screenLeft;
+	Emitter oEmitterJumpEffect;
+	Particle oParticlesJumpEffect[32];
+	ObjectAttribute oJumpParticleOAM;
+	ObjectAttribute* poJumpParticleOAMStart;
 
 	void playerInitialization(SpriteManager& a_spriteManager)
 	{
-		sprite.Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.objectAttributeMemoryFree()];
-		sprite.Attribute->u16Attribute0 = SetAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
-		sprite.Attribute->u16Attribute1 = SetAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
-		sprite.Attribute->u16Attribute2 = SetAttribute2(0, 1, 0);
+		oSprite.poAttribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_spriteManager.ObjectAttributeMemoryFree()];
+		oSprite.poAttribute->u16Attribute0 = SetAttribute0(113, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
+		oSprite.poAttribute->u16Attribute1 = SetAttribute1(120, 0, ATTRIBUTE1_SIZE_2);
+		oSprite.poAttribute->u16Attribute2 = SetAttribute2(0, 1, 0);
 
+	
+		v2Position.fX = 120;
+		v2Position.fY = 100;
+
+		fXVelocity = 0;
+		fYVelocity = 0;
+		fWalkSpeed = 1;
+		fRunSpeed = 2;
+		fXSrollBackground2Offset = FixedDivide(IntegerToFixed(75), IntegerToFixed(100));
+		fXSrollBackground3Offset = FixedDivide(IntegerToFixed(5), IntegerToFixed(10));
+		fGravity = 1;
+
+		s32JumpHeight = 11;
+		s32XScroll = 0;
+		s32YScroll = 80;
+		s32Border = 40;
+		u16Score = 0;
+
+		u8Lives = 3;
+		u8WalkAnimationDelay = 8;
+		u8RunAnimationDelay = 4;
+		u8Frame = 0;
+		u8AnimationDelay = 8;
+		u8FrameSkip = 8;
+
+		bMove = 0;
+		u8Counter = 0;
+		bFalling = 0;
+		bInvulnerable = 0;
+		//passed info to enemys
+		bScreenRight = 0;
+		bScreenLeft = 0;
 
 		// --- Particles ---
+		fParticleGravity = -0x9CC;
+		fParticleFrameTime = 0x04;
+		fParticelMeterToPixel = IntegerToFixed(5);
 
-		g_gravity = -0x9CC;
-		g_frameTime = 0x04;
-		g_pixels2Meter = IntegerToFixed(5);
-
-		emitterJumpEffect.fY = 0;
-		emitterJumpEffect.fX = 0;
-
-		jumpParticleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[96];
-	
-		// --- ---
-		position.fX = 120;
-		position.fY = 100;
-		xvel = 0;
-		yvel = 0;
-		jumpHeight = 11;
-		walkSpeed = 1;
-		runSpeed = 2;
-		lives = 3;
-		iXScroll = 0;
-		iYScroll = 80;
-		iXSrollBackground2Offset = FixedDivide(IntegerToFixed(75), IntegerToFixed(100));
-		iXSrollBackground3Offset = FixedDivide(IntegerToFixed(5), IntegerToFixed(10));
-		walkAnimationDelay = 8;
-		runAnimationDelay = 4;
-		gravity = 1;
-		border = 40;
-		frame = 0;
-		move = 0;
-		counter = 0;
-		falling = 0;
-		animationDelay = 8;
-		xDir = 0;
-		yDir = 0;
-
-
-		score = 0;
-
-
-
-		frameSkip = 8;
-		invulnerable = 0;
-		//passed info to enemys
-		screenRight = 0;
-		screenLeft = 0;
-
+		oEmitterJumpEffect.fY = 0;
+		oEmitterJumpEffect.fX = 0;
+		poJumpParticleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[96];
 
 	}
 
-
 	/* move the Player left or right returns if it is at edge of the screen */
-	int playerMoveLeft()
+	int PlayerMoveLeft()
 	{
 		/* face left */
-		sprite.spriteSetHorizontalFlip(1);
-		move = 1;
+		oSprite.SpriteSetHorizontalFlip(1);
+		bMove = 1;
 
 		/* if we are at the left end, just scroll the screen */
-		if (position.fX < border)
+		if (v2Position.fX < s32Border)
 		{
 			return 1;
 		}
 		else
 		{
 			/* else move left */
-			position.fX -= xvel;
+			v2Position.fX -= fXVelocity;
 			return 0;
 		}
 	}
 
-	int playerMoveRight()
+	int PlayerMoveRight()
 	{
 		/* face right */
-		sprite.spriteSetHorizontalFlip(0);
-		move = 1;
+		oSprite.SpriteSetHorizontalFlip(0);
+		bMove = 1;
 
 		/* if we are at the right end, just scroll the screen */
-		if (position.fX > (240 - 16 - border))
+		if (v2Position.fX > (240 - 16 - s32Border))
 		{
 			return 1;
 		}
 		else
 		{
 			/* else move right */
-			position.fX += xvel;
+			v2Position.fX += fXVelocity;
 			return 0;
 		}
 	}
 
-	void playerStop()
+	void PlayerStop()
 	{
-		move = 0;
-		frame = 0;
-		counter = 7;
-		xvel = 0;
-		sprite.spriteSetOffset(frame);
+		bMove = 0;
+		u8Frame = 0;
+		u8Counter = 7;
+		fXVelocity = 0;
+		oSprite.SpriteSetOffset(u8Frame);
 	}
 
 	/* start the koopa jumping, unless already fgalling */
-	void playerJump()
+	void PlayerJump()
 	{
-		if (!falling)
+		if (!bFalling)
 		{
-			yvel = -jumpHeight;
-			falling = 1;
+			fYVelocity = -s32JumpHeight;
+			bFalling = 1;
 
-			emitterJumpEffect.fX = IntegerToFixed(position.fX + 7);//Move the emiter to the players x pos.
-			emitterJumpEffect.fY = IntegerToFixed(position.fY + 31);//Move the emiter to the players y pos.
-			for (int i = 0; i < 32; ++i)
+			oEmitterJumpEffect.fX = IntegerToFixed(v2Position.fX + 7);//Move the emiter to the players x pos.
+			oEmitterJumpEffect.fY = IntegerToFixed(v2Position.fY + 31);//Move the emiter to the players y pos.
+			for (u32 u32I = 0; u32I < 32; ++u32I)
 			{
-				ParticleEmit(particlesJumpEffect[i], emitterJumpEffect);
-				jumpParticleOAMStart[i] = jumpParticleOAM;
+				ParticleEmit(oParticlesJumpEffect[u32I], oEmitterJumpEffect);
+				poJumpParticleOAMStart[u32I] = oJumpParticleOAM;
 			}
 		}
 	}
-	void playerBounce()
-	{
-		yvel = -(jumpHeight >> 1) ;
 
+	void PlayerBounce()
+	{
+		fYVelocity = -(s32JumpHeight >> 1) ;
 	}
 
-	
-
-	void playerCollision()
+	void PlayerCollision()
 	{
-		s32 pX = ((position.fX + xvel) >> 3) + (iXScroll >> 3);
-		s32 pY = ((position.fY + yvel) >> 3) + (iYScroll >> 3);
-
+		fixed fPlayerWorldX = ((v2Position.fX + fXVelocity) >> 3) + (s32XScroll >> 3);
+		fixed fPlayerWorldY = ((v2Position.fY + fYVelocity) >> 3) + (s32YScroll >> 3);
 
 		/* account for wraparound */
-		while (pX >= collisionMapWidth)
+		while (fPlayerWorldX >= collisionMapWidth)
 		{
-			pX -= collisionMapWidth;
+			fPlayerWorldX -= collisionMapWidth;
 		}
-		while (pY >= collisionMapHeight)
+		while (fPlayerWorldY >= collisionMapHeight)
 		{
-			pY -= collisionMapHeight;
+			fPlayerWorldY -= collisionMapHeight;
 		}
-		while (pX < 0)
+		while (fPlayerWorldX < 0)
 		{
-			pX += collisionMapWidth;
+			fPlayerWorldX += collisionMapWidth;
 		}
-		while (pY < 0)
+		while (fPlayerWorldY < 0)
 		{
-			pY += collisionMapHeight;
+			fPlayerWorldY += collisionMapHeight;
 		}
 
-		pY *= collisionMapWidth;
+		fPlayerWorldY *= collisionMapWidth;
 
 
-		s32 TL = pX + pY;
-		s32 TR = (pX + pY) + 2;
+		fixed fTopLeft = fPlayerWorldX + fPlayerWorldY;
+		fixed fTopRight = (fPlayerWorldX + fPlayerWorldY) + 2;
 
-		s32 BL = pX + pY + (collisionMapWidth << 2);
-		s32 BR = pX + pY + (collisionMapWidth << 2) + 2;
+		fixed fBottomLeft = fPlayerWorldX + fPlayerWorldY + (collisionMapWidth << 2);
+		fixed fBottomRight = fPlayerWorldX + fPlayerWorldY + (collisionMapWidth << 2) + 2;
 
-		s32 ITL = pX + pY ;
-		s32 IBL = pX + pY + (collisionMapWidth << 1) + collisionMapWidth;
+		fixed fInnerTopLeft = fPlayerWorldX + fPlayerWorldY;
+		fixed fInnerBottomLeft = fPlayerWorldX + fPlayerWorldY + (collisionMapWidth << 1) + collisionMapWidth;
 
-		s32 IITL = pX + pY + collisionMapWidth;
-		s32 IIBL = pX + pY + (collisionMapWidth << 1);
+		fixed fInnerInnerTopLeft = fPlayerWorldX + fPlayerWorldY + collisionMapWidth;
+		fixed fInnerInnerBottomLeft = fPlayerWorldX + fPlayerWorldY + (collisionMapWidth << 1);
 
-		s32 ITR = pX + pY + 2;
-		s32 IBR = pX + pY + (collisionMapWidth << 1) + collisionMapWidth + 2;
+		fixed fInnerTopRight = fPlayerWorldX + fPlayerWorldY + 2;
+		fixed fInnerBottomRight = fPlayerWorldX + fPlayerWorldY + (collisionMapWidth << 1) + collisionMapWidth + 2;
 
-		s32 IITR = pX + pY + 2 + collisionMapWidth;
-		s32 IIBR = pX + pY + (collisionMapWidth << 1) + 2;
+		fixed fInnerInnerTopRight = fPlayerWorldX + fPlayerWorldY + 2 + collisionMapWidth;
+		fixed fInnerInnerBottomRight = fPlayerWorldX + fPlayerWorldY + (collisionMapWidth << 1) + 2;
 
 		//Down collision
-		if (collisionMap[BL] > 0 || collisionMap[BR] > 0 )
+		if (collisionMap[fBottomLeft] > 0 
+			|| collisionMap[fBottomRight] > 0 )
 		{
-			yvel = 0;
-			falling = 0;
+			fYVelocity = 0;
+			bFalling = 0;
 			//position.fY--;
 		}
 		else
 		{
 			/* he is falling now */
-			falling = 1;
+			bFalling = 1;
 		}
 		
 		//Up collision
-		if (collisionMap[TL] > 0 || collisionMap[TR] > 0)
+		if (collisionMap[fTopLeft] > 0 
+			|| collisionMap[fTopRight] > 0)
 		{
-			yvel = 0;
-			
+			fYVelocity = 0;
 		}
-
 
 		if (KeyDown(A))
 		{
-			playerJump();
-			
-
-			
+			PlayerJump();
 		}
 
-		s32 xDir = GetAxis(HORIZONTAL);
+		s32 s32XDirection = GetAxis(HORIZONTAL);
 
+		bScreenRight = 0;
+		bScreenLeft = 0;
 
-		screenRight = 0;
-		screenLeft = 0;
-
-
-		switch (xDir)
+		switch (s32XDirection)
 		{
-			// Moving Right
+		// Moving Right
 		case 1:
 		{
-
 			if (KeyDown(B))
 			{
 				//Right collision
-				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0 || collisionMap[IITR] > 0 || collisionMap[IIBR] > 0)
+				if (collisionMap[fInnerTopRight] > 0 ||
+					collisionMap[fInnerBottomRight] > 0 ||
+					collisionMap[fInnerInnerTopRight] > 0 ||
+					collisionMap[fInnerInnerBottomRight] > 0)
 				{
-					--position.fX;
+					--v2Position.fX;
 				}
 				else
 				{
-					xvel = runSpeed;
-					animationDelay = runAnimationDelay;
-					if (playerMoveRight())
+					fXVelocity = fRunSpeed;
+					u8AnimationDelay = u8RunAnimationDelay;
+					if (PlayerMoveRight())
 					{
-						iXScroll += xvel;
-						screenRight = 1;
+						s32XScroll += fXVelocity;
+						bScreenRight = 1;
 
 						//Keep the particles in the same spot
-						for (int i = 0; i < 32; ++i)
+						for (u32 u32I = 0; u32I < 32; ++u32I)
 						{
-
-							particlesJumpEffect[i].fX -= IntegerToFixed(xvel);
-							SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].fX), FixedToInteger(particlesJumpEffect[i].fY));//Move particle
-
+							oParticlesJumpEffect[u32I].fX -= IntegerToFixed(fXVelocity);
+							SetObjectPosition(&poJumpParticleOAMStart[u32I], FixedToInteger(oParticlesJumpEffect[u32I].fX), FixedToInteger(oParticlesJumpEffect[u32I].fY));//Move particle
 						}
-
 					}
 				}
 			}
-			else if (playerMoveRight())
+			else if (PlayerMoveRight())
 			{
 				//Right collision
-				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0 || collisionMap[IITR] > 0 || collisionMap[IIBR] > 0)
+				if (collisionMap[fInnerTopRight] > 0 ||
+					collisionMap[fInnerBottomRight] > 0 ||
+					collisionMap[fInnerInnerTopRight] > 0 || 
+					collisionMap[fInnerInnerBottomRight] > 0)
 				{
-					--position.fX;
+					--v2Position.fX;
 				}
 				else
 				{
-					xvel = walkSpeed;
-					iXScroll += xvel;
-					screenRight = 1;
-					animationDelay = walkAnimationDelay;
+					fXVelocity = fWalkSpeed;
+					s32XScroll += fXVelocity;
+					bScreenRight = 1;
+					u8AnimationDelay = u8WalkAnimationDelay;
 
 					//Keep the particles in the same spot
-					for (int i = 0; i < 32; ++i)
+					for (u32 u32I = 0; u32I < 32; ++u32I)
 					{
-						particlesJumpEffect[i].fX -= IntegerToFixed(xvel);
-						SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].fX), FixedToInteger(particlesJumpEffect[i].fY));//Move particle
+						oParticlesJumpEffect[u32I].fX -= IntegerToFixed(fXVelocity);
+						SetObjectPosition(&poJumpParticleOAMStart[u32I], FixedToInteger(oParticlesJumpEffect[u32I].fX), FixedToInteger(oParticlesJumpEffect[u32I].fY));//Move particle
 					}
 				}
 			}
 			else 
 			{
-				if (collisionMap[ITR] > 0 || collisionMap[IBR] > 0 || collisionMap[IITR] > 0 || collisionMap[IIBR] > 0)
+				if (collisionMap[fInnerTopRight] > 0 ||
+					collisionMap[fInnerBottomRight] > 0 ||
+					collisionMap[fInnerInnerTopRight] > 0 ||
+					collisionMap[fInnerInnerBottomRight] > 0)
 				{
-					--position.fX;
+					--v2Position.fX;
 				}
 				else
 				{
-					xvel = walkSpeed;
-					animationDelay = walkAnimationDelay;
+					fXVelocity = fWalkSpeed;
+					u8AnimationDelay = u8WalkAnimationDelay;
 				}
 			}
-
 			break;
 		}
 		// Moving left
@@ -384,75 +348,80 @@ public:
 			if (KeyDown(B))
 			{
 				//Left collision
-				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0 || collisionMap[IITL] > 0 || collisionMap[IIBL] > 0)
+				if (collisionMap[fInnerTopLeft] > 0 ||
+					collisionMap[fInnerBottomLeft] > 0 ||
+					collisionMap[fInnerInnerTopLeft] > 0 ||
+					collisionMap[fInnerInnerBottomLeft] > 0)
 				{
-					++position.fX;
+					++v2Position.fX;
 				}
 				else
 				{
-					xvel = runSpeed;
-					animationDelay = runAnimationDelay;
-					if (playerMoveLeft())
+					fXVelocity = fRunSpeed;
+					u8AnimationDelay = u8RunAnimationDelay;
+					if (PlayerMoveLeft())
 					{
-						iXScroll -= xvel;
-						screenLeft = 1;
+						s32XScroll -= fXVelocity;
+						bScreenLeft = 1;
 						//Keep the particles in the same spot
-						for (int i = 0; i < 32; ++i)
+						for (u32 u32I = 0; u32I < 32; ++u32I)
 						{
-
-							particlesJumpEffect[i].fX += IntegerToFixed(xvel);
-							SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].fX), FixedToInteger(particlesJumpEffect[i].fY));//Move particle
-
+							oParticlesJumpEffect[u32I].fX += IntegerToFixed(fXVelocity);
+							SetObjectPosition(&poJumpParticleOAMStart[u32I], FixedToInteger(oParticlesJumpEffect[u32I].fX), FixedToInteger(oParticlesJumpEffect[u32I].fY));//Move particle
 						}
 					}
 				}
 			}
-			else if (playerMoveLeft())
+			else if (PlayerMoveLeft())
 			{
 				//Left collision
-				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0 || collisionMap[IITL] > 0 || collisionMap[IIBL] > 0)
+				if (collisionMap[fInnerTopLeft] > 0 ||
+					collisionMap[fInnerBottomLeft] > 0 ||
+					collisionMap[fInnerInnerTopLeft] > 0 ||
+					collisionMap[fInnerInnerBottomLeft] > 0)
 				{
-					++position.fX;
+					++v2Position.fX;
 				}
 				else
 				{
-					xvel = walkSpeed;
-					iXScroll -= xvel;
-					screenLeft = 1;
-					animationDelay = walkAnimationDelay;
+					fXVelocity = fWalkSpeed;
+					s32XScroll -= fXVelocity;
+					bScreenLeft = 1;
+					u8AnimationDelay = u8WalkAnimationDelay;
 
 					//Keep the particles in the same spot
-					for (int i = 0; i < 32; ++i)
+					for (u32 u32I = 0; u32I < 32; ++u32I)
 					{
-						particlesJumpEffect[i].fX += IntegerToFixed(xvel);
-						SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].fX), FixedToInteger(particlesJumpEffect[i].fY));//Move particle
+						oParticlesJumpEffect[u32I].fX += IntegerToFixed(fXVelocity);
+						SetObjectPosition(&poJumpParticleOAMStart[u32I], FixedToInteger(oParticlesJumpEffect[u32I].fX), FixedToInteger(oParticlesJumpEffect[u32I].fY));//Move particle
 					}
 				}
 			}
 			else
 			{
 				//Left collision
-				if (collisionMap[ITL] > 0 || collisionMap[IBL] > 0 || collisionMap[IITL] > 0 || collisionMap[IIBL] > 0)
+				if (collisionMap[fInnerTopLeft] > 0 || 
+					collisionMap[fInnerBottomLeft] > 0 ||
+					collisionMap[fInnerInnerTopLeft] > 0 ||
+					collisionMap[fInnerInnerBottomLeft] > 0)
 				{
-					++position.fX;
+					++v2Position.fX;
 				}
 				else
 				{
-					xvel = walkSpeed;
-					animationDelay = walkAnimationDelay;
+					fXVelocity = fWalkSpeed;
+					u8AnimationDelay = u8WalkAnimationDelay;
 				}
 			}
-
 			break;
 		}
 		// Not moving
 		case 0:
 		{
-			if (invulnerable == 0)
+			if (bInvulnerable == 0)
 			{
-				playerStop(); 
+				PlayerStop(); 
 			}
-
 			break;
 		}
 		default:
@@ -460,68 +429,60 @@ public:
 			break;
 		}
 		}
-
 	}
-
-	
 
 	/* update the koopa */
-	void playerUpdate()
+	void PlayerUpdate()
 	{
 		/* update y position and speed if falling */
-		if (falling)
+		if (bFalling)
 		{
-			position.fY += yvel;
-			yvel += gravity;
+			v2Position.fY += fYVelocity;
+			fYVelocity += fGravity;
 		}
 
-		if (move || invulnerable)
+		if (bMove || bInvulnerable)
 		{
-			counter++;
-			if (counter >= animationDelay)
+			u8Counter++;
+			if (u8Counter >= u8AnimationDelay)
 			{
-				frame = frame + frameSkip;
-				if (frame > frameSkip)
+				u8Frame = u8Frame + u8FrameSkip;
+				if (u8Frame > u8FrameSkip)
 				{
-					frame = 0;
+					u8Frame = 0;
 				}
-				sprite.spriteSetOffset(frame);
-				counter = 0;
+				oSprite.SpriteSetOffset(u8Frame);
+				u8Counter = 0;
 			}
 		}
-		
 
 		//Jump particle update.
-		for (int i = 0; i < 32; ++i)
+		for (u32 u32I = 0; u32I < 32; ++u32I)
 		{
-			UpdateParticleOneShot(particlesJumpEffect[i], emitterJumpEffect, g_frameTime, g_pixels2Meter, g_gravity);//Updates each particle.
+			UpdateParticleOneShot(oParticlesJumpEffect[u32I], oEmitterJumpEffect, fParticleFrameTime, fParticelMeterToPixel, fParticleGravity);//Updates each particle.
 		
-			SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].fX), FixedToInteger(particlesJumpEffect[i].fY));//Move particle
+			SetObjectPosition(&poJumpParticleOAMStart[u32I], FixedToInteger(oParticlesJumpEffect[u32I].fX), FixedToInteger(oParticlesJumpEffect[u32I].fY));//Move particle
 		
-			u32 jumpFrameID = (1 << 9) - particlesJumpEffect[i].u32Lifespan;//Set the frame ID based on the particles life.
-			jumpFrameID = jumpFrameID << 4 >> 9;//Set the frame ID based on the particles life.
-			jumpParticleOAMStart[i].u16Attribute2 = SetAttribute2(32 + jumpFrameID, 0, 1);//Change the particle frame.
+			u32 u32JumpFrameID = (1 << 9) - oParticlesJumpEffect[u32I].u32Lifespan;//Set the frame ID based on the particles life.
+			u32JumpFrameID = u32JumpFrameID << 4 >> 9;//Set the frame ID based on the particles life.
+			poJumpParticleOAMStart[u32I].u16Attribute2 = SetAttribute2(32 + u32JumpFrameID, 0, 1);//Change the particle frame.
 
-			if (particlesJumpEffect[i].fY < 160)//Stops the particles appearing at the top of the screen.
+			if (oParticlesJumpEffect[u32I].fY < 160)//Stops the particles appearing at the top of the screen.
 			{
-				particlesJumpEffect[i].fY = 160;
-				particlesJumpEffect[i].fX = 0;
+				oParticlesJumpEffect[u32I].fY = 160;
+				oParticlesJumpEffect[u32I].fX = 0;
 			}
 		
 		}
 
-		playerCollision();
-		sprite.spriteSetPosition(position.fX, position.fY);
+		PlayerCollision();
+		oSprite.SpriteSetPosition(v2Position.fX, v2Position.fY);
 
-		REGISTRY_BACKGROUND_OFF_SET[0].s16X = iXScroll;
-		REGISTRY_BACKGROUND_OFF_SET[0].s16Y = iYScroll;
-		REGISTRY_BACKGROUND_OFF_SET[1].s16X = FixedToInteger(FixedMultiply(IntegerToFixed(iXScroll), iXSrollBackground2Offset));
-		REGISTRY_BACKGROUND_OFF_SET[2].s16X = FixedToInteger(FixedMultiply(IntegerToFixed(iXScroll), iXSrollBackground3Offset));
-		
+		REGISTRY_BACKGROUND_OFF_SET[0].s16X = s32XScroll;
+		REGISTRY_BACKGROUND_OFF_SET[0].s16Y = s32YScroll;
+		REGISTRY_BACKGROUND_OFF_SET[1].s16X = FixedToInteger(FixedMultiply(IntegerToFixed(s32XScroll), fXSrollBackground2Offset));
+		REGISTRY_BACKGROUND_OFF_SET[2].s16X = FixedToInteger(FixedMultiply(IntegerToFixed(s32XScroll), fXSrollBackground3Offset));
 	}
-
-
-
 };
 
 #endif//__PLAYER_H__

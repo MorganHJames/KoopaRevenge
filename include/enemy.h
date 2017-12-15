@@ -2,7 +2,7 @@
 //\ File: enemy.h
 //\ Author: Morgan James
 //\ Date Created: 08/12/2017
-//\ Brief:
+//\ Brief: A header that contains the class declaration and prototypes for the enemys.
 //\===========================================================================================
 
 #ifndef __ENEMY_H__
@@ -53,9 +53,9 @@ public:
 
 	void EnemyInitialization(SpriteManager& a_rSpriteManager, Player a_player)
 	{
-		oSprite.Attribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_rSpriteManager.objectAttributeMemoryFree()];
-		oSprite.Attribute->u16Attribute0 = SetAttribute0(0, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
-		oSprite.Attribute->u16Attribute1 = SetAttribute1(0, 0, ATTRIBUTE1_SIZE_1);
+		oSprite.poAttribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_rSpriteManager.ObjectAttributeMemoryFree()];
+		oSprite.poAttribute->u16Attribute0 = SetAttribute0(0, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
+		oSprite.poAttribute->u16Attribute1 = SetAttribute1(0, 0, ATTRIBUTE1_SIZE_1);
 		
 		SpawnEnemy(a_player);
 	
@@ -104,7 +104,7 @@ public:
 			u8Palette = 3;
 		}
 
-		oSprite.Attribute->u16Attribute2 = SetAttribute2(64, 1, u8Palette);
+		oSprite.poAttribute->u16Attribute2 = SetAttribute2(64, 1, u8Palette);
 		v2Position.fX = s32Side;
 	}
 
@@ -141,24 +141,24 @@ public:
 		u8Frame = 64;
 		u8Counter = 7;
 		fXVelocity = 0;
-		oSprite.spriteSetOffset(u8Frame);
+		oSprite.SpriteSetOffset(u8Frame);
 	}
 
 	void GotHit(Player& a_rPlayer)
 	{
-		Vector4 v4PlayerFeet = { a_rPlayer.position.fX, a_rPlayer.position.fY + 32, 16 , 8 };
+		Vector4 v4PlayerFeet = { a_rPlayer.v2Position.fX, a_rPlayer.v2Position.fY + 32, 16 , 8 };
 		Vector4 v4EnemyHead = { v2Position.fX, v2Position.fY, 16 , 8 };
 		//Hurt by player
 		if (v4PlayerFeet.fX < v4EnemyHead.fX + v4EnemyHead.fW &&
 			v4PlayerFeet.fX + v4PlayerFeet.fW > v4EnemyHead.fX &&
 			v4PlayerFeet.fY < v4EnemyHead.fY + v4EnemyHead.fH &&
-			v4PlayerFeet.fH + v4PlayerFeet.fY > v4EnemyHead.fY  && (a_rPlayer.yvel != 0))
+			v4PlayerFeet.fH + v4PlayerFeet.fY > v4EnemyHead.fY  && (a_rPlayer.fYVelocity != 0))
 		{
 			bAlive = 0;
 			// collision detected!
-			a_rPlayer.playerBounce();
+			a_rPlayer.PlayerBounce();
 			bMove = 0;
-			a_rPlayer.score++;
+			a_rPlayer.u16Score++;
 			u8Frame = 84;
 			bFalling = 1;
 			fYVelocity = -s32JumpHeight;
@@ -167,40 +167,40 @@ public:
 
 	void EnemyAI(Player& a_rPlayer)
 	{
-		fixed fPX = ((v2Position.fX + fXVelocity) >> 3) + (a_rPlayer.iXScroll >> 3);
-		fixed fPY = ((v2Position.fY + fYVelocity) >> 3) + (a_rPlayer.iYScroll >> 3);
+		fixed fEnemyWorldX = ((v2Position.fX + fXVelocity) >> 3) + (a_rPlayer.s32XScroll >> 3);
+		fixed fEnemyWorldY = ((v2Position.fY + fYVelocity) >> 3) + (a_rPlayer.s32YScroll >> 3);
 
 		/* account for wraparound */
-		while (fPX >= collisionMapWidth)
+		while (fEnemyWorldX >= collisionMapWidth)
 		{
-			fPX -= collisionMapWidth;
+			fEnemyWorldX -= collisionMapWidth;
 		}
-		while (fPY >= collisionMapHeight)
+		while (fEnemyWorldY >= collisionMapHeight)
 		{
-			fPY -= collisionMapHeight;
+			fEnemyWorldY -= collisionMapHeight;
 		}
-		while (fPX < 0)
+		while (fEnemyWorldX < 0)
 		{
-			fPX += collisionMapWidth;
+			fEnemyWorldX += collisionMapWidth;
 		}
-		while (fPY < 0)
+		while (fEnemyWorldY < 0)
 		{
-			fPY += collisionMapHeight;
+			fEnemyWorldY += collisionMapHeight;
 		}
 
-		fPY *= collisionMapWidth;
+		fEnemyWorldY *= collisionMapWidth;
 
-		fixed fTopLeft = fPX + fPY;
-		fixed fTopRight = (fPX + fPY) + 2;
+		fixed fTopLeft = fEnemyWorldX + fEnemyWorldY;
+		fixed fTopRight = (fEnemyWorldX + fEnemyWorldY) + 2;
 
-		fixed fBottomLeft = fPX + fPY + (collisionMapWidth << 1);
-		fixed fBottomRight = fPX + fPY + (collisionMapWidth << 1) + 2;
+		fixed fBottomLeft = fEnemyWorldX + fEnemyWorldY + (collisionMapWidth << 1);
+		fixed fBottomRight = fEnemyWorldX + fEnemyWorldY + (collisionMapWidth << 1) + 2;
 
-		fixed fInnerTopLeft = fPX + fPY;
-		fixed fInnerBottomLeft = fPX + fPY + collisionMapWidth;
+		fixed fInnerTopLeft = fEnemyWorldX + fEnemyWorldY;
+		fixed fInnerBottomLeft = fEnemyWorldX + fEnemyWorldY + collisionMapWidth;
 
-		fixed fInnerTopRight = fPX + fPY + 2;
-		fixed fInnerBottomRight = fPX + fPY + collisionMapWidth + 2;
+		fixed fInnerTopRight = fEnemyWorldX + fEnemyWorldY + 2;
+		fixed fInnerBottomRight = fEnemyWorldX + fEnemyWorldY + collisionMapWidth + 2;
 
 		if (bAlive)
 		{
@@ -210,7 +210,8 @@ public:
 		{
 			GotHit(a_rPlayer);
 			//Down collision
-			if (collisionMap[fBottomLeft] > 0 || collisionMap[fBottomRight] > 0)
+			if (collisionMap[fBottomLeft] > 0 || 
+				collisionMap[fBottomRight] > 0)
 			{
 				fYVelocity = 0;
 				bFalling = 0;
@@ -224,16 +225,18 @@ public:
 			}
 
 			////Up collision
-			if (collisionMap[fTopLeft] > 0 || collisionMap[fTopRight] > 0)
+			if (collisionMap[fTopLeft] > 0 || 
+				collisionMap[fTopRight] > 0)
 			{
 				fYVelocity = 0;
 			}
 
 			//Running right
-			if (a_rPlayer.position.fX - s32RunDistance > v2Position.fX)
+			if (a_rPlayer.v2Position.fX - s32RunDistance > v2Position.fX)
 			{
 				//Right collision
-				if (collisionMap[fInnerTopRight] > 0 || collisionMap[fInnerBottomRight] > 0)
+				if (collisionMap[fInnerTopRight] > 0 || 
+					collisionMap[fInnerBottomRight] > 0)
 				{
 					--v2Position.fX;
 					EnemyJump();
@@ -246,10 +249,11 @@ public:
 				}
 			}
 			//Walk right
-			else if (a_rPlayer.position.fX > v2Position.fX)
+			else if (a_rPlayer.v2Position.fX > v2Position.fX)
 			{
 				//Right collision
-				if (collisionMap[fInnerTopRight] > 0 || collisionMap[fInnerBottomRight] > 0)
+				if (collisionMap[fInnerTopRight] > 0 || 
+					collisionMap[fInnerBottomRight] > 0)
 				{
 					--v2Position.fX;
 					EnemyJump();
@@ -262,16 +266,17 @@ public:
 				}
 			}
 			//Stop
-			else if (a_rPlayer.position.fX == v2Position.fX)
+			else if (a_rPlayer.v2Position.fX == v2Position.fX)
 			{
 				EnemyStop();
 			}
 
 			//Running left
-			if (FixedToInteger(a_rPlayer.position.fX) + s32RunDistance < FixedToInteger(v2Position.fX))
+			if (FixedToInteger(a_rPlayer.v2Position.fX) + s32RunDistance < FixedToInteger(v2Position.fX))
 			{
 				//left collision
-				if (collisionMap[fInnerTopLeft] > 0 || collisionMap[fInnerBottomLeft] > 0)
+				if (collisionMap[fInnerTopLeft] > 0 || 
+					collisionMap[fInnerBottomLeft] > 0)
 				{
 					++v2Position.fX;
 					EnemyJump();
@@ -284,10 +289,11 @@ public:
 				}
 			}
 			//Walk left
-			else if (a_rPlayer.position.fX < v2Position.fX)
+			else if (a_rPlayer.v2Position.fX < v2Position.fX)
 			{
 				//left collision
-				if (collisionMap[fInnerTopLeft] > 0 || collisionMap[fInnerBottomLeft] > 0)
+				if (collisionMap[fInnerTopLeft] > 0 || 
+					collisionMap[fInnerBottomLeft] > 0)
 				{
 					++v2Position.fX;
 					EnemyJump();
@@ -300,7 +306,7 @@ public:
 				}
 			}
 			//Stop
-			else if (a_rPlayer.position.fX == v2Position.fX)
+			else if (a_rPlayer.v2Position.fX == v2Position.fX)
 			{
 				EnemyStop();
 			}
@@ -311,7 +317,7 @@ public:
 	void EnemyUpdate(Player& a_rPlayer)
 	{
 		//sprite flip didn't work for the enemy for some unannounced reason.
-		oSprite.Attribute->u16Attribute1 = SetAttribute1(v2Position.fX, bFlip, ATTRIBUTE1_SIZE_1);
+		oSprite.poAttribute->u16Attribute1 = SetAttribute1(v2Position.fX, bFlip, ATTRIBUTE1_SIZE_1);
 		
 		EnemyAI(a_rPlayer);
 		
@@ -337,28 +343,28 @@ public:
 			fYVelocity += fGravity;
 		}
 
-		if (a_rPlayer.screenLeft)
+		if (a_rPlayer.bScreenLeft)
 		{
-			v2Position.fX += a_rPlayer.xvel;
+			v2Position.fX += a_rPlayer.fXVelocity;
 		}
-		if (a_rPlayer.screenRight)
+		if (a_rPlayer.bScreenRight)
 		{
-			v2Position.fX -= a_rPlayer.xvel;
+			v2Position.fX -= a_rPlayer.fXVelocity;
 		}
 		if (v2Position.fX >= 0 && v2Position.fX <= 240)
 		{
-			oSprite.spriteSetPosition(v2Position.fX, v2Position.fY);
+			oSprite.SpriteSetPosition(v2Position.fX, v2Position.fY);
 		}
 		else
 		{
-			oSprite.spriteSetPosition(0, 160);
+			oSprite.SpriteSetPosition(0, 160);
 		}
 		if (v2Position.fY > 150)
 		{
 			SpawnEnemy(a_rPlayer);
 			bAlive = 1;
 		}
-		oSprite.spriteSetOffset(u8Frame);
+		oSprite.SpriteSetOffset(u8Frame);
 	}
 };
 

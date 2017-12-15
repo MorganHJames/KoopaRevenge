@@ -17,7 +17,7 @@
 extern s32 s32QuasiRandomSeed;//The seed that the quasi random functions will use. 
 extern s32 SeedQuasiRandom(s32 a_s32Value);//A function to change the seed of the quasi random number generators.
 extern s32 QuasiRandom();//Returns a quasi random s32.
-extern int QuasiRandomRange(s32 a_s32Minimum, s32 a_s32Maximum);//Returns a quasi random s32 between the min and max arguments.
+extern s32 QuasiRandomRange(s32 a_s32Minimum, s32 a_s32Maximum);//Returns a quasi random s32 between the min and max arguments.
 
 //\===========================================================================================
 //\ Utility

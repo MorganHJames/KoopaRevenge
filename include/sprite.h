@@ -2,7 +2,7 @@
 //\ File: sprite.h
 //\ Author: Morgan James
 //\ Date Created: 27/11/2017
-//\ Brief:
+//\ Brief: A header that contains the class declaration and prototypes for the sprite.
 //\===========================================================================================
 
 #ifndef __SPRITE_H__
@@ -15,7 +15,7 @@
 #define NUM_SPRITES 128
 
 /* setup all sprites */
-void setupSprites()
+void SetupSprites()
 {
 	ObjectAttributeMemoryInitialize(MEMORY_OBJECT_ATTRIBUTE_MEMORY, NUMBER_SPRITES);
 }
@@ -27,77 +27,77 @@ private:
 public:
 	union
 	{
-		ObjectAttribute* Attribute;
-		ObjectAffine* Affine;
+		ObjectAttribute* poAttribute;
+		ObjectAffine* poAffine;
 	};
 
 	/* set a sprite postion */
-	void spriteSetPosition(int x, int y)
+	void SpriteSetPosition(s32 a_s32X, s32 a_s32Y)
 	{
-		SetObjectPosition(Attribute, x, y);
+		SetObjectPosition(poAttribute, a_s32X, a_s32Y);
 	}
 
 	/* move a sprite in a direction */
-	void spriteMove(int dx, int dy)
+	void SpriteMove(s32 a_s32DirectionX, s32 a_s32DirectionY)
 	{
 		/* get the current y coordinate */
-		int y = Attribute->u16Attribute0 & 0xff;
+		s32 s32Y = poAttribute->u16Attribute0 & 0xff;
 
 		/* get the current x coordinate */
-		int x = Attribute->u16Attribute1 & 0x1ff;
+		s32 s32X = poAttribute->u16Attribute1 & 0x1ff;
 
 		/* move to the new location */
-		spriteSetPosition(x + dx, y + dy);
+		SpriteSetPosition(s32X + a_s32DirectionX, s32Y + a_s32DirectionY);
 	}
 
 	/* change the vertical flip flag */
-	void spriteSetVerticalFlip(int vertical_flip)
+	void SpriteSetVerticalFlip(u8 a_u8VerticalFlip)
 	{
-		if (vertical_flip)
+		if (a_u8VerticalFlip)
 		{
 			/* set the bit */
-			Attribute->u16Attribute1 |= 0x2000;
+			poAttribute->u16Attribute1 |= 0x2000;
 		}
 		else
 		{
 			/* clear the bit */
-			Attribute->u16Attribute1 &= 0xdfff;
+			poAttribute->u16Attribute1 &= 0xdfff;
 		}
 	}
 
 	/* change the vertical flip flag */
-	void spriteSetHorizontalFlip(int horizontal_flip)
+	void SpriteSetHorizontalFlip(u8 a_u8HorizontalFlip)
 	{
-		if (horizontal_flip)
+		if (a_u8HorizontalFlip)
 		{
 			/* set the bit */
-			Attribute->u16Attribute1 |= 0x1000;
+			poAttribute->u16Attribute1 |= 0x1000;
 		}
 		else
 		{
 			/* clear the bit */
-			Attribute->u16Attribute1 &= 0xefff;
+			poAttribute->u16Attribute1 &= 0xefff;
 		}
 	}
 
 	/* change the tile offset of a sprite */
-	void spriteSetOffset(int offset)
+	void SpriteSetOffset(s32 a_s32Offset)
 	{
 		/* clear the old offset */
-		Attribute->u16Attribute2 &= 0xfc00;
+		poAttribute->u16Attribute2 &= 0xfc00;
 
 		/* apply the new one */
-		Attribute->u16Attribute2 |= (offset & 0x03ff);
+		poAttribute->u16Attribute2 |= (a_s32Offset & 0x03ff);
 	}
 
-	void hideSprite()
+	void HideSprite()
 	{
-		ObjectHide(Attribute);
+		ObjectHide(poAttribute);
 	}
 
-	void unHideSprite(int a_mode)
+	void UnHideSprite(u8 a_u8Mode)
 	{
-		ObjectUnhide(Attribute, a_mode);
+		ObjectUnhide(poAttribute, a_u8Mode);
 	}
 };
 

@@ -2,7 +2,7 @@
 //\ File: spriteManager.h
 //\ Author: Morgan James
 //\ Date Created: 11/12/2017
-//\ Brief:
+//\ Brief: A class containing a variable and function to keep track of how many objects are in the OAM.
 //\===========================================================================================
 
 #ifndef __SPRITE_MANAGER_H__
@@ -14,20 +14,19 @@ class SpriteManager
 {
 private:
 public:
-	int activatedSpriteAttributes;
+	s32 s32ActivatedSpriteAttributes;
 
 	void SpriteManagerInitialization()
 	{
-		activatedSpriteAttributes = -1;
+		s32ActivatedSpriteAttributes = -1;
 	}
 
 	//Check oam pos for usage
-	int objectAttributeMemoryFree()
+	s32 ObjectAttributeMemoryFree()
 	{
-		activatedSpriteAttributes = activatedSpriteAttributes + 1;
-		return activatedSpriteAttributes;
+		s32ActivatedSpriteAttributes = s32ActivatedSpriteAttributes + 1;
+		return s32ActivatedSpriteAttributes;
 	}
-
 };
 
 #endif//__SPRITE_H__

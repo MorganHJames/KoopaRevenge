@@ -26,7 +26,7 @@ s32 QuasiRandom()//Returns a quasi random s32.
 	return (s32QuasiRandomSeed >> 16) & 0x7FFF;//Returns the seed shifted down 16 and &ed with 0x7FFF which should produce a semi random number.
 }
 
-int QuasiRandomRange(s32 a_s32Minimum, s32 a_s32Maximum)//Returns a quasi random s32 between the min and max arguments.
+s32 QuasiRandomRange(s32 a_s32Minimum, s32 a_s32Maximum)//Returns a quasi random s32 between the min and max arguments.
 {
 	return (QuasiRandom()*(a_s32Maximum - a_s32Minimum) >> 15) + a_s32Minimum;//Returns a random value within the max and the min arguments.
 }

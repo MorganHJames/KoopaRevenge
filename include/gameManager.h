@@ -19,7 +19,7 @@ public:
 
 	void HurtPlayer(Player& a_rPlayer, Enemy& a_rEnemy1, Enemy& a_rEnemy2, Enemy& a_rEnemy3)
 	{
-		Vector4 v4Player = { a_rPlayer.position.fX, a_rPlayer.position.fY, 16 , 32 };
+		Vector4 v4Player = { a_rPlayer.v2Position.fX, a_rPlayer.v2Position.fY, 16 , 32 };
 		Vector4 v4Enemy1 = { a_rEnemy1.v2Position.fX, a_rEnemy1.v2Position.fY, 16 , 16 };
 		Vector4 v4Enemy2 = { a_rEnemy2.v2Position.fX, a_rEnemy2.v2Position.fY, 16 , 16 };
 		Vector4 v4Enemy3 = { a_rEnemy3.v2Position.fX, a_rEnemy3.v2Position.fY, 16 , 16 };
@@ -45,17 +45,17 @@ public:
 				v4Player.fH + v4Player.fY > v4Enemy3.fY && a_rEnemy3.bAlive == 1)
 			)
 		{
-			if (a_rPlayer.invulnerable == 0)
+			if (a_rPlayer.bInvulnerable == 0)
 			{
-				a_rPlayer.lives--;
-				a_rPlayer.frameSkip = 16;
-				a_rPlayer.invulnerable = 1;
+				a_rPlayer.u8Lives--;
+				a_rPlayer.u8FrameSkip = 16;
+				a_rPlayer.bInvulnerable = 1;
 			}
 		}
 		else
 		{
-			a_rPlayer.frameSkip = 8;
-			a_rPlayer.invulnerable = 0;
+			a_rPlayer.u8FrameSkip = 8;
+			a_rPlayer.bInvulnerable = 0;
 		}
 	}
 

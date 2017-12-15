@@ -2,7 +2,7 @@
 //\ File: textFunctions.h
 //\ Author: Morgan James
 //\ Date Created: 11/12/2017
-//\ Brief:
+//\ Brief: A header that contains the class declaration and prototypes for the Text that will appear on screen.
 //\===========================================================================================
 
 #ifndef __TEXT_FUNCTIONS_H__
@@ -16,79 +16,80 @@ class Text
 {
 private:
 public:
-	int length;
-	int textSpacing;
-	int tileIndexStart;
+	u32 u32Length;
+	s32 s32TextSpacing;
+	s32 s32TileIndexStart;
 	
-	void textInitialization(int a_length, int a_textSpacing)
+	void TextInitialization(u32 a_u32Length, s32 a_s32TextSpacing)
 	{
-		length = a_length;
-		textSpacing = a_textSpacing;
+		u32Length = a_u32Length;
+		s32TextSpacing = a_s32TextSpacing;
 	}
 
-	void drawText(char a_text[], u8 a_xPos, u8 a_yPos , SpriteManager& a_spriteManager, u8 a_paletteBank)
+	void DrawText(char a_cText[], u8 a_u8XPosition, u8 a_u8YPosition , SpriteManager& a_rSpriteManager, u8 a_u8PaletteBank)
 	{
-		u8 characterCode;
-		u8 objectTilesPosition = 96;
+		u8 u8CharacterCode;
+		u8 u8ObjectTilesPosition = 96;
 
-		for (u8 i = 0; i < length; i++)
+		for (u32 u32I = 0; u32I < u32Length; u32I++)
 		{
-			characterCode = (u8)a_text[i];
+			u8CharacterCode = (u8)a_cText[u32I];
 			
-			for (u8 j = 0; j < textLookUpTableLen; j++)
+			for (u32 u32J = 0; u32J < textLookUpTableLen; u32J++)
 			{
-				if (characterCode == textLookUpTable[j])
+				if (u8CharacterCode == textLookUpTable[u32J])
 				{
-					objectTilesPosition = j + 96;
+					u8ObjectTilesPosition = u32J + 96;
 					break;
 				}
 			}
 
-			ObjectAttribute* objectCharacter;
-			tileIndexStart = a_spriteManager.objectAttributeMemoryFree();
-			objectCharacter = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[tileIndexStart];
-			tileIndexStart = tileIndexStart - length;
-			objectCharacter->u16Attribute0 = SetAttribute0(a_yPos, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
-			objectCharacter->u16Attribute1 = SetAttribute1(a_xPos + (textSpacing * i), 0, ATTRIBUTE1_SIZE_0);
-			objectCharacter->u16Attribute2 = SetAttribute2(768 + objectTilesPosition, 0, a_paletteBank);
+			ObjectAttribute* poObjectCharacter;
+			s32TileIndexStart = a_rSpriteManager.ObjectAttributeMemoryFree();
+			poObjectCharacter = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[s32TileIndexStart];
+			s32TileIndexStart = s32TileIndexStart - u32Length;
+			poObjectCharacter->u16Attribute0 = SetAttribute0(a_u8YPosition, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
+			poObjectCharacter->u16Attribute1 = SetAttribute1(a_u8XPosition + (s32TextSpacing * u32I), 0, ATTRIBUTE1_SIZE_0);
+			poObjectCharacter->u16Attribute2 = SetAttribute2(768 + u8ObjectTilesPosition, 0, a_u8PaletteBank);
 
-			objectTilesPosition = 96;
+			u8ObjectTilesPosition = 96;
 		}
 	}
 
-	void updateText(char a_text[], u8 a_xPos, u8 a_yPos, SpriteManager& a_spriteManager, u8 a_paletteBank)
+	void UpdateText(char a_cText[], u8 a_u8XPosition, u8 a_u8YPosition, SpriteManager& a_rSpriteManager, u8 a_u8PaletteBank)
 	{
-		u8 characterCode;
-		u8 objectTilesPosition = 96;
+		u8 u8CharacterCode;
+		u8 u8ObjectTilesPosition = 96;
 
-		for (u8 i = 0; i < length; ++i)
+		for (u32 u32I = 0; u32I < u32Length; ++u32I)
 		{
-			characterCode = (u8)a_text[i];
+			u8CharacterCode = (u8)a_cText[u32I];
 
-			for (u8 j = 0; j < textLookUpTableLen; ++j)
+			for (u32 u32J = 0; u32J < textLookUpTableLen; ++u32J)
 			{
-				if (characterCode == textLookUpTable[j])
+				if (u8CharacterCode == textLookUpTable[u32J])
 				{
-					objectTilesPosition = j + 96;
+					u8ObjectTilesPosition = u32J + 96;
 					break;
 				}
 			}
 
-			ObjectAttribute* objectCharacter;
-			objectCharacter = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[tileIndexStart + i + 1];
-			ObjectUnhide(objectCharacter, 0);
-			objectCharacter->u16Attribute0 = SetAttribute0(a_yPos, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
-			objectCharacter->u16Attribute1 = SetAttribute1(a_xPos + (textSpacing * i), 0, ATTRIBUTE1_SIZE_0);
-			objectCharacter->u16Attribute2 = SetAttribute2(768 + objectTilesPosition, 0, a_paletteBank);
+			ObjectAttribute* poObjectCharacter;
+			poObjectCharacter = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[s32TileIndexStart + u32I + 1];
+			ObjectUnhide(poObjectCharacter, 0);
+			poObjectCharacter->u16Attribute0 = SetAttribute0(a_u8YPosition, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);
+			poObjectCharacter->u16Attribute1 = SetAttribute1(a_u8XPosition + (s32TextSpacing * u32I), 0, ATTRIBUTE1_SIZE_0);
+			poObjectCharacter->u16Attribute2 = SetAttribute2(768 + u8ObjectTilesPosition, 0, a_u8PaletteBank);
 		}
 	}
-	void hideText()
+
+	void HideText()
 	{
-		for (u8 i = 0; i < length; ++i)
+		for (u32 u32I = 0; u32I < u32Length; ++u32I)
 		{
-			ObjectAttribute* objectCharacter;
-			objectCharacter = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[tileIndexStart + i + 1];
-			ObjectHide(objectCharacter);
+			ObjectAttribute* poObjectCharacter;
+			poObjectCharacter = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[s32TileIndexStart + u32I + 1];
+			ObjectHide(poObjectCharacter);
 		}
 	}
 };

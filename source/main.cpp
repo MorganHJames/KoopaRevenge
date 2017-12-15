@@ -21,28 +21,26 @@ int main()
 
 	REGISTRY_DISPLAYCONTROL = DISPLAYCONTROL_BACKGROUNDMODE_0 | DISPLAYCONTROL_BACKGROUNDMODE_1 | DISPLAYCONTROL_BACKGROUNDMODE_2 | DISPLAYCONTROL_BACKGROUNDMODE_3 | ENABLE_OBJECTS | DISPLAYCONTROL_VIDEOMODE_0 | MAPPINGMODE_1D;//Set the mode to 0 with background 0.																						   //set up the BG Control Register
 	TIMER_3_CONTROL = TIMER_ENABLE | TIMER_CASCADE;
-	setupSprites();//clear all the sprites on screen now 
+	SetupSprites();//clear all the sprites on screen now 
 
-	SpriteManager spriteManager;
-	spriteManager.SpriteManagerInitialization();
+	SpriteManager oSpriteManager;
+	oSpriteManager.SpriteManagerInitialization();
 
-	GameManager gameManager;
+	GameManager oGameManager;
 
-	Player player;//Create the player.
-	player.playerInitialization(spriteManager);//PLayer Initialization.
+	Player oPlayer;//Create the player.
+	oPlayer.playerInitialization(oSpriteManager);//PLayer Initialization.
 
-	Enemy enemy1;//Creates the first enemy.
-	enemy1.EnemyInitialization(spriteManager, player);//enemy Initialization.
+	Enemy oEnemy1, oEnemy2, oEnemy3;//Creates the enemies.
+	oEnemy1.EnemyInitialization(oSpriteManager, oPlayer);//enemy Initialization.
 
-	Enemy enemy2;//Creates the seconed enemy.
-	enemy2.EnemyInitialization(spriteManager, player);//enemy Initialization.
+	oEnemy2.EnemyInitialization(oSpriteManager, oPlayer);//enemy Initialization.
 
-	Enemy enemy3;//Creates the third enemy.
-	enemy3.EnemyInitialization(spriteManager, player);//enemy Initialization.
+	oEnemy3.EnemyInitialization(oSpriteManager, oPlayer);//enemy Initialization.
 	
 	LoadGameBackground();
 
-	GameStates currentState = GAME;
+	GameStates oGameState = GAME;
 
 	//payer mem
 	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(0), koopaPal, koopaPalLen);
@@ -62,187 +60,187 @@ int main()
 	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(5), textAlternatePal, textPalLen);//alternate  colours
 	DirectMemoryAccessWordCopy(SpriteTileBlockAddress(96), textTiles, textTilesLen);
 
-	Text livesText;
-	livesText.textInitialization(5, 8);
-	char livesCharArray[5] = { 'L' , 'I' , 'V', 'E', 'S' };
-	livesText.drawText(livesCharArray, 0, 160, spriteManager, 4);
+	Text oLivesText;
+	oLivesText.TextInitialization(5, 8);
+	char cLivesCharArray[5] = { 'L' , 'I' , 'V', 'E', 'S' };
+	oLivesText.DrawText(cLivesCharArray, 0, 160, oSpriteManager, 4);
 
-	Text livesLeftText;
-	livesLeftText.textInitialization(1, 8);
-	char livesLeftCharArray[1] = { '3' };
-	livesLeftText.drawText(livesLeftCharArray, 0, 160, spriteManager, 4);
+	Text oLivesLeftText;
+	oLivesLeftText.TextInitialization(1, 8);
+	char cLivesLeftCharArray[1] = { '3' };
+	oLivesLeftText.DrawText(cLivesLeftCharArray, 0, 160, oSpriteManager, 4);
 
-	Text scoreText;
-	scoreText.textInitialization(5, 8);
-	char scoreCharArray[5] = { 'S' , 'C' , 'O', 'R', 'E' };
-	scoreText.drawText(scoreCharArray, 0, 160, spriteManager, 4);
+	Text oScoreText;
+	oScoreText.TextInitialization(5, 8);
+	char cScoreCharArray[5] = { 'S' , 'C' , 'O', 'R', 'E' };
+	oScoreText.DrawText(cScoreCharArray, 0, 160, oSpriteManager, 4);
 
-	Text scoreValueText;
-	scoreValueText.textInitialization(3, 8);
-	char scoreValueCharArray[3] = { '0', '0', '0' };
-	scoreValueText.drawText(scoreValueCharArray, 0, 160, spriteManager, 4);
+	Text oScoreValueText;
+	oScoreValueText.TextInitialization(3, 8);
+	char cScoreValueCharArray[3] = { '0', '0', '0' };
+	oScoreValueText.DrawText(cScoreValueCharArray, 0, 160, oSpriteManager, 4);
 
-	Text timeText;
-	timeText.textInitialization(4, 8);
-	char timeCharArray[4] = { 'T', 'I', 'M', 'E' };
-	timeText.drawText(timeCharArray, 0, 160, spriteManager, 4);
+	Text oTimeText;
+	oTimeText.TextInitialization(4, 8);
+	char cTimeCharArray[4] = { 'T', 'I', 'M', 'E' };
+	oTimeText.DrawText(cTimeCharArray, 0, 160, oSpriteManager, 4);
 
-	Text timeRemainingText;
-	timeRemainingText.textInitialization(3, 8);
-	char timeRemainingCharArray[3] = { '3', '0', '0' };
-	timeRemainingText.drawText(timeRemainingCharArray, 0, 160, spriteManager, 4);
+	Text oTimeRemainingText;
+	oTimeRemainingText.TextInitialization(3, 8);
+	char cTimeRemainingCharArray[3] = { '3', '0', '0' };
+	oTimeRemainingText.DrawText(cTimeRemainingCharArray, 0, 160, oSpriteManager, 4);
 
-	Text startText;
-	startText.textInitialization(5, 8);
-	char startCharArray[5] = { 'S', 'T', 'A', 'R', 'T' };
-	startText.drawText(startCharArray, 0, 160, spriteManager, 4);
+	Text oStartText;
+	oStartText.TextInitialization(5, 8);
+	char cStartCharArray[5] = { 'S', 'T', 'A', 'R', 'T' };
+	oStartText.DrawText(cStartCharArray, 0, 160, oSpriteManager, 4);
 
-	Text highText;
-	highText.textInitialization(4, 8);
-	char highTCharArray[4] = { 'H', 'I', 'G', 'H' };
-	highText.drawText(highTCharArray, 0, 160, spriteManager, 4);
+	Text oHighText;
+	oHighText.TextInitialization(4, 8);
+	char cHighCharArray[4] = { 'H', 'I', 'G', 'H' };
+	oHighText.DrawText(cHighCharArray, 0, 160, oSpriteManager, 4);
 
-	Text score2Text;
-	score2Text.textInitialization(5, 8);
-	score2Text.drawText(scoreCharArray, 0, 160, spriteManager, 4);
+	Text oScore2Text;
+	oScore2Text.TextInitialization(5, 8);
+	oScore2Text.DrawText(cScoreCharArray, 0, 160, oSpriteManager, 4);
 
-	Text highScoreText;
-	highScoreText.textInitialization(3, 8);
-	highScoreText.drawText(scoreValueCharArray, 0, 160, spriteManager, 4);
+	Text oHighScoreText;
+	oHighScoreText.TextInitialization(3, 8);
+	oHighScoreText.DrawText(cScoreValueCharArray, 0, 160, oSpriteManager, 4);
 
 	Delay(TIMER_SECONED);
 
-	switch (currentState)
+	switch (oGameState)
 	{
 	case GAME:
 	{
-		int state = 0;
-		int timeLeft = 300;
-		int highScore = 0;
-		int titleScroll = 90;
-		fixed cloudScroll = 0;
-		int i_sinPos = 0;
+		u8 u8State = 0;
+		u16 u16TimeLeft = 300;
+		u16 u16HighScore = 0;
+		s32 s32TitleScroll = 90;
+		fixed fCloudScroll = 0;
+		u32 u32SinPosition = 0;
 
 		while (1)
 		{
-			if (state == 0)
+			if (u8State == 0)
 			{
-				player.sprite.spriteSetPosition(0, 160);
-				enemy1.oSprite.spriteSetPosition(0, 160);
-				enemy2.oSprite.spriteSetPosition(0, 160);
-				enemy3.oSprite.spriteSetPosition(0, 160);
+				oPlayer.oSprite.SpriteSetPosition(0, 160);
+				oEnemy1.oSprite.SpriteSetPosition(0, 160);
+				oEnemy2.oSprite.SpriteSetPosition(0, 160);
+				oEnemy3.oSprite.SpriteSetPosition(0, 160);
 				
-				highText.updateText(highTCharArray, 64, 136, spriteManager, 4);
-				score2Text.updateText(scoreCharArray, 104, 136, spriteManager, 4);
-				char highScoreCharArray[3] = { (char)('0' + highScore / 100 % 10), (char)('0' + highScore / 10 % 10), (char)('0' + highScore % 10) };
-				highScoreText.updateText(highScoreCharArray, 152, 136, spriteManager, 4);
+				oHighText.UpdateText(cHighCharArray, 64, 136, oSpriteManager, 4);
+				oScore2Text.UpdateText(cScoreCharArray, 104, 136, oSpriteManager, 4);
+				char cHighScoreCharArray[3] = { (char)('0' + u16HighScore / 100 % 10), (char)('0' + u16HighScore / 10 % 10), (char)('0' + u16HighScore % 10) };
+				oHighScoreText.UpdateText(cHighScoreCharArray, 152, 136, oSpriteManager, 4);
 
-				i_sinPos++;
-				if (i_sinPos == sin_lut_Size)
+				u32SinPosition++;
+				if (u32SinPosition == sin_lut_Size)
 				{
-					i_sinPos = 0;
+					u32SinPosition = 0;
 				}
-				cloudScroll = sin_lut[i_sinPos];
-				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = FixedToInteger(cloudScroll) + 20;
+				fCloudScroll = sin_lut[u32SinPosition];
+				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = FixedToInteger(fCloudScroll) + 20;
 
 
-				if (titleScroll > -16)
+				if (s32TitleScroll > -16)
 				{
-					titleScroll--;
+					s32TitleScroll--;
 
-					REGISTRY_BACKGROUND_OFF_SET[3].s16Y = titleScroll;
+					REGISTRY_BACKGROUND_OFF_SET[3].s16Y = s32TitleScroll;
 				}
 				PollKeys();
 
 				if (KeyDown(START))
 				{
-					startText.updateText(startCharArray, 100, 120, spriteManager, 5);
+					oStartText.UpdateText(cStartCharArray, 100, 120, oSpriteManager, 5);
 				}
 				else
 				{
-					startText.updateText(startCharArray, 100, 120, spriteManager, 4);
+					oStartText.UpdateText(cStartCharArray, 100, 120, oSpriteManager, 4);
 
 				}
 				if (KeyReleased(START) )
 				{
-					startText.hideText();
-					highText.hideText();
-					score2Text.hideText();
-					highScoreText.hideText();
+					oStartText.HideText();
+					oHighText.HideText();
+					oScore2Text.HideText();
+					oHighScoreText.HideText();
 					REGISTRY_BACKGROUND_OFF_SET[3].s16Y = 90;
-					state = 1;
+					u8State = 1;
 				}
 				
 
 				VerticalSync();
 			}
 
-			if (state == 1)
+			if (u8State == 1)
 			{
 				PollKeys();
 
-				i_sinPos++;
-				if (i_sinPos == sin_lut_Size)
+				u32SinPosition++;
+				if (u32SinPosition == sin_lut_Size)
 				{
-					i_sinPos = 0;
+					u32SinPosition = 0;
 				}
-				cloudScroll = sin_lut[i_sinPos];
-				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = FixedToInteger(cloudScroll) + 20;
+				fCloudScroll = sin_lut[u32SinPosition];
+				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = FixedToInteger(fCloudScroll) + 20;
 				
 				if (TIMER_1_DATA > 1)
 				{
-					timeLeft--;
+					u16TimeLeft--;
 					StopDelay();
 					Delay(TIMER_SECONED);
 				}
-				player.playerUpdate();
+				oPlayer.PlayerUpdate();
 				
-				enemy1.EnemyUpdate(player);
-				enemy2.EnemyUpdate(player);
-				enemy3.EnemyUpdate(player);
-				gameManager.HurtPlayer(player,enemy1,enemy2,enemy3);
-				timeText.updateText(timeCharArray, 104, 2, spriteManager, 4);
-				char livesLeftCharArray[3] = { (char)('0' + timeLeft / 100 % 10), (char)('0' + timeLeft / 10 % 10),  (char)('0' + timeLeft % 10) };
-				timeRemainingText.updateText(livesLeftCharArray, 108, 10, spriteManager, 4);
-				livesText.updateText(livesCharArray, 1, 2, spriteManager, 4);
-				char livesLeftChar[] = { (char)('0' + player.lives), '\0' };
-				livesLeftText.updateText(livesLeftChar, 17, 10, spriteManager, 4);
-				scoreText.updateText(scoreCharArray, 199, 2, spriteManager, 4);
-				char scoreValueCharArray[3] = { (char)('0' + (player.score / 100 % 10)),  (char)('0' + (player.score / 10 % 10)),  (char)('0' + (player.score % 10)) };
-				scoreValueText.updateText(scoreValueCharArray, 207, 10, spriteManager, 4);
+				oEnemy1.EnemyUpdate(oPlayer);
+				oEnemy2.EnemyUpdate(oPlayer);
+				oEnemy3.EnemyUpdate(oPlayer);
+				oGameManager.HurtPlayer(oPlayer,oEnemy1,oEnemy2,oEnemy3);
+				oTimeText.UpdateText(cTimeCharArray, 104, 2, oSpriteManager, 4);
+				char cLivesLeftCharArray[3] = { (char)('0' + u16TimeLeft / 100 % 10), (char)('0' + u16TimeLeft / 10 % 10),  (char)('0' + u16TimeLeft % 10) };
+				oTimeRemainingText.UpdateText(cLivesLeftCharArray, 108, 10, oSpriteManager, 4);
+				oLivesText.UpdateText(cLivesCharArray, 1, 2, oSpriteManager, 4);
+				char cLivesLeftChar[] = { (char)('0' + oPlayer.u8Lives), '\0' };
+				oLivesLeftText.UpdateText(cLivesLeftChar, 17, 10, oSpriteManager, 4);
+				oScoreText.UpdateText(cScoreCharArray, 199, 2, oSpriteManager, 4);
+				char cScoreValueCharArray[3] = { (char)('0' + (oPlayer.u16Score / 100 % 10)),  (char)('0' + (oPlayer.u16Score / 10 % 10)),  (char)('0' + (oPlayer.u16Score % 10)) };
+				oScoreValueText.UpdateText(cScoreValueCharArray, 207, 10, oSpriteManager, 4);
 
-				if (player.lives == 0 || timeLeft == 0)
+				if (oPlayer.u8Lives == 0 || u16TimeLeft == 0)
 				{
-					timeText.hideText();
-					timeRemainingText.hideText();
-					scoreValueText.hideText();
-					livesLeftText.hideText();
-					scoreText.hideText();
-					livesText.hideText();
+					oTimeText.HideText();
+					oTimeRemainingText.HideText();
+					oScoreValueText.HideText();
+					oLivesLeftText.HideText();
+					oScoreText.HideText();
+					oLivesText.HideText();
 
-					state = 0;
+					u8State = 0;
 
-					for (int i = 0; i < 32; ++i)
+					for (u32 u32I = 0; u32I < 32; ++u32I)
 					{
-						SetObjectPosition(&player.jumpParticleOAMStart[i],0 , 160);//Move particle
+						SetObjectPosition(&oPlayer.poJumpParticleOAMStart[u32I],0 , 160);//Move particle
 					}
 					
-					if (player.score > highScore)
+					if (oPlayer.u16Score > u16HighScore)
 					{
-						highScore = player.score;
+						u16HighScore = oPlayer.u16Score;
 					}
-					player.score = 0;
-					player.lives = 3;
-					timeLeft = 300;
-					titleScroll = 90;
-					enemy1.SpawnEnemy(player);
-					enemy2.SpawnEnemy(player);
-					enemy3.SpawnEnemy(player);
+
+					oPlayer.u16Score = 0;
+					oPlayer.u8Lives = 3;
+					u16TimeLeft = 300;
+					s32TitleScroll = 90;
+					oEnemy1.SpawnEnemy(oPlayer);
+					oEnemy2.SpawnEnemy(oPlayer);
+					oEnemy3.SpawnEnemy(oPlayer);
 				}
 				DelayNoTimer(300);
 				VerticalSync();
 			}
-			
 		}
 		break;
 	}
@@ -250,8 +248,5 @@ int main()
 	default:
 		break;
 	}
-
-
-
 	return 0;
 }
