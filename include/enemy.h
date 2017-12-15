@@ -39,7 +39,6 @@ public:
 
 	BOOL bMove;//True if the enemy is moving.
 	BOOL bFalling;//True if the enemy is falling.
-	BOOL bFlip;//True if the enemy's sprite should be flipped.
 	BOOL bAlive;//True if the enemy is alive.
 	BOOL bGotHit;//True if the enemy has ever been hit so that the particle effect can become unhidden.
 	
@@ -62,23 +61,22 @@ public:
 	void EnemyInitialization(SpriteManager& a_rSpriteManager, Player a_player)//A function to initialize the enemy.
 	{
 		oSprite.poAttribute = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_rSpriteManager.ObjectAttributeMemoryFree()];//Indicates where the enemy's OAM is located.
-		oSprite.poAttribute->u16Attribute0 = SetAttribute0(0, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);//Sets the enemy's attribute 0 so that the sprite is rendered in 4BPP color mode and Square.
+		oSprite.poAttribute->u16Attribute0 = SetAttribute0(0, 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_SQUARE);//Sets the enemy's attribute 0 so that the sprite is rendered in 4BPP color mode and square.
 		oSprite.poAttribute->u16Attribute1 = SetAttribute1(0, 0, ATTRIBUTE1_SIZE_1);//Sets the size of the enemy.
 		
 		SpawnEnemy(a_player);//Spawns the enemy off the screen to the right or left of the player.
 	
-		fXVelocity = 0;//Initializes the x velocity to 0;
-		fYVelocity = 0;//Initializes the y velocity to 0;
-		fGravity = 1;//Initializes gravity to 1;
-		fWalkSpeed = 1;//Initializes walk speed to 1;
-		fRunSpeed = 2;//Initializes run speed to 2;
+		fXVelocity = 0;//Initializes the x velocity to 0.
+		fYVelocity = 0;//Initializes the y velocity to 0.
+		fGravity = 1;//Initializes gravity to 1.
+		fWalkSpeed = 1;//Initializes walk speed to 1.
+		fRunSpeed = 2;//Initializes run speed to 2.
 
-		s32JumpHeight = 11;//Initializes jump height to 11;
-		s32RunDistance = 100;//Initializes run distance to 100;
+		s32JumpHeight = 11;//Initializes jump height to 11.
+		s32RunDistance = 100;//Initializes run distance to 100.
 
 		bFalling = 0;//Initializes falling to be false.
 		bMove = 0;//Initializes moving to be false.
-		bFlip = 0;//Initializes flip to be false.
 		bAlive = 1;//Initializes alive to be true.
 		bGotHit = 0;//Initializes got hit to be false.
 
@@ -93,7 +91,7 @@ public:
 		fParticleFrameTime = 0x04;//Initializes the particle frame time.
 		fParticelMeterToPixel = IntegerToFixed(5);//Initializes the particle meter to pixel distance.
 
-		oEmitterCoinEffect.fY = 160;//Initializes the coin emitters y position.
+		oEmitterCoinEffect.fY = 0;//Initializes the coin emitters y position.
 		oEmitterCoinEffect.fX = 0;//Initializes the coin emitters x position.
 		poCoinParticleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[a_rSpriteManager.ObjectAttributeMemoryFree()];//Indicates where the particle's OAM is located.
 		ObjectHide(poCoinParticleOAMStart);//Hides the particle effect so that it doesn't appear on the screen until we want it to.
@@ -129,13 +127,13 @@ public:
 
 	void EnemyMoveLeft()//Moves the enemy left.
 	{
-		bFlip = 1;//Indicates to flip the sprite.
+		oSprite.SpriteSetHorizontalFlip(1);//Flips the sprite to face left.
 		v2Position.fX -= fXVelocity;//Decreases the enemy's position by its horizontal velocity.
 	}
 
 	void EnemyMoveRight()//Moves the enemy right.
 	{
-		bFlip = 0;//Indicates to not flip the sprite.
+		oSprite.SpriteSetHorizontalFlip(0);//Flips the sprite to face right.
 		v2Position.fX += fXVelocity;//Increases the enemy's position by its horizontal velocity.
 	}
 
@@ -324,7 +322,7 @@ public:
 					EnemyMoveLeft();//Move the enemy left.
 				}
 			}
-			//Stop
+			// --- Stop ---
 			else if (a_rPlayer.v2Position.fX == v2Position.fX)//If the enemy is at the same x position as the player.
 			{
 				EnemyStop();//Stop the enemy.
@@ -334,8 +332,6 @@ public:
 
 	void EnemyUpdate(Player& a_rPlayer)//Updates the enemy.
 	{
-		oSprite.poAttribute->u16Attribute1 = SetAttribute1(v2Position.fX, bFlip, ATTRIBUTE1_SIZE_1);//Flips the sprite.
-		
 		EnemyAI(a_rPlayer);//Checks if the enemy is colliding.
 		
 		if (bMove)//If the enemy is moving.
