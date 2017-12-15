@@ -12,9 +12,9 @@
 
 typedef struct DMA_REC//Define a register for DMA.
 {
-	const void* pSource;
-	void*		pDestination;
-	u32			u32Count;
+	const void* pSource;//Where to take data from.
+	void*		pDestination;//Where the data is going.
+	u32			u32Count;//How much data to take.
 }DMA_REC;
 
 #define REG_DIRECT_MEMORY_ACCESS ((volatile DMA_REC*)0x040000B0)//Get a pointer to the DMA memory location. Access this as an array to get addresses 0 - 3.

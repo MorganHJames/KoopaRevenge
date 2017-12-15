@@ -74,193 +74,195 @@ int main()
 	DirectMemoryAccessWordCopy(PaletteSpriteBlockAddress(6), coinPal, coinPalLen);//Loads the coin particle palette into memory.
     DirectMemoryAccessWordCopy(SpriteTileBlockAddress(160), coinTiles, coinTilesLen);//Loads the coin particle tiles into memory.
 
-	Text oLivesText;
-	oLivesText.TextInitialization(5, 8);
-	char cLivesCharArray[5] = { 'L' , 'I' , 'V', 'E', 'S' };
-	oLivesText.DrawText(cLivesCharArray, 0, 160, oSpriteManager, 4);
+	Text oLivesText;//Creates a text object.
+	oLivesText.TextInitialization(5, 8);//Initializes the text object.
+	char cLivesCharArray[5] = { 'L' , 'I' , 'V', 'E', 'S' };//Creates a character array that contains the characters to be displayed.
+	oLivesText.DrawText(cLivesCharArray, 0, 160, oSpriteManager, 4);//Draws text to the screen.
 
-	Text oLivesLeftText;
-	oLivesLeftText.TextInitialization(1, 8);
-	char cLivesLeftCharArray[1] = { '3' };
-	oLivesLeftText.DrawText(cLivesLeftCharArray, 0, 160, oSpriteManager, 4);
+	Text oLivesLeftText;//Creates a text object.
+	oLivesLeftText.TextInitialization(1, 8);//Initializes the text object.
+	char cLivesLeftCharArray[1] = { '3' };//Creates a character array that contains the characters to be displayed.
+	oLivesLeftText.DrawText(cLivesLeftCharArray, 0, 160, oSpriteManager, 4);//Draws text to the screen.
 
-	Text oScoreText;
-	oScoreText.TextInitialization(5, 8);
-	char cScoreCharArray[5] = { 'S' , 'C' , 'O', 'R', 'E' };
-	oScoreText.DrawText(cScoreCharArray, 0, 160, oSpriteManager, 4);
+	Text oScoreText;//Creates a text object.
+	oScoreText.TextInitialization(5, 8);//Initializes the text object.
+	char cScoreCharArray[5] = { 'S' , 'C' , 'O', 'R', 'E' };//Creates a character array that contains the characters to be displayed.
+	oScoreText.DrawText(cScoreCharArray, 0, 160, oSpriteManager, 4);//Draws text to the screen.
 
-	Text oScoreValueText;
-	oScoreValueText.TextInitialization(3, 8);
-	char cScoreValueCharArray[3] = { '0', '0', '0' };
-	oScoreValueText.DrawText(cScoreValueCharArray, 0, 160, oSpriteManager, 4);
+	Text oScoreValueText;//Creates a text object.
+	oScoreValueText.TextInitialization(3, 8);//Initializes the text object.
+	char cScoreValueCharArray[3] = { '0', '0', '0' };//Creates a character array that contains the characters to be displayed.
+	oScoreValueText.DrawText(cScoreValueCharArray, 0, 160, oSpriteManager, 4);//Draws text to the screen.
 
-	Text oTimeText;
-	oTimeText.TextInitialization(4, 8);
-	char cTimeCharArray[4] = { 'T', 'I', 'M', 'E' };
-	oTimeText.DrawText(cTimeCharArray, 0, 160, oSpriteManager, 4);
+	Text oTimeText;//Creates a text object.
+	oTimeText.TextInitialization(4, 8);//Initializes the text object.
+	char cTimeCharArray[4] = { 'T', 'I', 'M', 'E' };//Creates a character array that contains the characters to be displayed.
+	oTimeText.DrawText(cTimeCharArray, 0, 160, oSpriteManager, 4);//Draws text to the screen.
 
-	Text oTimeRemainingText;
-	oTimeRemainingText.TextInitialization(3, 8);
-	char cTimeRemainingCharArray[3] = { '3', '0', '0' };
-	oTimeRemainingText.DrawText(cTimeRemainingCharArray, 0, 160, oSpriteManager, 4);
+	Text oTimeRemainingText;//Creates a text object.
+	oTimeRemainingText.TextInitialization(3, 8);//Initializes the text object.
+	char cTimeRemainingCharArray[3] = { '3', '0', '0' };//Creates a character array that contains the characters to be displayed.
+	oTimeRemainingText.DrawText(cTimeRemainingCharArray, 0, 160, oSpriteManager, 4);//Draws text to the screen.
 
-	Text oStartText;
-	oStartText.TextInitialization(5, 8);
-	char cStartCharArray[5] = { 'S', 'T', 'A', 'R', 'T' };
-	oStartText.DrawText(cStartCharArray, 0, 160, oSpriteManager, 4);
+	Text oStartText;//Creates a text object.
+	oStartText.TextInitialization(5, 8);//Initializes the text object.
+	char cStartCharArray[5] = { 'S', 'T', 'A', 'R', 'T' };//Creates a character array that contains the characters to be displayed.
+	oStartText.DrawText(cStartCharArray, 0, 160, oSpriteManager, 4);//Draws text to the screen.
 
-	Text oHighText;
-	oHighText.TextInitialization(4, 8);
-	char cHighCharArray[4] = { 'H', 'I', 'G', 'H' };
-	oHighText.DrawText(cHighCharArray, 0, 160, oSpriteManager, 4);
+	Text oHighText;//Creates a text object.
+	oHighText.TextInitialization(4, 8);//Initializes the text object.
+	char cHighCharArray[4] = { 'H', 'I', 'G', 'H' };//Creates a character array that contains the characters to be displayed.
+	oHighText.DrawText(cHighCharArray, 0, 160, oSpriteManager, 4);//Draws text to the screen.
 
-	Text oScore2Text;
-	oScore2Text.TextInitialization(5, 8);
-	oScore2Text.DrawText(cScoreCharArray, 0, 160, oSpriteManager, 4);
+	Text oHighScoreText;//Creates a text object.
+	oHighScoreText.TextInitialization(3, 8);//Initializes the text object.
+	oHighScoreText.DrawText(cScoreValueCharArray, 0, 160, oSpriteManager, 4);//Draws text to the screen.
 
-	Text oHighScoreText;
-	oHighScoreText.TextInitialization(3, 8);
-	oHighScoreText.DrawText(cScoreValueCharArray, 0, 160, oSpriteManager, 4);
+	Delay(TIMER_SECONED);//Starts the delay timer for the timer.
 
-	Delay(TIMER_SECONED);
-
-	switch (oGameState)
+	switch (oGameState)//Changes depending on the game state.
 	{
-	case GAME:
+	case GAME://If the game state is GAME.
 	{
-		u8 u8State = 0;
-		u16 u16TimeLeft = 300;
-		u16 u16HighScore = 0;
-		s32 s32TitleScroll = 90;
-		fixed fCloudScroll = 0;
-		u32 u32SinPosition = 0;
+		u8 u8State = 0;//A state to determine if the game should display the title screen or not.
+		u16 u16TimeLeft = 300;//How long the player has left.
+		u16 u16HighScore = 0;//The highest score a user has gotten since turning the game boy on.
+		s32 s32TitleScroll = 90;//The starting y offset for the title.
+		fixed fCloudScroll = 0;//The value of the sin look up table.
+		u32 u32SinPosition = 0;//The position through the sin look up table.
 
-		while (1)
+		while (1)//Loop.
 		{
-			if (u8State == 0)
+			if (u8State == 0)//If the state equals 0.
 			{
-				oPlayer.oSprite.SpriteSetPosition(0, 160);
-				oEnemy1.oSprite.SpriteSetPosition(0, 160);
-				oEnemy2.oSprite.SpriteSetPosition(0, 160);
-				oEnemy3.oSprite.SpriteSetPosition(0, 160);
+				oPlayer.oSprite.SpriteSetPosition(0, 160);//Moves sprite off screen.
+				oEnemy1.oSprite.SpriteSetPosition(0, 160);//Moves sprite off screen.
+				oEnemy2.oSprite.SpriteSetPosition(0, 160);//Moves sprite off screen.
+				oEnemy3.oSprite.SpriteSetPosition(0, 160);//Moves sprite off screen.
 				
-				oHighText.UpdateText(cHighCharArray, 64, 136, oSpriteManager, 4);
-				oScore2Text.UpdateText(cScoreCharArray, 104, 136, oSpriteManager, 4);
-				char cHighScoreCharArray[3] = { (char)('0' + u16HighScore / 100 % 10), (char)('0' + u16HighScore / 10 % 10), (char)('0' + u16HighScore % 10) };
-				oHighScoreText.UpdateText(cHighScoreCharArray, 152, 136, oSpriteManager, 4);
+				oHighText.UpdateText(cHighCharArray, 64, 136, oSpriteManager, 4);//Update the "high" text.
+				oScoreText.UpdateText(cScoreCharArray, 104, 136, oSpriteManager, 4);//Update the "score" text.
+				char cHighScoreCharArray[3] = { (char)('0' + u16HighScore / 100 % 10), (char)('0' + u16HighScore / 10 % 10), (char)('0' + u16HighScore % 10) };//Creates a character array that contains the characters to be displayed.
+				oHighScoreText.UpdateText(cHighScoreCharArray, 152, 136, oSpriteManager, 4);//Update the value the high score text.
 
-				u32SinPosition++;
-				if (u32SinPosition == sin_lut_Size)
+				u32SinPosition++;//Increment the position through the sin look up table.
+
+			    // --- Clamping the iterator ---
+				if (u32SinPosition == sin_lut_Size)//If the sin iterator is at the end of the look up table.
 				{
-					u32SinPosition = 0;
+					u32SinPosition = 0;//Set the sin iterator back to 0.
 				}
-				fCloudScroll = sin_lut[u32SinPosition];
-				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = FixedToInteger(fCloudScroll) + 20;
 
+				fCloudScroll = sin_lut[u32SinPosition];//Set cloud scroll to be equal to the sin value.
+				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = FixedToInteger(fCloudScroll) + 20;//Set the y offset of the clouds to be equal to sin.
 
-				if (s32TitleScroll > -16)
+				if (s32TitleScroll > -16)//If the title is not at the correct position.
 				{
-					s32TitleScroll--;
+					s32TitleScroll--;//Move the title down.
 
-					REGISTRY_BACKGROUND_OFF_SET[3].s16Y = s32TitleScroll;
+					REGISTRY_BACKGROUND_OFF_SET[3].s16Y = s32TitleScroll;//Set the y off set of the title.
 				}
-				PollKeys();
 
-				if (KeyDown(START))
+				PollKeys();//Poll the keys to see what is being pressed.
+
+				if (KeyDown(START))//If start is being held.
 				{
-					oStartText.UpdateText(cStartCharArray, 100, 120, oSpriteManager, 5);
+					oStartText.UpdateText(cStartCharArray, 100, 120, oSpriteManager, 5);//Change the palette of the "start" text to the alternative one.
 				}
-				else
+				else//If start is not being held.
 				{
-					oStartText.UpdateText(cStartCharArray, 100, 120, oSpriteManager, 4);
+					oStartText.UpdateText(cStartCharArray, 100, 120, oSpriteManager, 4);//Update the "start" text with the default palette.
 
 				}
-				if (KeyReleased(START) )
+				if (KeyReleased(START))//If the start key is released.
 				{
-					oStartText.HideText();
-					oHighText.HideText();
-					oScore2Text.HideText();
-					oHighScoreText.HideText();
-					REGISTRY_BACKGROUND_OFF_SET[3].s16Y = 90;
-					u8State = 1;
+					oStartText.HideText();//Hide the "start" text.
+					oHighText.HideText();//Hide the "high" text.
+					oHighScoreText.HideText();//Hide the high score text.
+					REGISTRY_BACKGROUND_OFF_SET[3].s16Y = 90;//Set the title y offset to be that of one of which is off screen.
+					u8State = 1;//Change the state of game.
 				}
-				
 
-				VerticalSync();
+				VerticalSync();//Only make changes to the screen during the vertical blank.
 			}
 
-			if (u8State == 1)
+			if (u8State == 1)//If the state is equal to 1.
 			{
-				PollKeys();
+				PollKeys();//Poll the keys to see what the use is pressing.
 
-				u32SinPosition++;
-				if (u32SinPosition == sin_lut_Size)
+				// --- Clamping the iterator ---
+				if (u32SinPosition == sin_lut_Size)//If the sin iterator is at the end of the look up table.
 				{
-					u32SinPosition = 0;
+					u32SinPosition = 0;//Set the sin iterator back to 0.
 				}
-				fCloudScroll = sin_lut[u32SinPosition];
-				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = FixedToInteger(fCloudScroll) + 20;
+
+				fCloudScroll = sin_lut[u32SinPosition];//Set cloud scroll to be equal to the sin value.
+				REGISTRY_BACKGROUND_OFF_SET[2].s16Y = FixedToInteger(fCloudScroll) + 20;//Set the y offset of the clouds to be equal to sin.
 				
-				if (TIMER_1_DATA > 1)
+				if (TIMER_1_DATA > 1)//Every second.
 				{
-					u16TimeLeft--;
-					StopDelay();
-					Delay(TIMER_SECONED);
+					u16TimeLeft--;//Decrease the time left.
+					StopDelay();//Stop the delay.
+					Delay(TIMER_SECONED);//Restart the delay.
 				}
-				oPlayer.PlayerUpdate();
+
+				oPlayer.PlayerUpdate();//Update the player.
 				
-				oEnemy1.EnemyUpdate(oPlayer);
-				oEnemy2.EnemyUpdate(oPlayer);
-				oEnemy3.EnemyUpdate(oPlayer);
-				oGameManager.HurtPlayer(oPlayer,oEnemy1,oEnemy2,oEnemy3);
-				oTimeText.UpdateText(cTimeCharArray, 104, 2, oSpriteManager, 4);
-				char cLivesLeftCharArray[3] = { (char)('0' + u16TimeLeft / 100 % 10), (char)('0' + u16TimeLeft / 10 % 10),  (char)('0' + u16TimeLeft % 10) };
-				oTimeRemainingText.UpdateText(cLivesLeftCharArray, 108, 10, oSpriteManager, 4);
-				oLivesText.UpdateText(cLivesCharArray, 1, 2, oSpriteManager, 4);
-				char cLivesLeftChar[] = { (char)('0' + oPlayer.u8Lives), '\0' };
-				oLivesLeftText.UpdateText(cLivesLeftChar, 17, 10, oSpriteManager, 4);
-				oScoreText.UpdateText(cScoreCharArray, 199, 2, oSpriteManager, 4);
-				char cScoreValueCharArray[3] = { (char)('0' + (oPlayer.u16Score / 100 % 10)),  (char)('0' + (oPlayer.u16Score / 10 % 10)),  (char)('0' + (oPlayer.u16Score % 10)) };
-				oScoreValueText.UpdateText(cScoreValueCharArray, 207, 10, oSpriteManager, 4);
+				oEnemy1.EnemyUpdate(oPlayer);//Update the enemy.
+				oEnemy2.EnemyUpdate(oPlayer);//Update the enemy.
+				oEnemy3.EnemyUpdate(oPlayer);//Update the enemy.
+				
+				oGameManager.HurtPlayer(oPlayer,oEnemy1,oEnemy2,oEnemy3);//Check to see if the player is being hurt.
+				oTimeText.UpdateText(cTimeCharArray, 104, 2, oSpriteManager, 4);//Update the "time" text.
+				char cLivesLeftCharArray[3] = { (char)('0' + u16TimeLeft / 100 % 10), (char)('0' + u16TimeLeft / 10 % 10),  (char)('0' + u16TimeLeft % 10) };//Creates a character array that contains the characters to be displayed.
+				oTimeRemainingText.UpdateText(cLivesLeftCharArray, 108, 10, oSpriteManager, 4);//Update the time remaining text"
+				oLivesText.UpdateText(cLivesCharArray, 1, 2, oSpriteManager, 4);//Update the "lives" text.
+				char cLivesLeftChar[] = { (char)('0' + oPlayer.u8Lives), '\0' };//Creates a character array that contains the characters to be displayed.
+				oLivesLeftText.UpdateText(cLivesLeftChar, 17, 10, oSpriteManager, 4);//Update the lives remaining text.
+				oScoreText.UpdateText(cScoreCharArray, 199, 2, oSpriteManager, 4);//Update the "score" text.
+				char cScoreValueCharArray[3] = { (char)('0' + (oPlayer.u16Score / 100 % 10)),  (char)('0' + (oPlayer.u16Score / 10 % 10)),  (char)('0' + (oPlayer.u16Score % 10)) };//Creates a character array that contains the characters to be displayed.
+				oScoreValueText.UpdateText(cScoreValueCharArray, 207, 10, oSpriteManager, 4);//Update the score value text.
 
-				if (oPlayer.u8Lives == 0 || u16TimeLeft == 0)
+				if (oPlayer.u8Lives == 0 || u16TimeLeft == 0)//If the player has no lives left or the timer has run out.
 				{
-					oTimeText.HideText();
-					oTimeRemainingText.HideText();
-					oScoreValueText.HideText();
-					oLivesLeftText.HideText();
-					oScoreText.HideText();
-					oLivesText.HideText();
+					oTimeText.HideText();//Hide the "time" text.
+					oTimeRemainingText.HideText();//Hide the time remaining text.
+					oScoreValueText.HideText();//Hide the score value text.
+					oLivesLeftText.HideText();//Hide the lives remaining text.
+					oLivesText.HideText();//Hide the "lives" text.
 
-					u8State = 0;
+					u8State = 0;//Change the state to 0.
 
-					for (u32 u32I = 0; u32I < 32; ++u32I)
+					for (u32 u32I = 0; u32I < 32; ++u32I)//For all particles.
 					{
-						SetObjectPosition(&oPlayer.poJumpParticleOAMStart[u32I],0 , 160);//Move particle
+						SetObjectPosition(&oPlayer.poJumpParticleOAMStart[u32I],0 , 160);//Move particle off screen.
 					}
-					
-					if (oPlayer.u16Score > u16HighScore)
+					SetObjectPosition(oEnemy1.poCoinParticleOAMStart, 0, 160);//Move particle off screen.
+					SetObjectPosition(oEnemy2.poCoinParticleOAMStart, 0, 160);//Move particle off screen.
+					SetObjectPosition(oEnemy3.poCoinParticleOAMStart, 0, 160);//Move particle off screen.
+
+					if (oPlayer.u16Score > u16HighScore)//If the current score is higher than the high score.
 					{
-						u16HighScore = oPlayer.u16Score;
+						u16HighScore = oPlayer.u16Score;//Set the high score to be equal to the current score.
 					}
 
-					oPlayer.u16Score = 0;
-					oPlayer.u8Lives = 3;
-					u16TimeLeft = 300;
-					s32TitleScroll = 90;
-					oEnemy1.SpawnEnemy(oPlayer);
-					oEnemy2.SpawnEnemy(oPlayer);
-					oEnemy3.SpawnEnemy(oPlayer);
+					oPlayer.u16Score = 0;//Reset the score.
+					oPlayer.u8Lives = 3;//Reset the lives.
+					u16TimeLeft = 300;//Reset the time left.
+					s32TitleScroll = 90;//Reset the title scroll.
+					oEnemy1.SpawnEnemy(oPlayer);//Re spawn the enemy.
+					oEnemy2.SpawnEnemy(oPlayer);//Re spawn the enemy.
+					oEnemy3.SpawnEnemy(oPlayer);//Re spawn the enemy.
 				}
-				DelayNoTimer(300);
-				VerticalSync();
+				DelayNoTimer(300);//Delay the background scrolling.
+				VerticalSync();//Only change the screen on the vertical blanks.
 			}
 		}
-		break;
+		break;//Break early.
 	}
 	
-	default:
-		break;
+	default://If there is no case.
+		break;//Break early.
 	}
-	return 0;
+	return 0;//Return 0.
 }
