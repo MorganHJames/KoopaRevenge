@@ -1,7 +1,5 @@
 ﻿  main.cpp
   arm-none-eabi-g++ -MMD -MP -MF /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/build/main.d -g -Wall -O3 -mcpu=arm7tdmi -mtune=arm7tdmi -fomit-frame-pointer -ffast-math -mthumb -mthumb-interwork -iquote /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/include -I/c/devkitPro/libgba/include -I/d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/build -fno-rtti -fno-exceptions -c /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/source/main.cpp -o main.o 
-  gba_graphics.c
-  arm-none-eabi-gcc -MMD -MP -MF /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/build/gba_graphics.d -g -Wall -O3 -mcpu=arm7tdmi -mtune=arm7tdmi -fomit-frame-pointer -ffast-math -mthumb -mthumb-interwork -iquote /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/include -I/c/devkitPro/libgba/include -I/d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/build -c /d/Documents/CodingWork/Year2/CT5036ProgrammingLowLevelArchitecture/KoopaRevenge/source/gba_graphics.c -o gba_graphics.o 
   linking cartridge
   built ... KoopaRevenge.gba
   ROM fixed!

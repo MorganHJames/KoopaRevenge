@@ -87,6 +87,7 @@
   <ItemGroup>
     <ClCompile Include="source\backgroundSprites.c" />
     <ClCompile Include="source\coin.c" />
+    <ClCompile Include="source\enemy.cpp" />
     <ClCompile Include="source\gba_directMemoryAccess.c" />
     <ClCompile Include="source\gba_drawing.c" />
     <ClCompile Include="source\gba_graphics.c" />

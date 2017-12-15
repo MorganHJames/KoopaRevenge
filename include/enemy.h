@@ -180,11 +180,9 @@ public:
 			oEmitterCoinEffect.fX = IntegerToFixed(v2Position.fX + 4);//Move the emitter to the enemy's x position.
 			oEmitterCoinEffect.fY = IntegerToFixed(v2Position.fY - 63);//Move the emitter to the enemy's y position.
 
-			for (u32 u32I = 0; u32I < 1; ++u32I)//For all coin particles.
-			{
-				CoinParticleEmit(oParticlesCoinEffect[u32I], oEmitterCoinEffect);//Emit the coin particle.
-				poCoinParticleOAMStart[u32I] = oCoinParticleOAM;//Indicates what particle to change.
-			}
+			CoinParticleEmit(oParticlesCoinEffect[0], oEmitterCoinEffect);//Emit the coin particle.
+			poCoinParticleOAMStart[0] = oCoinParticleOAM;//Indicates what particle to change.
+			
 			bGotHit = 1;//Indicates that the enemy has been hit.
 		}
 	}
@@ -214,206 +212,199 @@ public:
 
 		fEnemyWorldY *= collisionMapWidth;//Multiply the enemy's y world position by the map width.
 
-		fixed fTopLeft = fEnemyWorldX + fEnemyWorldY;
-		fixed fTopRight = (fEnemyWorldX + fEnemyWorldY) + 2;
+		fixed fTopLeft = fEnemyWorldX + fEnemyWorldY;//The top left of the enemy.
+		fixed fTopRight = (fEnemyWorldX + fEnemyWorldY) + 2;//The top right of the enemy.
 
-		fixed fBottomLeft = fEnemyWorldX + fEnemyWorldY + (collisionMapWidth << 1);
-		fixed fBottomRight = fEnemyWorldX + fEnemyWorldY + (collisionMapWidth << 1) + 2;
+		fixed fBottomLeft = fEnemyWorldX + fEnemyWorldY + (collisionMapWidth << 1);//The bottom left of the enemy.
+		fixed fBottomRight = fEnemyWorldX + fEnemyWorldY + (collisionMapWidth << 1) + 2;//The bottom right of the enemy.
 
-		fixed fInnerTopLeft = fEnemyWorldX + fEnemyWorldY;
-		fixed fInnerBottomLeft = fEnemyWorldX + fEnemyWorldY + collisionMapWidth;
+		fixed fInnerTopLeft = fEnemyWorldX + fEnemyWorldY;//The inner top left of the enemy. 
+		fixed fInnerBottomLeft = fEnemyWorldX + fEnemyWorldY + collisionMapWidth;//The inner bottom left of the enemy.
 
-		fixed fInnerTopRight = fEnemyWorldX + fEnemyWorldY + 2;
-		fixed fInnerBottomRight = fEnemyWorldX + fEnemyWorldY + collisionMapWidth + 2;
+		fixed fInnerTopRight = fEnemyWorldX + fEnemyWorldY + 2;//The inner top right of the enemy.
+		fixed fInnerBottomRight = fEnemyWorldX + fEnemyWorldY + collisionMapWidth + 2;//The inner bottom right of the enemy.
 
-		if (bAlive)
+		if (bAlive)//If the enemy is alive.
 		{
-			GotHit(a_rPlayer);
+			GotHit(a_rPlayer);//Check if is being hit by the player.
 		}
-		if (bAlive)
+		if (bAlive)//If the enemy is alive.
 		{
-			GotHit(a_rPlayer);
-			//Down collision
+			// --- Down collision ---
 			if (collisionMap[fBottomLeft] > 0 || 
-				collisionMap[fBottomRight] > 0)
+				collisionMap[fBottomRight] > 0)//If the enemy's feet are on the ground.
 			{
-				fYVelocity = 0;
-				bFalling = 0;
-				bMove = 1;
-				//position.fY--;
+				fYVelocity = 0;//Set the vertical velocity to 0.
+				bFalling = 0;//Indicate the enemy is not falling.
+				bMove = 1;//Indicate the enemy is not moving.
 			}
-			else
+			else//Else if the enemy is not touching the ground.
 			{
-				/* he is falling now */
-				bFalling = 1;
+				bFalling = 1;//Indicate the enemy is falling.
 			}
-
-			////Up collision
+			
+			// --- Up collision ---
 			if (collisionMap[fTopLeft] > 0 || 
-				collisionMap[fTopRight] > 0)
+				collisionMap[fTopRight] > 0)//If the enemy's head is touching something.
 			{
-				fYVelocity = 0;
+				fYVelocity = 0;//Set the vertical velocity to 0.
 			}
 
-			//Running right
-			if (a_rPlayer.v2Position.fX - s32RunDistance > v2Position.fX)
+			// --- Running right ---
+			if (a_rPlayer.v2Position.fX - s32RunDistance > v2Position.fX)//If the player is more that run distance away.
 			{
-				//Right collision
+				// --- Right collision ---
 				if (collisionMap[fInnerTopRight] > 0 || 
-					collisionMap[fInnerBottomRight] > 0)
+					collisionMap[fInnerBottomRight] > 0)//If the right side of the enemy is colliding.
 				{
-					--v2Position.fX;
-					EnemyJump();
+					--v2Position.fX;//Decrease the enemy's x position.
+					EnemyJump();//Make the enemy jump.
 				}
-				else
+				else//If the right side of the enemy is not colliding.
 				{
-					fXVelocity = fRunSpeed;
-					u8AnimationDelay = u8RunAnimationDelay;
-					EnemyMoveRight();
+					fXVelocity = fRunSpeed;//Set the horizontal velocity of the enemy to be equal to the running speed.
+					u8AnimationDelay = u8RunAnimationDelay;//Change the animation delay to the running animation delay.
+					EnemyMoveRight();//Moves the enemy to the right.
 				}
 			}
-			//Walk right
-			else if (a_rPlayer.v2Position.fX > v2Position.fX)
+			// --- Walk right ---		
+			else if (a_rPlayer.v2Position.fX > v2Position.fX)//If not running and the enemy is to the left of the player.
 			{
-				//Right collision
+				// --- Right collision ---
 				if (collisionMap[fInnerTopRight] > 0 || 
-					collisionMap[fInnerBottomRight] > 0)
+					collisionMap[fInnerBottomRight] > 0)//If the right side of the enemy is touching a wall.
 				{
-					--v2Position.fX;
-					EnemyJump();
+					--v2Position.fX;//Decrease the enemy's x position.
+					EnemyJump();//Make the enemy jump.
 				}
-				else
+				else//If the right side of the enemy is not touching something but is to the left of the player.
 				{
-					fXVelocity = fWalkSpeed;
-					u8AnimationDelay = u8RunAnimationDelay;
-					EnemyMoveRight();
+					fXVelocity = fWalkSpeed;//Set the horizontal velocity to be equal to walking speed.
+					u8AnimationDelay = u8WalkAnimationDelay;//Set the animation delay of the enemy to the walking delay.
+					EnemyMoveRight();//Move the enemy right.
+				}
+			}
+			// --- Stop ---
+			else if (a_rPlayer.v2Position.fX == v2Position.fX)//If the enemy is at the same x position as the player.
+			{
+				EnemyStop();//Stop the enemy.
+			}
+
+			// --- Running left ---
+			if (FixedToInteger(a_rPlayer.v2Position.fX) + s32RunDistance < FixedToInteger(v2Position.fX))//If the enemy is on the right side of the player.
+			{
+				// --- Left collision ---
+				if (collisionMap[fInnerTopLeft] > 0 || 
+					collisionMap[fInnerBottomLeft] > 0)//If the left side of the enemy is touching a wall.
+				{
+					++v2Position.fX;//Increase the x position of the enemy.
+					EnemyJump();//Make the enemy jump.
+				}
+				else//If the enemy is to the right of the player and not colliding with a wall.
+				{
+					fXVelocity = fRunSpeed;//Set the horizontal velocity to be equal to the running speed.
+					u8AnimationDelay = u8RunAnimationDelay;//Set the animation delay equal to the run delay.
+					EnemyMoveLeft();//Move the enemy left.
+				}
+			}
+			// --- Walk left ---
+			else if (a_rPlayer.v2Position.fX < v2Position.fX)//If the enemy is to the right of the player.
+			{
+				// --- Left collision ---
+				if (collisionMap[fInnerTopLeft] > 0 || 
+					collisionMap[fInnerBottomLeft] > 0)//If the left side of the player is colliding with a wall.
+				{
+					++v2Position.fX;//Increase the enemy's x position.
+					EnemyJump();//Makes the enemy jump.
+				}
+				else//If the enemy is to the right of the player and not colliding with a wall.
+				{
+					fXVelocity = fWalkSpeed;//Set the horizontal velocity of the enemy to the walk speed.
+					u8AnimationDelay = u8WalkAnimationDelay;//Set the animation delay equal to the walk delay.
+					EnemyMoveLeft();//Move the enemy left.
 				}
 			}
 			//Stop
-			else if (a_rPlayer.v2Position.fX == v2Position.fX)
+			else if (a_rPlayer.v2Position.fX == v2Position.fX)//If the enemy is at the same x position as the player.
 			{
-				EnemyStop();
-			}
-
-			//Running left
-			if (FixedToInteger(a_rPlayer.v2Position.fX) + s32RunDistance < FixedToInteger(v2Position.fX))
-			{
-				//left collision
-				if (collisionMap[fInnerTopLeft] > 0 || 
-					collisionMap[fInnerBottomLeft] > 0)
-				{
-					++v2Position.fX;
-					EnemyJump();
-				}
-				else
-				{
-					fXVelocity = fRunSpeed;
-					u8AnimationDelay = u8RunAnimationDelay;
-					EnemyMoveLeft();
-				}
-			}
-			//Walk left
-			else if (a_rPlayer.v2Position.fX < v2Position.fX)
-			{
-				//left collision
-				if (collisionMap[fInnerTopLeft] > 0 || 
-					collisionMap[fInnerBottomLeft] > 0)
-				{
-					++v2Position.fX;
-					EnemyJump();
-				}
-				else
-				{
-					fXVelocity = fWalkSpeed;
-					u8AnimationDelay = u8RunAnimationDelay;
-					EnemyMoveLeft();
-				}
-			}
-			//Stop
-			else if (a_rPlayer.v2Position.fX == v2Position.fX)
-			{
-				EnemyStop();
+				EnemyStop();//Stop the enemy.
 			}
 		}
 	}
 
-	/* update the koopa */
-	void EnemyUpdate(Player& a_rPlayer)
+	void EnemyUpdate(Player& a_rPlayer)//Updates the enemy.
 	{
-		//Coin particle update.
+		oSprite.poAttribute->u16Attribute1 = SetAttribute1(v2Position.fX, bFlip, ATTRIBUTE1_SIZE_1);//Flips the sprite.
+		
+		EnemyAI(a_rPlayer);//Checks if the enemy is colliding.
+		
+		if (bMove)//If the enemy is moving.
+		{
+			u8Counter++;//Increase the frame counter.
+			if (u8Counter >= u8AnimationDelay)//If the counter is larger or equal to the animation delay.
+			{
+				u8Frame += 4;//Increase the frame of animation.
+
+				if (u8Frame > 76)//If the frame is at the end of the walking animation frames.
+				{
+					u8Frame = 68;//Sets the frame to the start of the walking cycle frames.
+				}
+				u8Counter = 0;//Reset the counter.
+			}
+		}
+
+		if (bFalling)//If the enemy is falling.
+		{
+			v2Position.fY += fYVelocity;//Increase the y position of the enemy by the vertical velocity.
+			fYVelocity += fGravity;//Increase the vertical velocity of the enemy.
+		}
+
+		if (a_rPlayer.bScreenLeft)//If the screen is moving to the left.
+		{
+			v2Position.fX += a_rPlayer.fXVelocity;//Set the x position of the enemy to keep it in accordance.
+		}
+		if (a_rPlayer.bScreenRight)//If the screen is moving to the right.
+		{
+			v2Position.fX -= a_rPlayer.fXVelocity;//Set the x position of the enemy to keep it in accordance.
+		}
+		if (v2Position.fX >= 0 && v2Position.fX <= 240)//If the enemy is on screen.
+		{
+			oSprite.SpriteSetPosition(v2Position.fX, v2Position.fY);//Move the sprite to the correct location.
+		}
+		else//If the enemy is off screen.
+		{
+			oSprite.SpriteSetPosition(0, 160);//Move the sprite so it doesn't appear on the screen.
+		}
+		if (v2Position.fY > 150)//If the enemy falls close to the bottom of the screen.
+		{
+			SpawnEnemy(a_rPlayer);//Re-spawn the enemy.
+			bAlive = 1;//Indicate that the enemy is alive.
+		}
+
+		oSprite.SpriteSetOffset(u8Frame);//Set the offset of the sprites frame.
+
+		// --- Coin particle update ---
 		if (bGotHit)
 		{
-			for (u32 u32I = 0; u32I < 1; ++u32I)
-			{
-				UpdateCoinParticleOneShot(oParticlesCoinEffect[u32I], oEmitterCoinEffect, fParticleFrameTime, fParticelMeterToPixel, fParticleGravity);//Updates each particle.
-				poCoinParticleOAMStart[u32I].u16Attribute1 = SetAttribute1(FixedToInteger(oParticlesCoinEffect[u32I].fX), 0, ATTRIBUTE1_SIZE_1);
-				poCoinParticleOAMStart[u32I].u16Attribute0 = SetAttribute0(FixedToInteger(oParticlesCoinEffect[u32I].fY), 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);
+			UpdateCoinParticleOneShot(oParticlesCoinEffect[0], oEmitterCoinEffect, fParticleFrameTime, fParticelMeterToPixel, fParticleGravity);//Updates each particle.
+			poCoinParticleOAMStart[0].u16Attribute1 = SetAttribute1(FixedToInteger(oParticlesCoinEffect[0].fX), 0, ATTRIBUTE1_SIZE_1);//Sets the x position and size of the particle.
+			poCoinParticleOAMStart[0].u16Attribute0 = SetAttribute0(FixedToInteger(oParticlesCoinEffect[0].fY), 0, 0, 0, ATTRIBUTE0_COLOR_4BPP, ATTRIBUTE0_TALL);//Sets the y position, color mode and shape of the particle.
 
-				u32 u32CoinFrameID = (1 << 9) - oParticlesCoinEffect[u32I].u32Lifespan;//Set the frame ID based on the particles life.
-				u32CoinFrameID = u32CoinFrameID << 4 >> 9;//Set the frame ID based on the particles life.
-				poCoinParticleOAMStart[u32I].u16Attribute2 = SetAttribute2(160 + u32CoinFrameID, 0, 6);//Change the particle frame.
-				if (a_rPlayer.bScreenLeft)
-				{
-					oParticlesCoinEffect[u32I].fX += a_rPlayer.fXVelocity;
-					SetObjectPosition(&poCoinParticleOAMStart[u32I], FixedToInteger(oParticlesCoinEffect[u32I].fX), FixedToInteger(oParticlesCoinEffect[u32I].fY));//Move particle
-				}
-				if (a_rPlayer.bScreenRight)
-				{
-					oParticlesCoinEffect[u32I].fX -= a_rPlayer.fXVelocity;
-					SetObjectPosition(&poCoinParticleOAMStart[u32I], FixedToInteger(oParticlesCoinEffect[u32I].fX), FixedToInteger(oParticlesCoinEffect[u32I].fY));//Move particle
-				}
+			u32 u32CoinFrameID = (1 << 9) - oParticlesCoinEffect[0].u32Lifespan;//Set the frame ID based on the particles life.
+			u32CoinFrameID = u32CoinFrameID << 4 >> 9;//Set the frame ID based on the particles life.
+			poCoinParticleOAMStart[0].u16Attribute2 = SetAttribute2(160 + u32CoinFrameID, 0, 6);//Change the particle frame.
+
+			if (a_rPlayer.bScreenLeft)//If the screen is moving left.
+			{
+				oParticlesCoinEffect[0].fX += a_rPlayer.fXVelocity;//Sets the particle position in accordance to the screens movement.
+				SetObjectPosition(&poCoinParticleOAMStart[0], FixedToInteger(oParticlesCoinEffect[0].fX), FixedToInteger(oParticlesCoinEffect[0].fY));//Move particle.
+			}
+			if (a_rPlayer.bScreenRight)//If the screen is moving right.
+			{
+				oParticlesCoinEffect[0].fX -= a_rPlayer.fXVelocity;//Sets the particle position in accordance to the screens movement.
+				SetObjectPosition(&poCoinParticleOAMStart[0], FixedToInteger(oParticlesCoinEffect[0].fX), FixedToInteger(oParticlesCoinEffect[0].fY));//Move particle.
 			}
 		}
-
-		//sprite flip didn't work for the enemy for some unannounced reason.
-		oSprite.poAttribute->u16Attribute1 = SetAttribute1(v2Position.fX, bFlip, ATTRIBUTE1_SIZE_1);
-		
-		EnemyAI(a_rPlayer);
-		
-		if (bMove)
-		{
-			u8Counter++;
-			if (u8Counter >= u8AnimationDelay)
-			{
-				u8Frame += 4;
-
-				if (u8Frame > 76)
-				{
-					u8Frame = 68;
-				}
-				u8Counter = 0;
-			}
-		}
-
-		/* update y position and speed if falling */
-		if (bFalling)
-		{
-			v2Position.fY += fYVelocity;
-			fYVelocity += fGravity;
-		}
-
-		if (a_rPlayer.bScreenLeft)
-		{
-			v2Position.fX += a_rPlayer.fXVelocity;
-		}
-		if (a_rPlayer.bScreenRight)
-		{
-			v2Position.fX -= a_rPlayer.fXVelocity;
-		}
-		if (v2Position.fX >= 0 && v2Position.fX <= 240)
-		{
-			oSprite.SpriteSetPosition(v2Position.fX, v2Position.fY);
-		}
-		else
-		{
-			oSprite.SpriteSetPosition(0, 160);
-		}
-		if (v2Position.fY > 150)
-		{
-			SpawnEnemy(a_rPlayer);
-			bAlive = 1;
-		}
-		oSprite.SpriteSetOffset(u8Frame);
 	}
 };
 
