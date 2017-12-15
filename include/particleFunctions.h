@@ -1,66 +1,68 @@
+//\===========================================================================================
+//\ File: particleFunctions.h
+//\ Author: Morgan James
+//\ Date Created: 30/11/2017
+//\ Brief: A header containing structures and functions for the use of particle creation.
+//\===========================================================================================
+
 #ifndef __PARTICLE_FUNCTIONS_H__
 #define __PARTICLE_FUNCTIONS_H__
 
 #include "gba_math.h"
 #include "gba_mathUtility.h"
 
-
 struct Emitter
 {
-	fixed x, y;
+	fixed fX, fY;
 };
-
 
 struct Particle
 {
-	fixed x, y;		//Position with 8 decimal bits
-	fixed vx, vy;	//Velocity with 8 decimal bits
-	u32 life;		//lifespan
+	fixed fX, fY;					//Position with 8 decimal bits
+	fixed fXVelocity, fYVelocity;	//Velocity with 8 decimal bits
+	u32 u32Lifespan;				//lifespan
 };
 
 
-void InitParticle(Particle& a_p, Emitter& a_e)
+void ParticleInitialization(Particle& a_rParticle, Emitter& a_rEmitter)
 {
-	a_p.x = 0; a_p.y = 0; a_p.vx = 0; a_p.vy = 0; a_p.life = 0x1FF;
-
+	a_rParticle.fX = 0; a_rParticle.fY = 0; a_rParticle.fXVelocity = 0; a_rParticle.fYVelocity = 0; a_rParticle.u32Lifespan = 0x1FF;
 }
 
-void EmitParticle(Particle& a_p, Emitter& a_e)
+void ParticleEmit(Particle& a_rParticle, Emitter& a_rEmitter)
 {
-	a_p.x = a_e.x; a_p.y = a_e.y;
-	a_p.vx = IntegerToFixed(QuasiRandomRange(-5, 5)); a_p.vy = IntegerToFixed(20 + QuasiRandomRange(0, 5));
-	a_p.life = 0;
+	a_rParticle.fX = a_rEmitter.fX; a_rParticle.fY = a_rEmitter.fY;
+	a_rParticle.fXVelocity = IntegerToFixed(QuasiRandomRange(-5, 5)); a_rParticle.fYVelocity = IntegerToFixed(20 + QuasiRandomRange(0, 5));
+	a_rParticle.u32Lifespan = 0;
 }
 
-void UpdateParticleContinuous(Particle& a_p, Emitter& a_e, fixed g_frameTime,fixed g_pixels2Meter, fixed g_gravity)
+void UpdateParticleContinuous(Particle& a_rParticle, Emitter& a_rEmitter, fixed fFrameTime, fixed fPixelsToMeter, fixed fGravity)
 {
-	a_p.x = FixedAddition(a_p.x, FixedMultiply(FixedMultiply(a_p.vx, g_frameTime), g_pixels2Meter));
-	a_p.y = FixedAddition(a_p.y, FixedMultiply(FixedMultiply(a_p.vy, g_frameTime), g_pixels2Meter));
-	a_p.vy -= FixedMultiply(g_gravity, g_frameTime);
-	a_p.life += 16;
+	a_rParticle.fX = FixedAddition(a_rParticle.fX, FixedMultiply(FixedMultiply(a_rParticle.fXVelocity, fFrameTime), fPixelsToMeter));
+	a_rParticle.fY = FixedAddition(a_rParticle.fY, FixedMultiply(FixedMultiply(a_rParticle.fYVelocity, fFrameTime), fPixelsToMeter));
+	a_rParticle.fYVelocity -= FixedMultiply(fGravity, fFrameTime);
+	a_rParticle.u32Lifespan += 16;
 
-	if ((a_p.y - a_e.y) > (40 << 8))
+	if ((a_rParticle.fY - a_rEmitter.fY) > (40 << 8))
 	{
-		EmitParticle(a_p, a_e);
+		ParticleEmit(a_rParticle, a_rEmitter);
 	}
 }
 
-void UpdateParticleOneShot(Particle& a_p, Emitter& a_e, fixed g_frameTime, fixed g_pixels2Meter, fixed g_gravity)
+void UpdateParticleOneShot(Particle& a_rParticle, Emitter& a_rEmitter, fixed fFrameTime, fixed fPixelsToMeter, fixed fGravity)
 {
-	if ((a_p.y - a_e.y) < (40 << 8) )
+	if ((a_rParticle.fY - a_rEmitter.fY) < (40 << 8) )
 	{
-		a_p.x = FixedAddition(a_p.x, FixedMultiply(FixedMultiply(a_p.vx, g_frameTime), g_pixels2Meter));
-		a_p.y = FixedAddition(a_p.y, FixedMultiply(FixedMultiply(a_p.vy, g_frameTime), g_pixels2Meter));
-		a_p.vy -= FixedMultiply(g_gravity, g_frameTime);
+		a_rParticle.fX = FixedAddition(a_rParticle.fX, FixedMultiply(FixedMultiply(a_rParticle.fXVelocity, fFrameTime), fPixelsToMeter));
+		a_rParticle.fY = FixedAddition(a_rParticle.fY, FixedMultiply(FixedMultiply(a_rParticle.fYVelocity, fFrameTime), fPixelsToMeter));
+		a_rParticle.fYVelocity -= FixedMultiply(fGravity, fFrameTime);
 	
-		a_p.life += 16;
-
+		a_rParticle.u32Lifespan += 16;
 	}
-	if ((a_p.y - a_e.y) > (40 << 8) )
+	if ((a_rParticle.fY - a_rEmitter.fY) > (40 << 8) )
 	{
-		a_p.life = 0;
+		a_rParticle.u32Lifespan = 0;
 	}
-
 }
 
 #endif//__PARTICLE_FUNCTIONS_H__

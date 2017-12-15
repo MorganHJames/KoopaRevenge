@@ -2,7 +2,7 @@
 //\ File: gameManager.h
 //\ Author: Morgan James
 //\ Date Created: 12/12/2017
-//\ Brief:
+//\ Brief: A header for some variables and functions used by or that use multiple things.
 //\===========================================================================================
 
 #ifndef __GAME_MANAGER_H__
@@ -11,7 +11,6 @@
 #include "gba.h"
 #include "enemy.h"
 #include "player.h"
-
 
 class GameManager
 {
@@ -44,7 +43,6 @@ public:
 				v4Player.fX + v4Player.fW > v4Enemy3.fX &&
 				v4Player.fY < v4Enemy3.fY + v4Enemy3.fH &&
 				v4Player.fH + v4Player.fY > v4Enemy3.fY && a_rEnemy3.bAlive == 1)
-
 			)
 		{
 			if (a_rPlayer.invulnerable == 0)

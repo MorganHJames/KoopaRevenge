@@ -108,8 +108,8 @@ public:
 		g_frameTime = 0x04;
 		g_pixels2Meter = IntegerToFixed(5);
 
-		emitterJumpEffect.y = 0;
-		emitterJumpEffect.x = 0;
+		emitterJumpEffect.fY = 0;
+		emitterJumpEffect.fX = 0;
 
 		jumpParticleOAMStart = &MEMORY_OBJECT_ATTRIBUTE_MEMORY[96];
 	
@@ -209,11 +209,11 @@ public:
 			yvel = -jumpHeight;
 			falling = 1;
 
-			emitterJumpEffect.x = IntegerToFixed(position.fX + 7);//Move the emiter to the players x pos.
-			emitterJumpEffect.y = IntegerToFixed(position.fY + 31);//Move the emiter to the players y pos.
+			emitterJumpEffect.fX = IntegerToFixed(position.fX + 7);//Move the emiter to the players x pos.
+			emitterJumpEffect.fY = IntegerToFixed(position.fY + 31);//Move the emiter to the players y pos.
 			for (int i = 0; i < 32; ++i)
 			{
-				EmitParticle(particlesJumpEffect[i], emitterJumpEffect);
+				ParticleEmit(particlesJumpEffect[i], emitterJumpEffect);
 				jumpParticleOAMStart[i] = jumpParticleOAM;
 			}
 		}
@@ -333,8 +333,8 @@ public:
 						for (int i = 0; i < 32; ++i)
 						{
 
-							particlesJumpEffect[i].x -= IntegerToFixed(xvel);
-							SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].x), FixedToInteger(particlesJumpEffect[i].y));//Move particle
+							particlesJumpEffect[i].fX -= IntegerToFixed(xvel);
+							SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].fX), FixedToInteger(particlesJumpEffect[i].fY));//Move particle
 
 						}
 
@@ -358,8 +358,8 @@ public:
 					//Keep the particles in the same spot
 					for (int i = 0; i < 32; ++i)
 					{
-						particlesJumpEffect[i].x -= IntegerToFixed(xvel);
-						SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].x), FixedToInteger(particlesJumpEffect[i].y));//Move particle
+						particlesJumpEffect[i].fX -= IntegerToFixed(xvel);
+						SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].fX), FixedToInteger(particlesJumpEffect[i].fY));//Move particle
 					}
 				}
 			}
@@ -400,8 +400,8 @@ public:
 						for (int i = 0; i < 32; ++i)
 						{
 
-							particlesJumpEffect[i].x += IntegerToFixed(xvel);
-							SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].x), FixedToInteger(particlesJumpEffect[i].y));//Move particle
+							particlesJumpEffect[i].fX += IntegerToFixed(xvel);
+							SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].fX), FixedToInteger(particlesJumpEffect[i].fY));//Move particle
 
 						}
 					}
@@ -424,8 +424,8 @@ public:
 					//Keep the particles in the same spot
 					for (int i = 0; i < 32; ++i)
 					{
-						particlesJumpEffect[i].x += IntegerToFixed(xvel);
-						SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].x), FixedToInteger(particlesJumpEffect[i].y));//Move particle
+						particlesJumpEffect[i].fX += IntegerToFixed(xvel);
+						SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].fX), FixedToInteger(particlesJumpEffect[i].fY));//Move particle
 					}
 				}
 			}
@@ -496,16 +496,16 @@ public:
 		{
 			UpdateParticleOneShot(particlesJumpEffect[i], emitterJumpEffect, g_frameTime, g_pixels2Meter, g_gravity);//Updates each particle.
 		
-			SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].x), FixedToInteger(particlesJumpEffect[i].y));//Move particle
+			SetObjectPosition(&jumpParticleOAMStart[i], FixedToInteger(particlesJumpEffect[i].fX), FixedToInteger(particlesJumpEffect[i].fY));//Move particle
 		
-			u32 jumpFrameID = (1 << 9) - particlesJumpEffect[i].life;//Set the frame ID based on the particles life.
+			u32 jumpFrameID = (1 << 9) - particlesJumpEffect[i].u32Lifespan;//Set the frame ID based on the particles life.
 			jumpFrameID = jumpFrameID << 4 >> 9;//Set the frame ID based on the particles life.
 			jumpParticleOAMStart[i].u16Attribute2 = SetAttribute2(32 + jumpFrameID, 0, 1);//Change the particle frame.
 
-			if (particlesJumpEffect[i].y < 160)//Stops the particles appearing at the top of the screen.
+			if (particlesJumpEffect[i].fY < 160)//Stops the particles appearing at the top of the screen.
 			{
-				particlesJumpEffect[i].y = 160;
-				particlesJumpEffect[i].x = 0;
+				particlesJumpEffect[i].fY = 160;
+				particlesJumpEffect[i].fX = 0;
 			}
 		
 		}

@@ -2,7 +2,7 @@
 //\ File: backgroundFunctions.h
 //\ Author: Morgan James
 //\ Date Created: 28/11/2017
-//\ Brief: 
+//\ Brief: A header that contains functions to set up the backgrounds.
 //\===========================================================================================
 
 #ifndef __BACKGROUND_FUNCTIONS_H__
@@ -61,7 +61,6 @@ void LoadGameBackground()
 			pu16MapLocation = (u16*)background1 + 32;
 		}
 	}
-
 
 	//Background 1 - hills
 	pu16TileMapMemoryLocation = TileMapBlockAddress(18);

@@ -13,6 +13,6 @@
 typedef struct Vector4//A structure to hold four variables. 
 {
 	fixed fX, fY , fW, fH;//A variable for x, y , w and  h.
-}Vector4;
+}__attribute__((packed, aligned(4)))Vector4;
 
 #endif//__GBA_VECTOR4_H__

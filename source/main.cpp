@@ -10,11 +10,9 @@
 #include <string.h>
 #include "player.h"
 #include "enemy.h"
-#include "backgroundFunctions.h"
 #include "gameStates.h"
 #include "text.h"
 #include "textFunctions.h"
-#include "spriteManager.h"
 #include "gameManager.h"
 
 int main()

@@ -2,7 +2,7 @@
 //\ File: gameStates.h
 //\ Author: Morgan James
 //\ Date Created: 04/12/2017
-//\ Brief: 
+//\ Brief: A header to define all the states of the game within an enumeration.
 //\===========================================================================================
 
 #ifndef _GAMESTATES_H_
@@ -10,10 +10,7 @@
 
 typedef enum GameStates
 {
-	SPLASH,
-	MENU,
-	GAME,
-	HIGHSCORE
+	GAME
 }GameState;
 
 #endif
